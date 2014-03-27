@@ -1,4 +1,4 @@
-fast_spare_period_estimation
+Fast spare period estimation
 ============================
 
 Software and latex for the paper
