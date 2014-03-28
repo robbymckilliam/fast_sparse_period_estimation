@@ -23,7 +23,7 @@ val T_max = 1.5 //maximum period
 val f_min = 1.0/T_max //minimum frequency
 val f_max = 1.0/T_min //maximum frequency
 val theta_0 = 0.2 //true phase
-def sparsedist(m : Double) = new GeometricRandomVariable(1.0/m)
+def sparsedist(m : Double) = new GeometricRandomVariable.StartingAtZero(1.0/(m+1.0))
 def noisedist(v : Double) = new GaussianNoise(0,v) //the noise distribution we use with variance v
 
 val starttime = (new java.util.Date).getTime
