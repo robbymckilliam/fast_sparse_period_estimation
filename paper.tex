@@ -34,7 +34,7 @@ R.~G.~McKilliam is with the Institute for Telecommunications Research, The Unive
 
 \begin{abstract}
 
-The problem of estimating the period of a point process from observations that are both sparse and noisy is considered.  By sparse it is meant that only a potentially small unknown subset of the process is observed.  By noisy it is meant that the subset that is observed, is observed with some error, or noise.  Existing accurate algorithms for estimating the period require $O(N^2)$ operations where $N$ is the number of observations.  By quantising the observations we produce an estimator that requires only $O(N\log N)$ operations by use of the chirp z-transform or the fast Fourier transform.  The quantisation has the adverse affect of decreasing the accuracy of the estimator.  This is investigated by Monte-Carlo simulation.  The simulations indicate that significant computational savings are possible with negligible loss in statistical accuracy.
+The problem of estimating the period of a point process from observations that are both sparse and noisy is considered.  By sparse it is meant that only a potentially small unknown subset of the process is observed.  By noisy it is meant that the subset that is observed, is observed with some error, or noise.  Existing accurate algorithms for estimating the period require $O(N^2)$ operations where $N$ is the number of observations.  By quantising the observations we produce an estimator that requires only $O(N\log N)$ operations by use of the chirp z-transform or the fast Fourier transform.  The quantisation has the adverse effect of decreasing the accuracy of the estimator.  This is investigated by Monte-Carlo simulation.  The simulations indicate that significant computational savings are possible with negligible loss in statistical accuracy.
 
 \end{abstract}
 \begin{IEEEkeywords}
@@ -181,7 +181,7 @@ where, using the notation of Rabiner~et.~al.~\cite[eq.~(10)]{Rabiner1969},
 \[
 V_k = \sum_{m = 0}^{\ell_N-\ell_1} e^{ -2\pi j Dk m/q} v_m = \sum_{m=0}^{\ell_N-\ell_1} A^{-m} W^{km} v_m
 \]
-where $A = 1$ and $W = e^{ -2\pi j D/q}$.  All of $V_0,\dots,V_{K-1}$ can be efficiently computed by the chirp z-transform~\cite{Rabiner1969}.  Putting
+where $A = 1$ and $W = e^{ -2\pi j D/q}$.  The $V_0,\dots,V_{K-1}$ can be efficiently computed by the chirp z-transform~\cite{Rabiner1969}.  Putting
 \[
 \hat{k} = \arg\max_{k = 0,1,\dots,K-1} \abs{ V_k }^2
 \]
@@ -245,9 +245,9 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
     \selectcolormodel{gray} 
     \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.19,0.28)}},xlabel style={at={(0.5,0.14)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=6, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom3}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom3};
             \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom3};
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q4.0geom3};
-%      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30};
       \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN30geom3};
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/NormalisedSamplingLLSN30geom3}; 
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30geom3};
@@ -260,7 +260,7 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
  %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
 %      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200};
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN1200geom3};
- %     \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200};
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom3};
        \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom3};
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/NormalisedSamplingLLSN1200geom3};
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1200geom3};
@@ -269,15 +269,15 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
       %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q3};
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q4.0geom3};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
-     \legend{Periodogram theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=4 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=4 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
      \node[rotate=15,font=\footnotesize] at (axis cs:6e-4,1e-8) {$N=30$};
      \node[rotate=15,font=\footnotesize] at (axis cs:7e-4,2e-13) {$N=1200$}; 
    \end{axis} 
  \begin{axis}[name=plot2,at={(11,0)},font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.19,0.28)}},xlabel style={at={(0.5,0.14)}}]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom15}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom15};
             \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom15};
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q4.0geom15};
-%      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30};
       \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN30geom15};
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/NormalisedSamplingLLSN30geom15}; 
   %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30geom15};
@@ -290,7 +290,7 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
  %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
 %      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200}; 
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN1200geom15};
- %     \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1100};
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom15};
        \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom15};
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/NormalisedSamplingLLSN1200geom15};
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1100geom15};

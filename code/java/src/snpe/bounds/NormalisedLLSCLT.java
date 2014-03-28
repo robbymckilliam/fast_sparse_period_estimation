@@ -13,7 +13,7 @@ public class NormalisedLLSCLT implements CLT{
     protected final double dmean;
 
     /**
-     * Computes all the bits needed (like the unwrapped variance etc) for
+     * Computes all the bits needed (like the intrinsic variance etc) for
      * the NormalisedLLSCLT.
      * @param noise: A version of the noise distribution that is scaled by 1/T0.
      *              This is u_n in Barry's writeup.
