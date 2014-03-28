@@ -16,7 +16,7 @@ import snpe.SLS2new
 import snpe.bounds.PeriodogramCLT
 import snpe.bounds.NormalisedLLSCLT
 
-val iters = 4000
+val iters = 3000
 val T_0 = scala.math.Pi/3 //true period
 val T_min = 0.8 //minimum period
 val T_max = 1.5 //maximum period
@@ -31,7 +31,7 @@ val starttime = (new java.util.Date).getTime
 for( N <- List(30,1200) ) {
   
   //for discrete distributions with mean 3 and 15
-  for( m <- List( 3, 15 ) ) {
+  for( m <- List( 1, 10 ) ) {
     def discretedist() = sparsedist(m)
     val varbs = -38.0 to -5.0 by 1.5 //variances we use in dB
     runsim(varbs, N, () => discretedist, () => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "PeriodogramN" + N + "geom" + m)
