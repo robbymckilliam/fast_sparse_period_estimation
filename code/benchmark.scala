@@ -37,8 +37,8 @@ val Ns = List(10,14,20,30,40,50,60,80,100,120,150,200,250,300,400,600,900,1200,1
 //runbench(Ns, (N : Int) => new YeSampling(new NormalisedSamplingLLS(N,T_min,T_max)), "LeastSquares")
 //runbench(Ns, (N : Int) => new YeSampling(new SLS2novlp(N,T_min,T_max)), "SLS2novlp")
 //runbench(Ns, (N : Int) => new YeSampling(new SLS2new(N,T_min,T_max)), "SLS2new")
-for( q <- List(4.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramq" + q)
-for( q <- List(4.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramChirpZ(N,T_min,T_max,q*T_max), "QuantisedPeriodogramChirpZq" + q)
+for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramq" + q)
+for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramChirpZ(N,T_min,T_max,q*f_max), "QuantisedPeriodogramChirpZq" + q)
 
 //benchmarks for Barry's chirpz tests.
 //for( q <- List(4.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramFFTq" + q)
