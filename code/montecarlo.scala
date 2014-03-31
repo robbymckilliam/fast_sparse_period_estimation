@@ -35,10 +35,10 @@ for( N <- List(30,1200) ) {
     def discretedist() = sparsedist(m)
     val varbs = -38.0 to -5.0 by 1.5 //variances we use in dB
     //runsim(varbs, N, () => discretedist, () => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "PeriodogramN" + N + "geom" + m)
-    //runsim(varbs, N, () => discretedist, () => new YeSampling(new NormalisedSamplingLLS(N,T_min,T_max)), "NormalisedSamplingLLSN" + N + "geom" + m)
+    runsim(varbs, N, () => discretedist, () => new YeSampling(new NormalisedSamplingLLS(N,T_min,T_max),10.0), "NormalisedSamplingLLSNsamp10" + N + "geom" + m)
     //runsim(varbs, N, () => discretedist, () => new YeSampling(new SLS2novlp(N,T_min,T_max)), "SLS2novlpN" + N + "geom" + m)
     //runsim(varbs, N, () => discretedist, () => new YeSampling(new SLS2new(N,T_min,T_max)), "SLS2newN" + N + "geom" + m)
-    for( q <- List(1.5,2.0,4.0,5.0) ) runsim(varbs, N, () => discretedist, () => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramFFTN" + N + "q" + q + "geom" + m)
+    //for( q <- List(1.5,2.0,4.0,5.0) ) runsim(varbs, N, () => discretedist, () => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramFFTN" + N + "q" + q + "geom" + m)
 
     //now compute CLTs
     val vardbsfiner = -38.0 to -5.0 by 0.2

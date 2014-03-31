@@ -53,12 +53,6 @@ y_n = T_0 s_n + \theta_0 + w_n, \qquad n = 1,\dots,N
 \end{equation}
 where $w_1,\dots,w_N$ represent noise and $s_1,\dots,s_N$ are unknown integers representing the subset of the periodic sequence that is observed.  The $y_1, \dots, y_N$ are \emph{sparse}, owing to the unknown integers $s_1,\dots,s_N$, and \emph{noisy}, owing to $w_1,\dots,w_N$, observations of the sequence~\eqref{eq:periodicprocess}.  For example, $y_1,\dots,y_N$ might represent times at which a bass drum hit is observed.  The drum hits might not occur at every beat and might occur off beat on some occasions.  Our aim in this case would be to estimate the beat of the music from the times of the drum hits.  The model is depicted in Figure~\ref{fig_stat_model}. %It is clear that any estimator of $T_0$ and $\theta_0$ must, either explicitly or implicitly, also produce and estimate of the unknow integers $s_1,\dots,s_N$ describing the subset of the periods that are observed.  
 
-The problem of estimating $T_0$ is called the \emph{sparse, noisy period estimation problem}~\cite{Clarkson2007,McKilliam2007}.  Solutions have applications to synchronisation for telecommunications devices~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}, estimation of the pulse repetition interval in electronic support~\cite{EltonGray_puilse_train_rader_1994,Gray_more_pri_1994,Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}, and beat and tempo estimation in music~\cite{dixon_beat_extraction_2001}.  The problem is closely related to spike interval estimation in neurology~\cite{Arnett_neuro_pri_1976,Brillinger_spike_trains_1988,Rossoni200630} and a similar model has been proposed for the detection of anomolies, such as denial-of-service attacks, in internet traffic~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.  The problem is also connected with classical problems in number theory such as Diophantine approximation, lattice reduction, and the study of prime numbers~\cite{Cassels_geom_numbers_1997,490557,Clarkson_thesis,Lenstra1982,Wubben_2011,Casey1995,726812,CaseySadler_primes_2013}.
-
-Least squares estimation of period has been studied in~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}.  The least squares estimator can be closely approximated using $O(N^2)$ operations by using special purpose algorithms from computational number theory~\cite{McKilliam2009CoxeterLattices,McKilliam2008,McKilliam2008b}.  The least squares estimator is also the maximum likelihood estimator in the case that the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed.  An alternative estimator, called the~\emph{periodogram estimator}, was studied by Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} and involves the maximisation of Bartlett's periodogram for point processes~\cite{Bartlest_periodgram_point_process_1963}.  The statistical properties of the periodogram estimator were recently studied by Quinn~et.~al.~\cite{Quinn20013asilomar_period_est} who show the estimator to be strongly consistent and asymptotically normal under mild conditions on the noise $w_1,\dots,w_N$ and integers $s_1,\dots,s_N$.  The fastest existing algorithms can closely approximate the periodogram estimator in $O(N^2)$ operations.  We describe the periodogram estimator in Section~\ref{sec:peri-estim}.
-
-In Section~\ref{sec:quant-peri} we show that, by quantising the observations $y_1,\dots,y_N$, an approximation to the periodogram estimator can be computed using only $O(N\log N)$ operations.  This is facilitated by either the chirp z-transform~\cite{Rabiner1969} or the fast Fourier transform.  The quantisation has the adverse affect of decreasing the accuracy of the estimator.  The estimator is accurate if a sufficiently fine quantiser is chosen, but this requires a larger transform.  The trade off between quantisation level, accuracy, and computational complexity is investigated by computer simulation in Section~\ref{sec:simulations}.  The simulations indicate that significant computational savings are possible with negligible loss in accuracy.  Sadler and Casey~\cite{726812} have previously suggested use of the fast Fourier transform for period estimation.  However, their estimator requires far larger transforms and produces less accurate results than the estimator described here (see Section~VI and Figures 1-4 in~\cite{726812}).  In contrast, our estimator has accuracy similar to the least squares estimator, i.e., similar to the maximum likelihood estimator if the noise variables $w_1,\dots,w_N$ are assumed independent and identically normally distributed.
- 
 {
 \def\vertgap{2}
 \def\ph{0.4}
@@ -90,13 +84,20 @@ In Section~\ref{sec:quant-peri} we show that, by quantising the observations $y_
 \end{figure}
 }
 
+The problem of estimating $T_0$ is called the \emph{sparse, noisy period estimation problem}~\cite{Clarkson2007,McKilliam2007}.  Solutions have applications to synchronisation for telecommunications devices~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}, estimation of the pulse repetition interval in electronic support~\cite{EltonGray_puilse_train_rader_1994,Gray_more_pri_1994,Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}, and beat and tempo estimation in music~\cite{dixon_beat_extraction_2001}.  The problem is closely related to spike interval estimation in neurology~\cite{Arnett_neuro_pri_1976,Brillinger_spike_trains_1988,Rossoni200630} and a similar model has been proposed for the detection of anomolies, such as denial-of-service attacks, in internet traffic~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.  The problem is also connected with classical problems in number theory such as Diophantine approximation, lattice reduction, and the study of prime numbers~\cite{Cassels_geom_numbers_1997,490557,Clarkson_thesis,Lenstra1982,Wubben_2011,Casey1995,726812,CaseySadler_primes_2013}.
+
+Least squares estimation of period has been studied in~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}.  The least squares estimator can be closely approximated using $O(N^2)$ operations by using special purpose algorithms from computational number theory~\cite{McKilliam2009CoxeterLattices,McKilliam2008,McKilliam2008b}.  The least squares estimator is also the maximum likelihood estimator in the case that the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed.  An alternative estimator, called the~\emph{periodogram estimator}, was studied by Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} and involves the maximisation of Bartlett's periodogram for point processes~\cite{Bartlest_periodgram_point_process_1963}.  The statistical properties of the periodogram estimator were recently studied by Quinn~et.~al.~\cite{Quinn20013asilomar_period_est} who show the estimator to be strongly consistent and asymptotically normal under mild conditions on the noise $w_1,\dots,w_N$ and integers $s_1,\dots,s_N$.  The fastest existing algorithms can closely approximate the periodogram estimator in $O(N^2)$ operations.  We describe the periodogram estimator in Section~\ref{sec:peri-estim}.
+
+In Section~\ref{sec:quant-peri} we show that, by quantising the observations $y_1,\dots,y_N$, an approximation to the periodogram estimator can be computed using only $O(N\log N)$ operations.  This is facilitated by either the chirp z-transform~\cite{Rabiner1969} or the fast Fourier transform.  The quantisation has the adverse affect of decreasing the accuracy of the estimator.  The estimator is accurate if a sufficiently fine quantiser is chosen, but this requires a larger transform.  The trade off between quantisation level, accuracy, and computational complexity is investigated by computer simulation in Section~\ref{sec:simulations}.  The simulations indicate that significant computational savings are possible with negligible loss in accuracy.  Sadler and Casey~\cite{726812} have previously suggested use of the fast Fourier transform for period estimation.  However, their estimator requires far larger transforms and produces less accurate results than the estimator described here (see Section~VI and Figures 1-4 in~\cite{726812}).  In contrast, our estimator has accuracy similar to the least squares estimator, i.e., similar to the maximum likelihood estimator if the noise variables $w_1,\dots,w_N$ are assumed independent and identically normally distributed.
+ 
 \section{The periodogram estimator}\label{sec:peri-estim}
 
-Before describing the periodogram estimator we state some required assumptions.  Observe that
+%Before describing the periodogram estimator we state some required assumptions.  
+Observe that
 \[
 y_n = T_0 s_n + \theta_0 + w_n = \frac{T_0}{2} r_n + \theta_0 + w_n
 \]
-where $r_n = 2s_n \in \ints$.  Thus, to ensure identifiability, it is necessary to assume that $T_0$ lies in some interval $(T_{\text{min}}, T_{\text{max}})$ where $T_{\text{max}} < 2T_{\text{min}}$.  We also assume that $y_1,\dots,y_N$ are in ascending order.  The periodogram estimator is unchanged by a permutation observations, and so, this assumption can be made without loss of generality because it amounts only to sorting the observations if required.
+where $r_n = 2s_n \in \ints$.  Thus, to ensure identifiability, it is necessary to assume that $T_0$ lies in some interval $(T_{\text{min}}, T_{\text{max}})$ where $T_{\text{max}} < 2T_{\text{min}}$.%  We also assume that $y_1,\dots,y_N$ are in ascending order.  The periodogram estimator is unchanged by a permutation observations, and so, this assumption can be made without loss of generality because it amounts only to sorting the observations if required.
 
 %BLERG. $T_{\text{min}}, T_{\text{max}}$ identifiability and $y_1,\dots,y_N$ in accending order.
 
@@ -126,11 +127,14 @@ Let $\widetilde{f}$ be the maximiser of $I_y$ over $G$, that is, let
 If the distance $D$ is sufficiently small, then $\widetilde{f}$ is a good approximation to the maximiser $\hat{f}$.  An iterative procedure, such as the Newton-Raphson method, %, or Brent's method~\cite{Brent_opt_no_derivs_1973} 
 can then be used to compute $\hat{f}$ starting from $\widetilde{f}$.
 
+\newcommand{\ymax}{y_{\text{max}}}
+\newcommand{\ymin}{y_{\text{min}}}
+
 In~\cite{McKilliam2007} it was observed that $D$ must shrink as $N$ increases in order for $\widetilde{f}$ to be a sufficiently good approximation to $\hat{f}$.  This was recently studied by Ye~et.~al.~\cite{Haohuan2013435,6492742} who heuristically suggest choosing
 \begin{equation}\label{eq:gridwidthrecommended}
-D = \frac{1}{2(y_N - y_1)}
+D = \frac{1}{2(\ymax - \ymin)}
 \end{equation}
-which is $O(N^{-1})$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  This choice is supported by the simulations in~\cite{Haohuan2013435,6492742} and also those in Section~\ref{sec:simulations}.  The asymptotic standard deviation of $\hat{f}$ is of order $O(N^{-3/2})$ as shown in~\cite{Quinn20013asilomar_period_est} and this initially suggests that $D = O(N^{-1})$ is too large.  However, the choice~\eqref{eq:gridwidthrecommended} does appear effective in practice.  A statistically rigorous justification for this choice of $D$ is beyond the scope of the present paper, but could potentially be developed using the techniques in~\cite{Quinn2008maximizing_the_periodogram}.
+where $\ymax$ and $\ymin$ are the largest and smallest values from $y_1,\dots,y_N$.  This choice is supported by the simulations in~\cite{Haohuan2013435,6492742} and also those in Section~\ref{sec:simulations}.  With this choice $D = O(N^{-1})$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  The asymptotic standard deviation of $\hat{f}$ is of order $O(N^{-3/2})$ as shown in~\cite{Quinn20013asilomar_period_est} and this initially suggests that $D = O(N^{-1})$ is too large.  However, the choice~\eqref{eq:gridwidthrecommended} does appear effective in practice.  A statistically rigorous justification for this choice of $D$ is beyond the scope of the present paper, but could potentially be developed using the techniques in~\cite{Quinn2008maximizing_the_periodogram}.
 
 With this choice for $D$ the number of elements in the grid grows linearly with $N$, that is, $K = O(N)$.  Computing $I_y(f)$ for each $f$ requires $O(N)$ operations and so computing $I_y(f)$ for all $f \in G$ requires $O(N^2)$ operations.  It follows that computation of $\widetilde{f}$ requires $O(N^2)$ operations and that the periodogram estimator $\hat{T} = 1/\hat{f}$ requires at least $O(N^2)$ operations to compute by this method.  %The choice for $D$ from~\eqref{eq:gridwidthrecommended} might not guarantee that application of a numerical optimisation proceedure, starting from $\widetilde{f}$, will result in $\hat{f}$.  For this reason, this approach can only be considered approximate.  However, the simulations presented in~\cite{Haohuan2013435,6492742} and those in Section~\ref{sec:simulations} suggest that~\eqref{eq:gridwidthrecommended} the approximation is very accurate.  
 In the next section we describe a modification of the periodogram estimator.  The modification is such that the fast Fourier transform or the chirp z-transform~\cite{Rabiner1969} can be used to compute an approximation $\widetilde{f}^\prime$ to $\hat{f}$ with only $O(N\log N)$ operations.
@@ -161,13 +165,16 @@ q > f_{\text{max}} - f_{\text{min}}.
 \end{equation}
 Otherwise there would exist frequencies in the interval $(f_{\text{min}}, f_{\text{max}})$ that are aliases with respect to $I_z$.  %That is, there would exists two frequences $f_1,f_2 \in (f_{\text{min}}, f_{\text{max}})$ such that $f_1 = f_2 + 1/P$ and $I_z(f_1) = I_z(f_2)$.
 
+\newcommand{\ellmin}{\ell_{\text{min}}}
+\newcommand{\ellmax}{\ell_{\text{max}}}
+
 The maximiser $\widetilde{f}^\prime$ can be computed efficiently using the chirp z-transform.  Let $b_i$ be the number of integers from $\ell_1,\dots,\ell_N$ that are equal to $i$.  That is,
 \[
 b_i= \#\{ n \mid \ell_n = i, n = 1,\dots, N\}
 \]
-where $\#$ indicates the number of elements in a set.  The integers $\ell_1,\dots,\ell_N$ are in ascending order because $y_1,\dots,y_N$ are in ascending order.  So $b_i = 0$ if $i < \ell_1$ or $i > \ell_N$.  Now
+where $\#$ indicates the number of elements in a set.  Put $\ellmax = \round{q \ymax}$ and $\ellmin = \round{q \ymin}$ so that $b_i = 0$ if $i < \ellmin$ or $i > \ellmax$.  Now
 \[
-I_z(f) = \babs{ \sum_{i = \ell_1}^{\ell_N} e^{ -2\pi j f i/q} b_i }^2 = \babs{ \sum_{m = 0}^{\ell_N-\ell_1} e^{ -2\pi j f m/q} b_{m+\ell_1} }^2.
+I_z(f) = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{ -2\pi j f i/q} b_i }^2 = \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j f m/q} b_{m+\ell_1} }^2.
 \]
 We want to compute $I_z(f)$ for all $f$ in the grid $G$.  Putting
 \[
@@ -175,11 +182,11 @@ v_m = e^{ -2\pi j f_{\text{min}}m/q} b_{m+\ell_1}
 \]
 we have
 \[
-I_z(f_{\text{min}} + Dk) = \babs{ \sum_{m = 0}^{\ell_N-\ell_1} e^{ -2\pi j Dk m/q} v_m }^2 = \abs{V_k}^2
+I_z(f_{\text{min}} + Dk) = \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j Dk m/q} v_m }^2 = \abs{V_k}^2
 \]   
 where, using the notation of Rabiner~et.~al.~\cite[eq.~(10)]{Rabiner1969},
 \[
-V_k = \sum_{m = 0}^{\ell_N-\ell_1} e^{ -2\pi j Dk m/q} v_m = \sum_{m=0}^{\ell_N-\ell_1} A^{-m} W^{km} v_m
+V_k = \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j Dk m/q} v_m = \sum_{m=0}^{\ellmax-\ellmin} A^{-m} W^{km} v_m
 \]
 where $A = 1$ and $W = e^{ -2\pi j D/q}$.  Now $V_0,\dots,V_{K-1}$ can be efficiently computed by the chirp z-transform~\cite{Rabiner1969}.  Putting
 \[
@@ -193,7 +200,7 @@ The frequency $\widetilde{f}^\prime$ can be used to initialize an iterative proc
 
 An alternative to the chirp z-transform is to use a single fast Fourier transform.  We have found this to be faster than the chirp z-transform for all but exceptionally large $N$.  Suppose that we choose the distance $D$ and quantisation parameter $q$ so that $M = q/D$ is an integer and
 \[
-M = \frac{q}{D} > \ell_N-\ell_1.
+M = \frac{q}{D} > \ellmax-\ellmin.
 \]
 With this choice
 \[
@@ -208,17 +215,17 @@ and so, the required values  $V_0,\dots,V_{K-1}$ are the first $K$ Fourier coeff
 
 \section{Computational complexity}\label{sec:comp-compl}
 
-The previous section showed how $\widetilde{f}^\prime$ could be computed using either the chirp z-transform or a fast Fourier transform of length $M$.  We now describe recommended values for the parameters $q, M$, and $D$.  The simulations presented in Section~\ref{sec:simulations} suggest that a reasonable value for the quantisation parameter is $q = 4 f_{\text{max}}$.  If the chirp z-transform is used then $D$ is chosen according to~\eqref{eq:gridwidthrecommended}.  Computation of the chirp z-transform requires the computation of three fast Fourier transforms, each of length $L + K - 1$, where 
+The previous section showed how $\widetilde{f}^\prime$ could be computed using either the chirp z-transform or a fast Fourier transform of length $M$.  We now describe recommended values for the parameters $q, M$, and $D$.  The simulations presented in Section~\ref{sec:simulations} suggest that a reasonable value for the quantisation parameter is $q = 5 f_{\text{max}}$.  If the chirp z-transform is used then $D$ is chosen according to~\eqref{eq:gridwidthrecommended}.  Computation of the chirp z-transform requires the computation of three fast Fourier transforms, each of length $L + K - 1$, where 
 \[
-L = \ell_N - \ell_1 + 1 = \round{qy_N} - \round{qy_1} + 1.
+L = \ellmax - \ellmin + 1 = \round{q\ymax} - \round{q\ymin} + 1.
 \]
 If instead a single fast Fourier transform is used then our recommended value for the length of the transform is $M= 2L$.  In this case the grid distance
 \[ 
-D = \frac{q}{M} = \frac{q}{2(\round{qy_N} - \round{qy_1} + 1)} \approx  \frac{1}{2(y_N - y_1)}
+D = \frac{q}{M} = \frac{q}{2(\round{q\ymax} - \round{q\ymax} + 1)} \approx  \frac{1}{2(\ymax - \ymin)}
 \]
 is approximately equal to~\eqref{eq:gridwidthrecommended}.  
 
-Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise variables $w_1,\dots,w_N$, we have $L = O(qN)$.  The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  Both approaches require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, it is apparent that the length of the transforms, and hence the complexity, increases as the quantisation becomes finer, i.e., as $q$ increases.  This presents a trade off between computationally complexity and quantisation accuracy.  This trade off is investigated in the next section.
+Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise variables $w_1,\dots,w_N$.  The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  Both approaches require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, it is apparent that the length of the transforms, and hence the complexity, increases as the quantisation becomes finer, i.e., as $q$ increases.  This presents a trade off between computationally complexity and quantisation accuracy.  This trade off is investigated in the next section.
 
 
 \begin{figure}[t]
@@ -269,9 +276,9 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
       %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q3};
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom1};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
-     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=4 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
-     \node[rotate=15,font=\footnotesize] at (axis cs:6e-4,1e-8) {$N=30$};
-     \node[rotate=15,font=\footnotesize] at (axis cs:7e-4,2e-13) {$N=1200$}; 
+     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     \node[rotate=17,font=\footnotesize] at (axis cs:6e-4,9e-8) {$N=30$};
+     \node[rotate=17,font=\footnotesize] at (axis cs:7e-4,1.5e-12) {$N=1200$}; 
    \end{axis} 
  \begin{axis}[name=plot2,at={(11,0)},font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.19,0.28)}},xlabel style={at={(0.5,0.14)}}]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom10}; 
@@ -300,8 +307,8 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom10};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
      %\legend{Periodogram theory, $q=\tfrac{3}{2}T_{\text{max}}$, $q=4T_{\text{max}}$, Periodogram, Least squares, SLS2-adj}
-     \node[rotate=15,font=\footnotesize] at (axis cs:6e-4,4e-10) {$N=30$};
-     \node[rotate=15,font=\footnotesize] at (axis cs:7e-4,0.6e-14) {$N=1200$}; 
+     \node[rotate=16,font=\footnotesize] at (axis cs:6e-4,9e-10) {$N=30$};
+     \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=1200$}; 
    \end{axis}
   \end{tikzpicture}  
   \caption{Mean square period error versus noise variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=2,\dots,N$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right.}\label{plot:multipleN}
@@ -310,13 +317,13 @@ Observe that $L$ grows proportionally with $q$ and, under reasonable assumptions
 
 \section{Simulations} \label{sec:simulations}
 
-This section presents the results of Monte-Carlo simulations with the periodogram estimator~\cite{Haohuan2013435,Fogel1989_bit_synch_zero_crossings}, the modified least squares estimator~\cite{Clarkson2007,McKilliam2007}, Clarkson's modification of the separable least squares line search (SLS2-new) estimator~\cite{Clarkson2007,Sidiropoulos2005}, and the quantised periodogram estimator from Section~\ref{sec:quant-peri}.  The grid distance $D$ used for the modified least squares, periodogram, and SLS2-new estimators is given by~\eqref{eq:gridwidthrecommended}.  The quantised periodogram estimator is computed using a single fast Fourier transform of length $M = 2L = 2(\ell_N - \ell_N + 1)$.  Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.  In all simulations the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed with variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=2,\dots,N$ are independent and identically geometrically distributed starting from zero with means $\mu=1$ and $10$.  The true period is $T_0 = \pi/3$, the true phase is $\theta_0 = 0.2$, and $T_{\text{min}} = 0.8$ and $T_{\text{max}} = 1.5$.
+This section presents the results of Monte-Carlo simulations with the periodogram estimator~\cite{Haohuan2013435,Fogel1989_bit_synch_zero_crossings}, the modified least squares estimator~\cite{Clarkson2007,McKilliam2007}, Clarkson's modification of the separable least squares line search (SLS2-new) estimator~\cite{Clarkson2007,Sidiropoulos2005}, and the quantised periodogram estimator from Section~\ref{sec:quant-peri}.  The grid distance $D$ used for the modified least squares, periodogram, and SLS2-new estimators is given by~\eqref{eq:gridwidthrecommended}.  The quantised periodogram estimator is computed using a single fast Fourier transform of length $M = 2L = 2(\ellmax - \ellmin + 1)$.  Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.  In all simulations the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed with variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=2,\dots,N$ are independent and identically geometrically distributed starting from zero with means $\mu=1$ and $10$.  The true period is $T_0 = \pi/3$, the true phase is $\theta_0 = 0.2$, and $T_{\text{min}} = 0.8$ and $T_{\text{max}} = 1.5$.
 
 Figure~\ref{plot:multipleN} shows the mean square error of the estimators versus $\sigma^2$ for $N = 30$ and $N = 1200$.  In the left hand  plot $\mu=1$ and in the right hand plot $\mu=10$.  %Thus, on average $\tfrac{1}{3}$ of the elements of the point process~\eqref{eq:periodicprocess} are observed in the left hand  plot and only $\tfrac{1}{15}$ in the right hand plot.  
-Four thousand Monte-Carlo trials are run for each value of $\sigma^2$.  The plots show the mean square error of the quantised periodogram estimator for two quantisation parameters $q = \tfrac{3}{2}f_{\text{max}} = \tfrac{15}{8}$ and $q = 4 f_{\text{max}} = 5$.  The estimator performs poorly when $q = \tfrac{3}{2}f_{\text{max}}$ (triangles) but performs almost identically to the original periodogram estimator (circles) when $q = 4 f_{\text{max}}$ (dots).  For comparison purposes, the plot also shows the mean square error of the modified least squares estimator~\cite{Clarkson2007,McKilliam2007} and the SLS2-new estimator~\cite{Clarkson2007,Sidiropoulos2005}.  %The statistical performance of the SLS2-new estimator is poor when compared with the other estimators.  %For small $\sigma^2$ the mean square error of the SLS2 estimator is almost three orders of magnitude less accurate when $N = 50$ and almost five orders of magnitude less accurate when $N=1000$.   
+Four thousand Monte-Carlo trials are run for each value of $\sigma^2$.  The plots show the mean square error of the quantised periodogram estimator for two quantisation parameters $q = \tfrac{3}{2}f_{\text{max}} = \tfrac{15}{8}$ and $q = 5 f_{\text{max}} = \tfrac{25}{4}$.  The estimator performs poorly when $q = \tfrac{3}{2}f_{\text{max}}$ (triangles) but performs almost identically to the original periodogram estimator (circles) when $q = 5 f_{\text{max}}$ (dots).  For comparison purposes, the plot also shows the mean square error of the modified least squares estimator~\cite{Clarkson2007,McKilliam2007} and the SLS2-new estimator~\cite{Clarkson2007,Sidiropoulos2005}.  %The statistical performance of the SLS2-new estimator is poor when compared with the other estimators.  %For small $\sigma^2$ the mean square error of the SLS2 estimator is almost three orders of magnitude less accurate when $N = 50$ and almost five orders of magnitude less accurate when $N=1000$.   
 The solid line shows the mean square error of the periodogram estimator predicted by Theorem~2 from~\cite{Quinn20013asilomar_period_est}.
 
-Figure~\ref{plot:benchmark} shows the average running time for the estimators for $N$ in the range $10$ to $25000$ when $\mu=1$.  The running times when $\mu=10$ lead to similar conclusions and are omitted.  The quantisation parameter is $q = 4 f_{\text{max}}$ so that the performance of the quantised periodogram estimator is similar to that of the original periodogram estimator as observed in Figure~\ref{plot:multipleN}.  The average running times for the quantised periodogram estimator computed using the chirp z-transform and using a single fast Fourier transform are shown.  The chirp z-transform is slower in these simulations, but is expected to be faster when $N$ is exceptionally large.  The quantised periodogram estimator computed using a single fast Fourier transform is faster than the periodogram estimator when $N \geq 20$.  It is faster than the least squares estimator when $N \geq 80$ and it is faster than the SLS2-new estimator when $N \geq 400$.  The quantised periodogram estimator is significantly faster than the other estimator for large $N$.  For example, when $N = 25000$ the periodogram estimator requires approximately 530 seconds, whereas the quantised periodogram estimator requires approximately 960 milliseconds.  The software is written in Java and the computer used is an Intel Core2 Q6600 running at \unit[2.4]{GHz}. 
+Figure~\ref{plot:benchmark} shows the average running time for the estimators for $N$ in the range $10$ to $25000$ when $\mu=3$.  Running times for other values of $\mu$ lead to similar conclusions.  The quantisation parameter is $q = 5 f_{\text{max}}$ so that the performance of the quantised periodogram estimator is similar to that of the original periodogram estimator as observed in Figure~\ref{plot:multipleN}.  The average running times for the quantised periodogram estimator computed using the chirp z-transform and using a single fast Fourier transform are shown.  The chirp z-transform is slower in these simulations, but is expected to be faster when $N$ is exceptionally large.  The quantised periodogram estimator computed using a single fast Fourier transform is faster than the periodogram estimator when $N \geq 20$.  It is faster than the least squares estimator when $N \geq 80$ and it is faster than the SLS2-new estimator when $N \geq 400$.  The quantised periodogram estimator is significantly faster than the other estimator for large $N$.  For example, when $N = 25000$ the periodogram estimator requires approximately 530 seconds, whereas the quantised periodogram estimator requires approximately 960 milliseconds.  The software is written in Java and the computer used is an Intel Core2 Q6600 running at \unit[2.4]{GHz}. 
 
  
 
