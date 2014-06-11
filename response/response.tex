@@ -38,7 +38,7 @@
 \section*{Reviewer 1}\label{sec:reviewer-1}
 
 \begin{enumerate}
-
+ 
 \item\textbf{Comment:}
 This paper proposes a new fast method for estimating the period of sparse and noisy
 observations of a point process. The new idea is to used the periodogram of quantized
@@ -64,7 +64,7 @@ of the paper. The other reviewer comments are summarized below.
 BLERG: Run some extra simulations for them
 
 \item\textbf{Comment:}
-p. 3, the authors mention “Sadler and Casey [24]... However, their estimator
+p. 3, the authors mention “Sadler and Casey [24] \dots However, their estimator
 requires far larger transforms and produces less accurate results than the estimator
 described here (see Section VI)". Unfortunately, there is nothing in
 Section VI (which is the conclusion) supporting this claim. The authors should
@@ -73,16 +73,16 @@ the results of [24]. Including the Cramér-Rao bounds for the estimation of T0
 (as in [24]) would also be appreciated.
 \\
 \textbf{Response:}
-Section VI in~\cite{726812}, i.e., the paper is not the conclusion.  It is the section entitled ``Numerical Results''.  It is clear from Figure 1 to 4 in~\ref{726812} that the periogram estimator implemented by Casey and Sadler is inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure.  We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} is used as dicussed in our response.  This leads Casey and Sadler to the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
+Section VI in~\cite{726812} is not the conclusion.  It is the section entitled ``Numerical Results''.  It is clear from Figure 1 to 4 in~\cite{726812} that the periogram estimator implemented by Casey and Sadler is inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure.  We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} in the new manuscript as dicussed in our response to comment~\ref{com:rev1:nr} below.  This leads Casey and Sadler to the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
 
-``Comparisons with the periodogram show the limitations of
-periodogram performance.''
+``Comparisons with the periodogram show the limitations of periodogram performance.''
 
-Our paper clearly shows this is not the case.  The periodgram estimator, computed by quanitisation and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  Our paper shows that (for moderately large $N$) this is the most computationally efficient proceedure currently available for this problem.
+Our paper clearly shows that such limitation do not exist.  The periodgram estimator, computed by quanitisation and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  Our paper shows that (for moderately large $N$) this is the most computationally efficient proceedure currently available for this problem.  Simultaneously, it is as accurate at the most accuraate estimators available, namely the least squares estimator, and the periodgram estimator computed directly without FFT.
+
+BLERG: Cramer-Rao bound not available for randomly chosen $s_1,\dots,s_N$.
 
 
-
-\item\textbf{Comment:}
+\item\textbf{Comment:}\label{com:rev1:nr}
 p. 7, the authors indicate that they have used the Newton-Raphson (NR)
 method. More details should be provided here. For instance, what is the exact
 NR scheme used in this paper (there are several options)? How have the
@@ -94,6 +94,14 @@ required to compute the estimator (including the NR procedure) or just to the
 initialization of the NR procedure?
 \\
 \textbf{Response:}
+We are only aware of a single Netwon-Raphson method that proceeds by the iteration
+\[
+x_{n+1} = x_n - \frac{f^\prime(x_{n})}{f^{\prime\prime}(x_n)}
+\]
+to find a stationary point of the function $f$ where $f^\prime$ and $f^{\prime\prime}$ are the first and second derivatives of $f$.  As was stated Section~\zref{sec:simulations}: ``Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.''  This was the case both for the simulations presented in Figure~\zref{plot:multipleN} and for the computational benchmarks presented in Figure~\zref{plot:benchmark}.
+
+To avoid the potential ambguity regarding the definition of the Newton-Raphson method we have, in the new manuscipt, replaced the Newton-Raphson method with the optimisation proceedure due to Brent~\cite[Ch.~5]{Brent_opt_no_derivs_1973}.  This optimiation method is likely to be more familiar with the target audience because it is used internally by the \texttt{fminbnd} function in the popular MATLAB environment.
+
 BLERG: In Section~\zref{sec:peri-estim} the text has been modifed to read:
 
 ``An iterative procedure, such as the Newton-Raphson method, or Brent's method~\cite{Brent_opt_no_derivs_1973} 
@@ -133,10 +141,10 @@ Typos: p. 2, “anomolies" should be “anomalies", p. 7, “quanitised" should 
 “quantized".
 \\
 \textbf{Response:}
-BLERG: 
+Done.
 
 
-\item\textbf{Comment:}
+\item\textbf{Comment:} 
 Is it necessary to include 11 self citations in this letter? Removing some of
 these references would allow to save some space, which could be used to better
 explain some points mentioned above.
@@ -176,6 +184,7 @@ I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\
 Newton-Rapson iteration to further improve the frequency estimation is advocated in Sec. II. Can a reference supporting this statement be added?
 \\
 \textbf{Response:}
+BLERG
 
 \item\textbf{Comment:}
 Referring to Fig. 3, in case $N=30$, the novel method incurs in a significant loss of performance with respect to classical LS and periodogram for low-signal-to-noise ratios. In this scenario (low $N$ and low signal-to-noise-ration) relevant for real applications?
