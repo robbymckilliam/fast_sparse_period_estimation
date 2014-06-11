@@ -1,6 +1,6 @@
 %\documentclass[a4paper,10pt]{article}
-\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
-%\documentclass[10pt,twocolumn,twoside]{IEEEtran}
+%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+\documentclass[10pt,twocolumn,twoside]{IEEEtran}
 %\documentclass[journal]{IEEEtran}
  
 \usepackage{mathbf-abbrevs}
@@ -37,7 +37,7 @@ R.~G.~McKilliam is with the Institute for Telecommunications Research, The Unive
 
 The problem of estimating the period of a point process from observations that are both sparse and noisy is considered.  By sparse it is meant that only a potentially small unknown subset of the process is observed.  By noisy it is meant that the subset that is observed, is observed with some error, or noise.  Existing accurate algorithms for estimating the period require $O(N^2)$ operations where $N$ is the number of observations.  By quantising the observations we produce an estimator that requires only $O(N\log N)$ operations by use of the chirp z-transform or the fast Fourier transform.  The quantisation has the adverse effect of decreasing the accuracy of the estimator.  This is investigated by Monte-Carlo simulation.  The simulations indicate that significant computational savings are possible with negligible loss in statistical accuracy.
 
-\end{abstract}
+\end{abstract} 
 \begin{IEEEkeywords}
 Period estimation, fast Fourier transform
 \end{IEEEkeywords}
@@ -87,7 +87,7 @@ where $w_1,\dots,w_N$ represent noise and $s_1,\dots,s_N$ are unknown integers r
 
 The problem of estimating $T_0$ is called the \emph{sparse, noisy period estimation problem}~\cite{Clarkson2007,McKilliam2007}.  Solutions have applications to synchronisation for telecommunications devices~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}, estimation of the pulse repetition interval in electronic support~\cite{EltonGray_puilse_train_rader_1994,Gray_more_pri_1994,Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}, and beat and tempo estimation in music~\cite{dixon_beat_extraction_2001}.  The problem is closely related to spike interval estimation in neurology~\cite{Arnett_neuro_pri_1976,Brillinger_spike_trains_1988,Rossoni200630} and a similar model has been proposed for the detection of anomolies, such as denial-of-service attacks, in internet traffic~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.  The problem is also connected with classical problems in number theory such as Diophantine approximation, lattice reduction, and the study of prime numbers~\cite{Cassels_geom_numbers_1997,490557,Clarkson_thesis,Lenstra1982,Wubben_2011,Casey1995,726812,CaseySadler_primes_2013}.
 
-Least squares estimation of period has been studied in~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}.  The least squares estimator can be closely approximated using $O(N^2)$ operations by using special purpose algorithms from computational number theory~\cite{McKilliam2009CoxeterLattices,McKilliam2008,McKilliam2008b}.  The least squares estimator is also the maximum likelihood estimator in the case that the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed.  An alternative estimator, called the~\emph{periodogram estimator}, was studied by Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} and involves the maximisation of Bartlett's periodogram for point processes~\cite{Bartlest_periodgram_point_process_1963}.  The statistical properties of the periodogram estimator were recently studied by Quinn~et.~al.~\cite{Quinn20013asilomar_period_est} who show the estimator to be strongly consistent and asymptotically normal under mild conditions on the noise $w_1,\dots,w_N$ and integers $s_1,\dots,s_N$.  The fastest existing algorithms can closely approximate the periodogram estimator in $O(N^2)$ operations.  We describe the periodogram estimator in Section~\ref{sec:peri-estim}.
+Least squares estimation of period has been studied in~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}.  The least squares estimator can be closely approximated using $O(N^2)$ operations by using special purpose algorithms from computational number theory~\cite{McKilliam2009CoxeterLattices,McKilliam2008}.  The least squares estimator is also the maximum likelihood estimator in the case that the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed.  An alternative estimator, called the~\emph{periodogram estimator}, was studied by Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} and involves the maximisation of Bartlett's periodogram for point processes~\cite{Bartlest_periodgram_point_process_1963}.  The statistical properties of the periodogram estimator were recently studied by Quinn~et.~al.~\cite{Quinn20013asilomar_period_est} who show the estimator to be strongly consistent and asymptotically normal under mild conditions on the noise $w_1,\dots,w_N$ and integers $s_1,\dots,s_N$.  The fastest existing algorithms can closely approximate the periodogram estimator in $O(N^2)$ operations.  We describe the periodogram estimator in Section~\ref{sec:peri-estim}.
 
 In Section~\ref{sec:quant-peri} we show that, by quantising the observations $y_1,\dots,y_N$, an approximation to the periodogram estimator can be computed using only $O(N\log N)$ operations.  This is facilitated by either the chirp z-transform~\cite{Rabiner1969} or the fast Fourier transform.  The quantisation has the adverse affect of decreasing the accuracy of the estimator.  The estimator is accurate if a sufficiently fine quantiser is chosen, but this requires a larger transform.  The trade off between quantisation level, accuracy, and computational complexity is investigated by computer simulation in Section~\ref{sec:simulations}.  The simulations indicate that significant computational savings are possible with negligible loss in accuracy.  Sadler and Casey~\cite{726812} have previously suggested use of the fast Fourier transform for period estimation.  However, their estimator requires far larger transforms and produces less accurate results than the estimator described here (see Section~VI and Figures 1-4 in~\cite{726812}).  In contrast, our estimator has accuracy similar to the least squares estimator, i.e., similar to the maximum likelihood estimator if the noise variables $w_1,\dots,w_N$ are assumed independent and identically normally distributed.
  
@@ -175,11 +175,11 @@ b_i= \#\{ n \mid \ell_n = i, n = 1,\dots, N\}
 \]
 where $\#$ indicates the number of elements in a set.  Put $\ellmax = \round{q \ymax}$ and $\ellmin = \round{q \ymin}$ so that $b_i = 0$ if $i < \ellmin$ or $i > \ellmax$.  Now
 \[
-I_z(f) = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{ -2\pi j f i/q} b_i }^2 = \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j f m/q} b_{m+\ell_1} }^2.
+I_z(f) = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{ -2\pi j f i/q} b_i }^2 = \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j f m/q} b_{m+\ellmin} }^2.
 \]
 We want to compute $I_z(f)$ for all $f$ in the grid $G$.  Putting
 \[
-v_m = e^{ -2\pi j f_{\text{min}}m/q} b_{m+\ell_1}
+v_m = e^{ -2\pi j f_{\text{min}}m/q} b_{m+\ellmin}
 \]
 we have
 \[
@@ -226,7 +226,7 @@ D = \frac{q}{M} = \frac{q}{2(\round{q\ymax} - \round{q\ymax} + 1)} \approx  \fra
 \]
 is approximately equal to~\eqref{eq:gridwidthrecommended}.  
 
-Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise variables $w_1,\dots,w_N$.  The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  Both approaches require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, it is apparent that the length of the transforms, and hence the complexity, increases as the quantisation becomes finer, i.e., as $q$ increases.  This presents a trade off between computationally complexity and quantisation accuracy.  This trade off is investigated in the next section.
+Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise variables $w_1,\dots,w_N$.  The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  Both approaches require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, it is apparent that the length of the transforms, and hence the complexity, increases as the quantisation becomes finer, i.e., as $q$ increases.  This presents a trade off between computational complexity and quantisation accuracy.  This trade off is investigated in the next section.
 
 
 \begin{figure}[t]
