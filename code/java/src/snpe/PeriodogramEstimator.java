@@ -1,5 +1,8 @@
 package snpe;
 
+import pubsim.optimisation.Brent;
+import pubsim.optimisation.SingleVariateFunction;
+
 /**
  * Written by Vaughan Clarkson, 05-Jan-07. New method calculatePeriodogram and
  * fixed the Newton iteration steps, 08-Jan-07.
@@ -48,7 +51,8 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
                 fhat = f;
             }
         }
-        fhat = refine(fhat, y); //refine coarse frequencey estimate
+        //fhat = refine(fhat, y); //refine coarse frequencey estimate using Newton's method
+        fhat = refine(fhat, fstep, y); //refine coarse frequencey estimate using Brent's method
         That = 1.0 / fhat;
         phat = phasestor.getPhase(y, That); //now compute the phase estimate
     }
@@ -94,6 +98,17 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
             numIter++;
         }
         return fhat;
+    }
+    
+    ///Brent's method
+    protected double refine(double fhat, double fstep, final Double[] y) {
+        SingleVariateFunction periodogram = new SingleVariateFunction() {
+            @Override
+            public double value(double x) {
+                return -calculatePeriodogram(y,x);
+            }
+        };
+        return new Brent(periodogram,fhat - fstep/2, fhat, fhat + fstep/2).xmin();
     }
 
     @Override

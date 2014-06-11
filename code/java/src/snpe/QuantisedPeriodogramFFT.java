@@ -48,7 +48,8 @@ public class QuantisedPeriodogramFFT extends PeriodogramEstimator {
             }
         }        
         double ftilde = fmin + D*khat;
-        double fhat = refine(ftilde, y); //refine coarse frequency estimate
+        //double fhat = refine(fhat, y); //refine coarse frequencey estimate using Newton's method
+        double fhat = refine(ftilde, D, y); //refine coarse frequencey estimate using Brent's method
         That = 1.0 / fhat;
         phat = phasestor.getPhase(y, That); //now compute the phase estimate        
     }

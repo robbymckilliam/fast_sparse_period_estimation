@@ -36,7 +36,8 @@ public class NormalisedPeriodogram extends PeriodogramEstimator  {
                 fhat = f;
             }
         }
-        fhat = refine(fhat, y); //refine coarse frequency estimate to local maximiser of normalised periodogram
+        //fhat = refine(fhat, y); //refine coarse frequencey estimate using Newton's method
+        fhat = refine(fhat, fstep, y); //refine coarse frequencey estimate using Brent's method
         That = 1.0 / fhat;
         phat = phasestor.getPhase(y, That); //now compute the phase estimate
     }

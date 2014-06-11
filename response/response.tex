@@ -49,19 +49,22 @@ Moreover, there are several important comments that should be addressed before a
 possible publication of this letter.
 \\
 \textbf{Response:}
-BLERG: Do I want to say something it being simple, but novel, and potentially really useful!
+We agree with the reviewer that the results in this paper are simple.  We do not believe this to be a weakness. Despite being simple, the results are novel and useful.  The quantisated periodogram estimator described in this paper is as accurate as the most accurate estimators in the literature (the least squares and periodogram estimator),  but, for moderate and large data sets our estimator is substantially more computationally simple.  For these reasons, we firmly believe this will become the estimator of choice for periodic point processes.  It enables period estimation for extremely large data sets in reasonable time. This is not possible with previous estimators that require a number of operations growing quadratically with data size. We have provided all the simulation code as supplementary material.  This will enable simple implementation for future research.
 
 \item\textbf{Comment:}
 The main reviewer concern is about the choice of the quantization parameter
-q that should be explained more carefully. It is not suﬃcient to display two sets
-of curves obtained for two diﬀerent values of q and to choose the best one without
-explanations. For instance, it is not clear whether the value of q chosen in this paper
+$q$ that should be explained more carefully. It is not suﬃcient to display two sets
+of curves obtained for two diﬀerent values of $q$ and to choose the best one without
+explanations. For instance, it is not clear whether the value of $q$ chosen in this paper
 will be appropriate for other noise distributions or for other ways of generating the
-integers sn. This point should be addressed carefully before a possible resubmission
+integers $s_n$. This point should be addressed carefully before a possible resubmission
 of the paper. The other reviewer comments are summarized below.
 \\
 \textbf{Response:}
-BLERG: Run some extra simulations for them
+We anticipate that developing a rigorous theoretical method for choosing $q$ will be extremely complicated.  The properties of many optimisation proceedures, such as the Newton-Raphson method, and Brent's method~\cite[Ch.~5]{Brent_opt_no_derivs_1973} are reasonably well understood for the purpose of maximising fixed known functions. However, very few theorectical statistical analyses for these proceedures exist when the functions to be maximised are themselves random variables, i.e., when noise is involved.  Add to this the existence of quantisation (itself typically very tricky to analyse) and it appears that a theorectical analysis of this estimator will be extremely difficult.
+
+These theoretical difficulties do not negate the immediate practical applicability of our estimator.  We agree with the reviewer that the simulations presented are limited. This is entirely due to the 4 page limit required IEEE Signal Processing Letters.  In the paper we use our simulations to motivate the choice $q = 5 f_{\text{max}}$ for the quantisation parameter.  It is natural to wonder whether this choice also works in other scenarios, for example (as the reviewer suggests), for different methods of generating the integers $s_1,\dots,s_N$.
+
 
 \item\textbf{Comment:}
 p. 3, the authors mention “Sadler and Casey [24] \dots However, their estimator
