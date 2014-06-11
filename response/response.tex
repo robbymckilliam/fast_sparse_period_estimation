@@ -1,0 +1,224 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+%\documentclass[journal]{IEEEtran}
+ 
+\usepackage{../mathbf-abbrevs}
+\input{../defs.tex}
+
+\usepackage{zref-xr,zref-user}
+\zexternaldocument*{../paper}
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{amsmath,amsfonts,amssymb, amsthm, bm}
+
+%\usepackage[square,comma,numbers,sort&compress]{natbib}
+
+\usepackage{color}
+\newcommand{\comment}[1]{\textcolor{red}{#1}}
+
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\rect}[1]{\operatorname{rect}\left(#1\right)}
+
+%opening
+\title{Fast sparse period estimation: Reviewer responses}
+\author{R.~G.~McKilliam, I.~V.~L.~Clarkson and B.~G.~Quinn 
+%\thanks{}
+}
+
+\renewcommand{\theenumii}{(\alph{enumii})}
+\renewcommand{\labelenumii}{\theenumii}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Reviewer 1}\label{sec:reviewer-1}
+
+\begin{enumerate}
+ 
+\item\textbf{Comment:}
+This paper proposes a new fast method for estimating the period of sparse and noisy
+observations of a point process. The new idea is to used the periodogram of quantized
+observations that can be computed faster than the standard periodogram by using
+a chirp z-transform or a fast Fourier transform. The reviewer is not convinced that
+there is enough material deserving publication in the IEEE signal processing letters.
+Moreover, there are several important comments that should be addressed before a
+possible publication of this letter.
+\\
+\textbf{Response:}
+BLERG: Do I want to say something it being simple, but novel, and potentially really useful!
+
+\item\textbf{Comment:}
+The main reviewer concern is about the choice of the quantization parameter
+q that should be explained more carefully. It is not suﬃcient to display two sets
+of curves obtained for two diﬀerent values of q and to choose the best one without
+explanations. For instance, it is not clear whether the value of q chosen in this paper
+will be appropriate for other noise distributions or for other ways of generating the
+integers sn. This point should be addressed carefully before a possible resubmission
+of the paper. The other reviewer comments are summarized below.
+\\
+\textbf{Response:}
+BLERG: Run some extra simulations for them
+
+\item\textbf{Comment:}
+p. 3, the authors mention “Sadler and Casey [24] \dots However, their estimator
+requires far larger transforms and produces less accurate results than the estimator
+described here (see Section VI)". Unfortunately, there is nothing in
+Section VI (which is the conclusion) supporting this claim. The authors should
+compare their results in term of accuracy and of computational complexity to
+the results of [24]. Including the Cramér-Rao bounds for the estimation of T0
+(as in [24]) would also be appreciated.
+\\
+\textbf{Response:}
+Section VI in~\cite{726812} is not the conclusion.  It is the section entitled ``Numerical Results''.  It is clear from Figure 1 to 4 in~\cite{726812} that the periogram estimator implemented by Casey and Sadler is inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure.  We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} in the new manuscript as dicussed in our response to comment~\ref{com:rev1:nr} below.  This leads Casey and Sadler to the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
+
+``Comparisons with the periodogram show the limitations of periodogram performance.''
+
+Our paper clearly shows that such limitation do not exist.  The periodgram estimator, computed by quanitisation and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  Our paper shows that (for moderately large $N$) this is the most computationally efficient proceedure currently available for this problem.  Simultaneously, it is as accurate at the most accuraate estimators available, namely the least squares estimator, and the periodgram estimator computed directly without FFT.
+
+BLERG: Cramer-Rao bound not available for randomly chosen $s_1,\dots,s_N$.
+
+
+\item\textbf{Comment:}\label{com:rev1:nr}
+p. 7, the authors indicate that they have used the Newton-Raphson (NR)
+method. More details should be provided here. For instance, what is the exact
+NR scheme used in this paper (there are several options)? How have the
+authors selected the total number of iterations? Is the quantized periodogram
+just used to initialize a Newton-Raphson procedure? Do the MSEs displayed
+in Fig. 3 correspond to the estimator obtained after applying the NR algorithm?
+Also, do the results displayed in Fig. 2 correspond to the total time
+required to compute the estimator (including the NR procedure) or just to the
+initialization of the NR procedure?
+\\
+\textbf{Response:}
+We are only aware of a single Netwon-Raphson method that proceeds by the iteration
+\[
+x_{n+1} = x_n - \frac{f^\prime(x_{n})}{f^{\prime\prime}(x_n)}
+\]
+to find a stationary point of the function $f$ where $f^\prime$ and $f^{\prime\prime}$ are the first and second derivatives of $f$.  As was stated Section~\zref{sec:simulations}: ``Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.''  This was the case both for the simulations presented in Figure~\zref{plot:multipleN} and for the computational benchmarks presented in Figure~\zref{plot:benchmark}.
+
+To avoid the potential ambguity regarding the definition of the Newton-Raphson method we have, in the new manuscipt, replaced the Newton-Raphson method with the optimisation proceedure due to Brent~\cite[Ch.~5]{Brent_opt_no_derivs_1973}.  This optimiation method is likely to be more familiar with the target audience because it is used internally by the \texttt{fminbnd} function in the popular MATLAB environment.
+
+BLERG: In Section~\zref{sec:peri-estim} the text has been modifed to read:
+
+``An iterative procedure, such as the Newton-Raphson method, or Brent's method~\cite{Brent_opt_no_derivs_1973} 
+can then be used to compute $\hat{f}$ starting from $\widetilde{f}$.''
+
+
+
+\item\textbf{Comment:}
+p. 5, in the definition of $v_m$, $b_{m+\ell_1}$ should be replaced by $b_{m+\ell_{\text{min}}}$.
+\\
+\textbf{Response:}
+Thankyou for spotting this error.  A similar error was fixed in equation for $I_z$ directly above this. 
+
+
+\item\textbf{Comment:}
+p. 6, ``each of length $L+K-1$'' might be replaced by ``each of length $M = L + K - 1$"
+\\
+\textbf{Response:}
+We have not done this.  The parameter $M$ is reserved for the length of the FFT used for the single Fourier transform method.  We feel it will lead to confusion if $M$ is also used for the length of the transforms required for the chirp-z transform.
+
+
+\item\textbf{Comment:}
+p. 8, $n = 2,\dots,N$ should be $n = 1, \dots, N - 1$
+\\
+\textbf{Response:}
+This error has be fixed.  The same error in the caption of Figure~\zref{plot:multipleN} has been fixed.
+
+
+\item\textbf{Comment:}
+p. 8, it is not completely clear to identify the curves associated with $N = 30$ and $N = 1200$. Can the authors display 4 curves associated with $\mu= 1$, $\mu = 10$, $N = 30$ and $N = 1200$?
+\\
+\textbf{Response:}
+We have connected the data points for the $N=1200$ case by gray lines.  We believe this make the plot clear.  We are happy to make further adjustments to this plot should the reviewer require them. 
+
+\item\textbf{Comment:}
+Typos: p. 2, “anomolies" should be “anomalies", p. 7, “quanitised" should be
+“quantized".
+\\
+\textbf{Response:}
+Done.
+
+
+\item\textbf{Comment:} 
+Is it necessary to include 11 self citations in this letter? Removing some of
+these references would allow to save some space, which could be used to better
+explain some points mentioned above.
+\\
+\textbf{Response:}
+IEEE Signal Processing Letters allows a 5th page that can contain only references.  Therefore, we cannot save space by removing references.   We have removed reference [29] from the original manuscript because the material in that paper is also covered in [27].  We feel that the all 37 references in the new version of the paper are highly relevant.  The paper would be weakened without them.
+
+\end{enumerate}
+
+
+
+\section*{Reviewer 2}
+
+
+\begin{enumerate}
+
+\item\textbf{Comment:}
+ The identifiability claim at the beginning of sec. II is not obvious and a reference is mandatory. Indeed, referring to eq. (2), let us assume that $s_n = 2 i_n$ where $i_n$ are all non-negative integer. In this case the point process is periodic with period $2 T_0$. This referee does not believe that maximizing the periodogram over $(f_{\text{min}},f_{\text{max}})$ will identify the true frequency (or period). LS methods might have the capabilities to identify the period, but, in any case the claim of idenitifiability needs to be further supported.
+\\
+\textbf{Response:}
+
+
+\item\textbf{Comment:}
+Is the equality in the second (un-numbered) equation of page 2 correct?
+\\
+\textbf{Response:}
+Yes.  The terms inside the sum on the left and right are conjugates of one another.  That is,
+\[
+\sum_{n=1}^N e^{ 2\pi j f y_n} = \sum_{n=1}^N (e^{-2\pi j f y_n})^* = \left( \sum_{n=1}^N e^{ -2\pi j f y_n} \right)^*
+\]
+where $^*$ denotes the complex conjugate.  So,
+\[
+I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\pi j f y_n} }^2.
+\]
+
+\item\textbf{Comment:}
+Newton-Rapson iteration to further improve the frequency estimation is advocated in Sec. II. Can a reference supporting this statement be added?
+\\
+\textbf{Response:}
+BLERG
+
+\item\textbf{Comment:}
+Referring to Fig. 3, in case $N=30$, the novel method incurs in a significant loss of performance with respect to classical LS and periodogram for low-signal-to-noise ratios. In this scenario (low $N$ and low signal-to-noise-ration) relevant for real applications?
+\\
+\textbf{Response:}
+The quantised periodgram estimator does not suffer a significant performance loss with respect to the classical LS and periodogram estimators in any scenario we have found.  Observe in Figure 3 that the solid dots ($q=5 f_{\text{max}}$) the crosses (LS), the circles (periodogram) are all close for $N=30,1200$ and $\mu=1,10$.  Be aware that the solid lines indicates the asymptotic theory ($N\to\infty$)~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est} for the periodogram and LS estimators and not the measured accuracy for finite $N$.  As $N\to\infty$, the MSE of the periogram and LS estimators will converge to the solid and dashed curves.
+
+\end{enumerate}
+
+
+
+{\small
+\input{../paper.bbl}
+}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
