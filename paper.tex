@@ -125,7 +125,7 @@ Let $\widetilde{f}$ be the maximiser of $I_y$ over $G$, that is, let
 \[
 \widetilde{f} = \arg\max_{f \in G} I_y(f).
 \]
-If the distance $D$ is sufficiently small, then $\widetilde{f}$ is a good approximation to the maximiser $\hat{f}$.  An iterative procedure, such as the Newton-Raphson method, %, or Brent's method~\cite{Brent_opt_no_derivs_1973} 
+If the distance $D$ is sufficiently small, then $\widetilde{f}$ is a good approximation to the maximiser $\hat{f}$.  An iterative procedure, such as the Newton-Raphson method, or Brent's method~\cite{Brent_opt_no_derivs_1973} 
 can then be used to compute $\hat{f}$ starting from $\widetilde{f}$.
 
 \newcommand{\ymax}{y_{\text{max}}}
@@ -267,15 +267,15 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
  %     \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q3};
  %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
 %      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200};
-      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN1200geom1};
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom1};
-       \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom1};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSNsamp101200geom1};
+      \addplot[color=gray,mark=none,color=black] table {code/data/PeriodogramCLTN1200geom1};
+      \addplot[color=gray,mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom1};
+       \addplot[color=gray,mark=o,mark options={color=black,solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom1};
+       \addplot[color=gray,mark=x,mark options={color=black,solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSNsamp101200geom1};
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1200geom1};
-       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN1200geom1};
-       \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom1};
+       \addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN1200geom1};
+       \addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom1};
       %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q3};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom1};
+      \addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom1};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
      \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
      \node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=30$};
@@ -299,26 +299,26 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
 %      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200}; 
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN1200geom10};
       \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom10};
-       \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN1200geom10};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN1200geom10};
+       \addplot[color=gray,mark=o,mark options={solid,color=black,fill=black,scale=1.1}] table {code/data/PeriodogramN1200geom10};
+       \addplot[color=gray,mark=x,mark options={solid,color=black,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN1200geom10};
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1100geom10};
-       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN1200geom10};
-       \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom10};
+       \addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN1200geom10};
+       \addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom10};
       %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1100q3};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom10};
+      \addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom10};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
      %\legend{Periodogram theory, $q=\tfrac{3}{2}T_{\text{max}}$, $q=4T_{\text{max}}$, Periodogram, Least squares, SLS2-adj}
      \node[rotate=16,font=\footnotesize] at (axis cs:6e-4,9e-10) {$N=30$};
      \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=1200$}; 
    \end{axis}
   \end{tikzpicture}  
-  \caption{Mean square period error versus noise variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=2,\dots,N$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right.}\label{plot:multipleN}
+  \caption{Mean square period error versus noise variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. Data points for $N=1200$ are connected by gray lines.}\label{plot:multipleN}
 \end{figure*} 
 
 
 \section{Simulations} \label{sec:simulations}
 
-This section presents the results of Monte-Carlo simulations with the periodogram estimator~\cite{Haohuan2013435,Fogel1989_bit_synch_zero_crossings}, the modified least squares estimator~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}, Clarkson's modification of the separable least squares line search (SLS2-new) estimator~\cite{Clarkson2007,Sidiropoulos2005}, and the quantised periodogram estimator from Section~\ref{sec:quant-peri}.  The grid distance $D$ used for the periodogram and SLS2-new estimators is given by~\eqref{eq:gridwidthrecommended}.  The modified least squares estimator requires a smaller grid distance to work accurately and we choose~\eqref{eq:gridwidthrecommended} divided by three in our simulations.  The quantised periodogram estimator is computed using a single fast Fourier transform of length $M = 2L = 2(\ellmax - \ellmin + 1)$.  Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.  In all simulations the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed with variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=2,\dots,N$ are independent and identically geometrically distributed starting from zero with means $\mu=1$ and $10$.  The true period is $T_0 = \pi/3$, the true phase is $\theta_0 = 0.2$, and $T_{\text{min}} = 0.8$ and $T_{\text{max}} = 1.5$.
+This section presents the results of Monte-Carlo simulations with the periodogram estimator~\cite{Haohuan2013435,Fogel1989_bit_synch_zero_crossings}, the modified least squares estimator~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}, Clarkson's modification of the separable least squares line search (SLS2-new) estimator~\cite{Clarkson2007,Sidiropoulos2005}, and the quantised periodogram estimator from Section~\ref{sec:quant-peri}.  The grid distance $D$ used for the periodogram and SLS2-new estimators is given by~\eqref{eq:gridwidthrecommended}.  The modified least squares estimator requires a smaller grid distance to work accurately and we choose~\eqref{eq:gridwidthrecommended} divided by three in our simulations.  The quantised periodogram estimator is computed using a single fast Fourier transform of length $M = 2L = 2(\ellmax - \ellmin + 1)$.  Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.  In all simulations the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed with variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed starting from zero with means $\mu=1$ and $10$.  The true period is $T_0 = \pi/3$, the true phase is $\theta_0 = 0.2$, and $T_{\text{min}} = 0.8$ and $T_{\text{max}} = 1.5$.
 
 Figure~\ref{plot:multipleN} shows the mean square error of the estimators versus $\sigma^2$ for $N = 30$ and $N = 1200$.  In the left hand  plot $\mu=1$ and in the right hand plot $\mu=10$.  %Thus, on average $\tfrac{1}{3}$ of the elements of the point process~\eqref{eq:periodicprocess} are observed in the left hand  plot and only $\tfrac{1}{15}$ in the right hand plot.  
 Three thousand Monte-Carlo trials are run for each value of $\sigma^2$.  The plots show the mean square error of the quantised periodogram estimator for two quantisation parameters $q = \tfrac{3}{2}f_{\text{max}} = \tfrac{15}{8}$ and $q = 5 f_{\text{max}} = \tfrac{25}{4}$.  The estimator performs poorly when $q = \tfrac{3}{2}f_{\text{max}}$ (triangles) but performs almost identically to the original periodogram estimator (circles) when $q = 5 f_{\text{max}}$ (dots).  For comparison purposes, the plot also shows the mean square error of the modified least squares estimator~\cite{Clarkson2007,McKilliam2007} and the SLS2-new estimator~\cite{Clarkson2007,Sidiropoulos2005}.  %The statistical performance of the SLS2-new estimator is poor when compared with the other estimators.  %For small $\sigma^2$ the mean square error of the SLS2 estimator is almost three orders of magnitude less accurate when $N = 50$ and almost five orders of magnitude less accurate when $N=1000$.    
