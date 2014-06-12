@@ -62,16 +62,16 @@ public class SLS2new extends AbstractPRIEstimator.Sampled {
         That = 1 / fhat;
 
         //now compute the phase estimate
-        phat = phasestor.getPhase(y, That);
+        phat = phasestor.phase(y, That);
     }
 
     @Override
-    public double getPeriod() {
+    public double period() {
         return That;
     }
 
     @Override
-    public double getPhase() {
+    public double phase() {
         return phat;
     }
 }

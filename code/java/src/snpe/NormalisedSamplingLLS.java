@@ -52,7 +52,7 @@ public class NormalisedSamplingLLS extends SamplingLLS {
         That = 1 / fhat;
 
         //now compute the phase estimate
-        phat = phasestor.getPhase(y, That);
+        phat = phasestor.phase(y, That);
     }
     
 }

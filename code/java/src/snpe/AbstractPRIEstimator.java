@@ -22,7 +22,7 @@ public abstract class AbstractPRIEstimator implements PRIEstimator {
     }
     
     @Override
-    public int getLength() {
+    public int length() {
         return N;
     }
     

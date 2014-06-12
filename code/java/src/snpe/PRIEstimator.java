@@ -15,22 +15,23 @@ public interface PRIEstimator extends Serializable{
 
     /**
      * Runs the estimator and return the estimated frequency.
+     * @param y the data
      */
     public void estimate(double[] y);
 
     /**
      * @return the period estimate
      */
-    public double getPeriod();
+    public double period();
 
     /**
      *
      * @return the phase estimate
      */
-    public double getPhase();
+    public double phase();
 
     /// @return the number of observations this estimator uses.
-    public int getLength();
+    public int length();
     
     /// Interface for period estimators that operate by sampling their objective functions
     public static interface Sampled extends PRIEstimator {
@@ -57,7 +58,7 @@ public interface PRIEstimator extends Serializable{
             fz = new double[N];
         }
 
-        public double getPhase(double[] y, double That){
+        public double phase(double[] y, double That){
             Anstar.project(y, z);
             for(int i = 0; i < N; i++) fz[i] =  z[i] / That;
             lattice.nearestPoint(fz);

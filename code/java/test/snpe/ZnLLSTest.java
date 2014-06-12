@@ -46,7 +46,7 @@ public class ZnLLSTest extends TestCase {
         
         double expResult = T;
         instance.estimate(y);
-        assertEquals(expResult, instance.getPeriod(), 0.001);
+        assertEquals(expResult, instance.period(), 0.001);
 
     }
 
@@ -74,8 +74,8 @@ public class ZnLLSTest extends TestCase {
         double[] y = sig.generate();
 
         instance.estimate(y);
-        double hatT = instance.getPeriod();
-        double hatp = instance.getPhase();
+        double hatT = instance.period();
+        double hatp = instance.phase();
 
         System.out.println(hatT + ", " + hatp);
 

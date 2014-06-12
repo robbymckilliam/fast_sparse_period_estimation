@@ -36,18 +36,18 @@ public class YeSampling implements PRIEstimator {
     }
 
     @Override
-    public double getPeriod() {
-        return periodest.getPeriod();
+    public double period() {
+        return periodest.period();
     }
 
     @Override
-    public double getPhase() {
-        return periodest.getPhase();
+    public double phase() {
+        return periodest.phase();
     }
 
     @Override
-    public int getLength() {
-        return periodest.getLength();
+    public int length() {
+        return periodest.length();
     }
     
 }

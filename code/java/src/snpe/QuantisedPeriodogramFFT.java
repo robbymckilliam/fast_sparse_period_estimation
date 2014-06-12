@@ -51,7 +51,7 @@ public class QuantisedPeriodogramFFT extends PeriodogramEstimator {
         //double fhat = refine(fhat, y); //refine coarse frequencey estimate using Newton's method
         double fhat = refine(ftilde, D, y); //refine coarse frequencey estimate using Brent's method
         That = 1.0 / fhat;
-        phat = phasestor.getPhase(y, That); //now compute the phase estimate        
+        phat = phasestor.phase(y, That); //now compute the phase estimate        
     }
     
     /// Calculates the vector v and returns its Fourier transform computed by FFT

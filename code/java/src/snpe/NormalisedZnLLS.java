@@ -71,7 +71,7 @@ public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
         That = 1.0/bestf;
 
         //now compute the phase estimate
-        phat = phasestor.getPhase(y, That);
+        phat = phasestor.phase(y, That);
 
 
     }

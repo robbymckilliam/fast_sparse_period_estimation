@@ -58,9 +58,9 @@ public class YeSamplingTest {
         double[] y = sig.generate();
 
         instance.estimate(y);
-        System.out.println(instance.getPeriod() + "\t" + instance.getPhase());
-        assertEquals(T, instance.getPeriod(), 0.001);
-        assertEquals(phase, instance.getPhase(), 0.001);
+        System.out.println(instance.period() + "\t" + instance.phase());
+        assertEquals(T, instance.period(), 0.001);
+        assertEquals(phase, instance.phase(), 0.001);
     }
     
     
@@ -86,9 +86,9 @@ public class YeSamplingTest {
         double[] y = sig.generate();
 
         instance.estimate(y);
-        System.out.println(instance.getPeriod() + "\t" + instance.getPhase());
-        assertEquals(T, instance.getPeriod(), 0.001);
-        assertEquals(phase, instance.getPhase(), 0.001);
+        System.out.println(instance.period() + "\t" + instance.phase());
+        assertEquals(T, instance.period(), 0.001);
+        assertEquals(phase, instance.phase(), 0.001);
     }
     
 }
