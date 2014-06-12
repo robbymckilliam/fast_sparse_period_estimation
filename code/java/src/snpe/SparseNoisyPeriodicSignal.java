@@ -6,11 +6,10 @@
 
 package snpe;
 
-import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
 /**
- * Generates a set of recieved times that are sparse and
+ * Generates a set of received times that are sparse and
  * noisy versions of the received signal.
  * <p>
  * The specific sparse pulses that will be transmitted can
@@ -18,7 +17,7 @@ import pubsim.distributions.NoiseGenerator;
  * 
  * @author Robby McKilliam
  */
-public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
+public class SparseNoisyPeriodicSignal {
     
     public final double T;
     public final int N;
@@ -37,7 +36,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
         recievedSignal = new Double[N];
         this.noise = noise;
         this.sparsenoise = sparsenoise;
-        generateSparseSignal();   
+        generateSparseSignal();
     }
     
     public void setSparseSignal(Integer[] S){
@@ -48,8 +47,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     public double getPeriod(){ return T; }
     public double getPhase(){ return phase; }
     
-    /** {@inheritDoc} */
-    @Override
     public int getLength() {return N; }
     
     public Integer[] generateSparseSignal(){
@@ -65,7 +62,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     /**
      * Generate sparse noisy signal
      */
-    @Override
     public Double[] generateReceivedSignal() {
           
           for(int i = 0; i< sparseSignal.length; i++){
@@ -77,7 +73,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
 
     public NoiseGenerator<Integer> getSparseGenerator(){ return sparsenoise; }
 
-    @Override
     public NoiseGenerator<Double> getNoiseGenerator(){ return noise; }
     
     /**
@@ -94,8 +89,4 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
         noise.randomSeed();
     }
     
-    @Override
-    public void setNoiseGenerator(NoiseGenerator<Double> noise) {
-        throw new UnsupportedOperationException("This method is deprecated. Don't use it.");
-    }
 }
