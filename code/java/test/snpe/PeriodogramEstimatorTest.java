@@ -1,5 +1,6 @@
 package snpe;
 
+import snpe.generators.SparseNoisyPeriodicSignal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.discrete.PoissonRandomVariable;
+import snpe.generators.DifferencesIID;
 
 /**
  *
@@ -50,10 +52,10 @@ public class PeriodogramEstimatorTest {
 
         double noisestd = 0.001;
         GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,noisestd*noisestd);
-
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n, T, phase, new PoissonRandomVariable(2),noise);
-        sig.generateSparseSignal();
-        Double[] y = sig.generateReceivedSignal();
+        PoissonRandomVariable drv = new PoissonRandomVariable(2);
+        
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n,T, phase, new DifferencesIID(n,drv),noise);
+        double[] y = sig.generate();
 
         instance.estimate(y);
         System.out.println(instance.getPeriod() + "\t" + instance.getPhase());

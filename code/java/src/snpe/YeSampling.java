@@ -24,7 +24,7 @@ public class YeSampling implements PRIEstimator {
     }
 
     @Override
-    public void estimate(Double[] y) {
+    public void estimate(double[] y) {
         double Ymax = y[y.length - 1]; //supposes data is in accending order
         double Ymin = y[0];
         for(double v : y){ //get guaranteed minimum and maximum y

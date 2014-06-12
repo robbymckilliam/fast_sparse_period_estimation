@@ -17,17 +17,17 @@ public class QuantisedPeriodogramChirpZ extends PeriodogramEstimator {
     /** Stores sorted copy of received data. 
      * Makes internal method signatures mimic the paper better. Mutable and not particularly safe.
      */
-    protected final Double[] y; 
+    protected final double[] y; 
     
     public QuantisedPeriodogramChirpZ(int N, double Tmin, double Tmax, double q) {
         super(N,Tmin,Tmax);
         this.q = q;
         if( q <= fmax - fmin ) throw new RuntimeException("q must be larger than fmax - fmin");
-        y = new Double[N];
+        y = new double[N];
     }
     
     @Override
-    public void estimate(Double[] y) {
+    public void estimate(double[] y) {
         if(y.length != N) throw new ArrayIndexOutOfBoundsException("input vector y must have length " + N);
         System.arraycopy(y, 0, this.y, 0, N); //copy to internal memory
         Arrays.sort(this.y); //sort the recieved signal (following code assumes accending order).  This sort is not strictly neccessary.  You could instead just take the min and max.

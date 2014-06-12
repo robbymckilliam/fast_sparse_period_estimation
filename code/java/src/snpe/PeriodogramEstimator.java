@@ -31,7 +31,7 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
         this(N, Tmin, Tmax, 4 * N);
     }
 
-    public static double calculatePeriodogram(Double[] y, double f) {
+    public static double calculatePeriodogram(double[] y, double f) {
         double sumur = 0, sumui = 0;
         for (int i = 0; i < y.length; i++) {
             sumur += Math.cos(2 * Math.PI * f * y[i]);
@@ -41,7 +41,7 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
     }
 
     @Override
-    public void estimate(Double[] y, double fstep) {
+    public void estimate(double[] y, double fstep) {
         double maxp = 0;
         double fhat = fmin;
         for (double f = fmin; f <= fmax; f += fstep) {
@@ -57,8 +57,8 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
         phat = phasestor.getPhase(y, That); //now compute the phase estimate
     }
 
-    /// Modified Newton step
-    protected double refine(double fhat, Double[] y) {
+    /** Modified Newton step */
+    protected double refine(double fhat, double[] y) {
         double maxp = calculatePeriodogram(y, fhat);
         int numIter = 0;
         double f = fhat;
@@ -100,8 +100,8 @@ public class PeriodogramEstimator extends AbstractPRIEstimator.Sampled {
         return fhat;
     }
     
-    ///Brent's method
-    protected double refine(double fhat, double fstep, final Double[] y) {
+    /** Brent's method */
+    protected double refine(double fhat, double fstep, final double[] y) {
         SingleVariateFunction periodogram = new SingleVariateFunction() {
             @Override
             public double value(double x) {

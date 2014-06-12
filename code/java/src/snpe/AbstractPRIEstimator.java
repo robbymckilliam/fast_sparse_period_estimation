@@ -38,7 +38,7 @@ public abstract class AbstractPRIEstimator implements PRIEstimator {
         
         /// Default estimate uses NUM_SAMPLES set during construction
         @Override
-        public void estimate(Double[] y) {
+        public void estimate(double[] y) {
             double fmin = 1 / Tmax;
             double fmax = 1 / Tmin;
             double W = (fmax - fmin) / NUM_SAMPLES; //search grid width

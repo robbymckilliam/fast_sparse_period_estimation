@@ -20,7 +20,7 @@ public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
     }
 
     @Override
-    public void estimate(Double[] y){
+    public void estimate(double[] y){
 
         AnstarVaughan.project(y, z);
 

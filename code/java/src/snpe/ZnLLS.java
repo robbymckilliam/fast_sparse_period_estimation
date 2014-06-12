@@ -50,7 +50,7 @@ public class ZnLLS extends AbstractPRIEstimator {
     }
     
     @Override
-    public void estimate(Double[] y){
+    public void estimate(double[] y){
         if (N != y.length) 
             throw new RuntimeException("Data length " + y.length + " does not match estimator length " + N);
 
@@ -67,7 +67,7 @@ public class ZnLLS extends AbstractPRIEstimator {
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){
                 v[j] = Math.round(fmin*z[j] - g[j]) + g[j];
-                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), new Integer(j));
+                map.put((Math.signum(z[j])*0.5 + v[j])/z[j], j);
                 ztz += z[j]*z[j];
                 ztv += z[j]*v[j];
                 vtv += v[j]*v[j];
@@ -85,11 +85,11 @@ public class ZnLLS extends AbstractPRIEstimator {
                 }
                        
                 Double key = ((Double) map.firstKey());
-                int k = ((Integer)map.get(key)).intValue();
+                int k = ((Integer)map.get(key));
                 double d = Math.signum(z[k]);
                 v[k] += d;
                 map.remove(key);
-                map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
+                map.put((d*0.5 + v[k])/z[k], k);
                 
                 ztv += d*z[k];
                 vtv += 2*d*(v[k]-d) + 1;

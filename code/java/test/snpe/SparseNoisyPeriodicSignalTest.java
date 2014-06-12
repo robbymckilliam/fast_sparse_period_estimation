@@ -1,9 +1,9 @@
 package snpe;
 
+import snpe.generators.SparseNoisyPeriodicSignal;
 import junit.framework.TestCase;
-import pubsim.VectorFunctions;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.discrete.PoissonRandomVariable;
+import snpe.generators.FixedIntegerSequence;
 
 /**
  *
@@ -14,25 +14,6 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
     public SparseNoisyPeriodicSignalTest(String testName) {
         super(testName);
     }
-
-    /**
-     * Test of generateReceivedSignal method, of class simulator.SparseNoisyPeriodicSignal.
-     */
-    public void testGenerateTransmittedSignal() {
-        System.out.println("generateReceivedSignal");
-        
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(20,1,0.0,
-                new PoissonRandomVariable(2),new GaussianNoise(0,1));
-        
-        Integer[] sig = instance.generateSparseSignal();
-        boolean result = false;
-        result = VectorFunctions.increasing(sig);
-        for(int i = 0; i < sig.length; i++){
-            result &= (((long)sig[i]) == Math.round(sig[i]));
-        }
-        assertEquals(true, result);
-        
-    }
     
     /**
      * Test of generateSparseSignal method, of class simulator.SparseNoisyPeriodicSignal.
@@ -40,20 +21,15 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
     public void testGenerateRecievedSignal() {
         System.out.println("generateTransmittedSignal");
         
-        int length = 20;
-        double T = 2.0;
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length,T,0.0,
-                new PoissonRandomVariable(2),new pubsim.distributions.UniformNoise(0.0, 1.0/3.0));
-
-        Integer[] rec_sig = instance.generateSparseSignal();
-        instance.setSparseSignal(rec_sig);
-       
-        Double[] sig = instance.generateReceivedSignal();
-        boolean result;
-        for (int i = 0; i < length; i++){
-            result = (sig[i] <= (T*rec_sig[i] + 1.0)) && (sig[i] >= (T*rec_sig[i] - 1.0));
-            assertEquals(true, result);
-        }
+         int[] s = {1,2,3,6,8,10};
+        int N = s.length;
+        double T = 1.0;
+        double phase = 0.1;
+        FixedIntegerSequence fs = new FixedIntegerSequence(s);
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(N, T, phase, fs, new GaussianNoise(0, 0));
+        double[] y = sig.generate();
+        
+        for (int i = 0; i < N; i++) assertTrue( Math.abs(y[i] - T*s[i] - phase) < 1e-9 );
         
     }
     

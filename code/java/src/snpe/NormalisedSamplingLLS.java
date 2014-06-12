@@ -25,7 +25,7 @@ public class NormalisedSamplingLLS extends SamplingLLS {
     }
 
     @Override
-    public void estimate(Double[] y, double fstep) {
+    public void estimate(double[] y, double fstep) {
 
         //first compute the period estimate
         AnstarVaughan.project(y, zeta);

@@ -35,7 +35,7 @@ public class SamplingLLS extends AbstractPRIEstimator.Sampled {
     
     ///Run estimator with given search grid width
     @Override
-    public void estimate(Double[] y, double fstep) {
+    public void estimate(double[] y, double fstep) {
         if (N != y.length) 
             throw new RuntimeException("Data length " + y.length + " does not match estimator length " + N);
         

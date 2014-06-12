@@ -14,7 +14,7 @@ public class NormalisedPeriodogram extends PeriodogramEstimator  {
         this(N, Tmin, Tmax, 4 * N);
     }
 
-    private static double calculateObjective(Double[] y, double f) {
+    private static double calculateObjective(double[] y, double f) {
         double sumur = 0, sumui = 0;
         int N = y.length;
         for (int i = 0; i < y.length; i++) {
@@ -25,7 +25,7 @@ public class NormalisedPeriodogram extends PeriodogramEstimator  {
     }
 
     @Override
-    public void estimate(Double[] y, double fstep) {
+    public void estimate(double[] y, double fstep) {
         // Coarse search
         double minp = Double.POSITIVE_INFINITY;
         double fhat = fmin;
@@ -44,7 +44,7 @@ public class NormalisedPeriodogram extends PeriodogramEstimator  {
 
     ///Modified Newton step minimses the normalised periodogram
     @Override
-    protected double refine(double fhat, Double[] y) {
+    protected double refine(double fhat, double[] y) {
         double minp = calculateObjective(y, fhat);
         int numIter = 0;
         double f = fhat;
