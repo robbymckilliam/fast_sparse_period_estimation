@@ -9,8 +9,8 @@ package snpe;
 
 import snpe.generators.SparseNoisyPeriodicSignal;
 import junit.framework.TestCase;
-import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.discrete.PoissonRandomVariable;
+import pubsim.distributions.Gaussian;
+import pubsim.distributions.discrete.Poisson;
 import snpe.generators.DifferencesIID;
 
 /**
@@ -38,8 +38,8 @@ public class ZnLLSTest extends TestCase {
         ZnLLS instance = new ZnLLS(N,Tmin,Tmax);
         
         double noisestd = 0.0001;
-        GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,noisestd*noisestd);
-        PoissonRandomVariable drv = new PoissonRandomVariable(2);
+        Gaussian noise = new Gaussian(0.0,noisestd*noisestd);
+        Poisson drv = new Poisson(2);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(N,T, phase, new DifferencesIID(N,drv),noise);
         double[] y = sig.generate();
@@ -66,9 +66,9 @@ public class ZnLLSTest extends TestCase {
         ZnLLS instance = new ZnLLS(N,1/fmax,1/fmin);
 
         double noisestd = 0.00001;
-        GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,noisestd*noisestd);
+        Gaussian noise = new Gaussian(0.0,noisestd*noisestd);
 
-        PoissonRandomVariable drv = new PoissonRandomVariable(2);
+        Poisson drv = new Poisson(2);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(N,T, phase, new DifferencesIID(N,drv),noise);
         double[] y = sig.generate();

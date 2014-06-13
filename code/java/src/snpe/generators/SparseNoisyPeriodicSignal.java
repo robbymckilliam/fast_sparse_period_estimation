@@ -45,7 +45,7 @@ public class SparseNoisyPeriodicSignal {
     public double[] generate() {
           int[] s = sparsenoise.generate();
           for(int i = 0; i< N; i++)
-              y[i] = T * s[i] + noise.getNoise() + phase;
+              y[i] = T * s[i] + noise.noise() + phase;
           return y;
     }
     

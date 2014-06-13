@@ -3,8 +3,8 @@ package snpe;
 import snpe.generators.SparseNoisyPeriodicSignal;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.discrete.PoissonRandomVariable;
+import pubsim.distributions.Gaussian;
+import pubsim.distributions.discrete.Poisson;
 import snpe.generators.DifferencesIID;
 
 /**
@@ -47,8 +47,8 @@ public class NormalisedSamplingLLSTest {
         NormalisedSamplingLLS instance = new NormalisedSamplingLLS(n, Tmin, Tmax, 2*n);
 
         double noisestd = 0.001;
-        GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,noisestd*noisestd);
-        PoissonRandomVariable drv = new PoissonRandomVariable(2);
+        Gaussian noise = new Gaussian(0.0,noisestd*noisestd);
+        Poisson drv = new Poisson(2);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n,T, phase, new DifferencesIID(n,drv),noise);
         double[] y = sig.generate();

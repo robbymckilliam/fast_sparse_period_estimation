@@ -1,4 +1,4 @@
-package snpe.bounds;
+package snpe.theory;
 
 import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
@@ -24,7 +24,7 @@ public class NormalisedLLSCLT implements CLT{
     public NormalisedLLSCLT(RealRandomVariable noise, double discretemean, double T0){
 
         dmean = discretemean;
-        CircularRandomVariable wrped = noise.getWrapped();
+        CircularRandomVariable wrped = noise.wrapped();
         double h = wrped.pdf(-0.5);
 
         //Is is the wrapped variance or not?  Need to check Barry's

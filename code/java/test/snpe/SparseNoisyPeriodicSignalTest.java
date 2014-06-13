@@ -2,7 +2,7 @@ package snpe;
 
 import snpe.generators.SparseNoisyPeriodicSignal;
 import junit.framework.TestCase;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import snpe.generators.FixedIntegerSequence;
 
 /**
@@ -26,7 +26,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         double T = 1.0;
         double phase = 0.1;
         FixedIntegerSequence fs = new FixedIntegerSequence(s);
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(N, T, phase, fs, new GaussianNoise(0, 0));
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(N, T, phase, fs, new Gaussian(0, 0));
         double[] y = sig.generate();
         
         for (int i = 0; i < N; i++) assertTrue( Math.abs(y[i] - T*s[i] - phase) < 1e-9 );

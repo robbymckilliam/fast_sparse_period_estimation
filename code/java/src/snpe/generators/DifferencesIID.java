@@ -26,8 +26,8 @@ public class DifferencesIID implements SpareIntegerSequence {
 
     @Override
     public int[] generate() {
-        s[0] = discreterv.getNoise();
-        for(int i = 1; i < N; i++) s[i] = s[i-1] + discreterv.getNoise();
+        s[0] = discreterv.noise();
+        for(int i = 1; i < N; i++) s[i] = s[i-1] + discreterv.noise();
         return s;
     }
     

@@ -1,4 +1,4 @@
-package snpe.bounds;
+package snpe.theory;
 
 import pubsim.distributions.RealRandomVariable;
 
