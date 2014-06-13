@@ -283,7 +283,7 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
    \end{axis}  
  \begin{axis}[name=plot2,at={(11,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom10}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom10};
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom10}; 
             \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom10};
       \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q5.0geom10};
       \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN30geom10};
