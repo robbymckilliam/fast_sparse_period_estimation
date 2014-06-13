@@ -17,7 +17,7 @@ import snpe.SLS2new
 import snpe.theory.PeriodogramCLT
 import snpe.theory.NormalisedLLSCLT
 
-val iters = 100
+val iters = 3000
 val T_0 = scala.math.Pi/3 //true period
 val T_min = 0.8 //minimum period
 val T_max = 1.5 //maximum period

@@ -163,7 +163,7 @@ In Figure~\ref{plot:crb} in this document we perform a simulation with integers 
 
 Observe that in the right hand plot the quantised periodogram estimator with coarse quantisation $q = 1.5 f_{\text{max}}$ actually perform well for sufficently small noise variance.  It appears that the fixed integers $s_1,\dots,s_N$ generated in this simulation favour the quantised periodogram estimator.  This is one motivation for performing our simulations with integer $s_1,\dots,s_N$ generated randomly for each Monte-Carlo trial, rather than choosing a single fixed set of integers $s_1,\dots,s_N$.  It avoid the scenario where a particular favourable (or unfavourable) set $s_1,\dots,s_N$ is chosen by chance.
 
-We have not implemented and do not present simulations results with any of the MEA estimators from the papers by Casey and Sadler~\cite{536682,726812}.  The MEA estimators were supersceeded by the Separable Line Search (SLS) estimators of Sidiropoulos, Swami and Sadler~\cite{Sidiropoulos2005} in 2005.  Comparison between the MEA estimator and the SLS are presented in~\cite{Sidiropoulos2005} where the superiority of the SLS estimators is shown.  An enhanced SLS estimator was developed in~\cite{Clarkson2007} and this is the estimator we show simulation results for in our paper and this document.  Even this enhanced SLS estimator performs poorly compared to the least squares and periodogram estimators.  The MEA estimators are no longer state-of-the-art for this problem.
+We have not implemented and do not present simulations results with any of the MEA estimators from the papers by Casey and Sadler~\cite{536682,726812}.  The MEA estimators were supersceeded by the Separable Line Search (SLS) estimators of Sidiropoulos, Swami and Sadler~\cite{Sidiropoulos2005} in 2005.  Comparison between the MEA estimator and the SLS are presented in~\cite{Sidiropoulos2005} where the superiority of the SLS estimators is shown.  An enhanced SLS estimator (SLS2-new) was developed in~\cite{Clarkson2007} and this is the estimator we show simulations results for.  Even this enhanced SLS estimator performs poorly compared to the least squares and periodogram estimators.  The MEA estimators are no longer state-of-the-art for this problem.
 
 
 %We prefer to show to plot the MSE of the estimatorsThe least squares estimator is the maximum likelihood estimator, and so, the dashed curve serves a similar type of purpose as the CRB often does in these types of simulations.  Namely, to indicate whether an estimator is performing similarly to what might be considered `optimal', i.e. close the what might theoretically be expected from the maximum likelihood estimator.
@@ -213,13 +213,27 @@ required to compute the estimator (including the NR procedure) or just to the
 initialization of the NR procedure?
 \\
 \textbf{Response:}
-We are only aware of a single Netwon-Raphson method that proceeds by the iteration
+We reponse to each of the questions of the reviewer in turn:
+
+\begin{enumerate}
+\item \textbf{For instance, what is the exact NR scheme used in this paper (there are several options)?}  The Netwon-Raphson method used proceeds by the iteration
 \[
 x_{n+1} = x_n - \frac{f^\prime(x_{n})}{f^{\prime\prime}(x_n)}
 \]
-to find a stationary point of the function $f$ where $f^\prime$ and $f^{\prime\prime}$ are the first and second derivatives of $f$.  As was stated Section~\zref{sec:simulations}: ``Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.''  This was the case both for the simulations presented in Figure~\zref{plot:multipleN} and for the computational benchmarks presented in Figure~\zref{plot:benchmark}.
+to find a stationary point of the function $f$ where $f^\prime$ and $f^{\prime\prime}$ are the first and second derivatives of $f$.  To avoid the potential ambguity regarding the definition of the Newton-Raphson method we have, in the new manuscipt, replaced the Newton-Raphson method with the optimisation proceedure due to Brent~\cite[Ch.~5]{Brent_opt_no_derivs_1973}.  This optimiation method is likely to be more familiar with readers because it is used internally by the \texttt{fminbnd} function in the popular MATLAB environment. 
 
-To avoid the potential ambguity regarding the definition of the Newton-Raphson method we have, in the new manuscipt, replaced the Newton-Raphson method with the optimisation proceedure due to Brent~\cite[Ch.~5]{Brent_opt_no_derivs_1973}.  This optimiation method is likely to be more familiar with readers because it is used internally by the \texttt{fminbnd} function in the popular MATLAB environment.
+BLERG add some text to the paper.
+
+\item \text{How have the authors selected the total number of iterations?} In our implementation iterations are performed until the absolute difference between consequentive iterations is less than $10^{-7}$.
+
+BLERG: Something like the following should be added:
+
+``Brent's method is iterative.  During the method a number of evaluations of the periodogram $I_y$ are made.  The number of calls depends on the grid width $D$, but not on $N$.  Each call requires $O(N)$ operations, and so, the total number of operations required by Brent's method is $O(N)$. In practice we find that that computational cost of Brent's method is far smaller than the cost of either that FFT or chirp-z transform.''
+
+\end{enumerate}
+
+We are only aware of a single   As was stated Section~\zref{sec:simulations}: ``Both the periodogram and quanitised periodogram estimators use the Newton-Raphson method.''  This was the case both for the simulations presented in Figure~\zref{plot:multipleN} and for the computational benchmarks presented in Figure~\zref{plot:benchmark}.
+
 
 BLERG: In Section~\zref{sec:peri-estim} the text has been modifed to read:
 
@@ -239,7 +253,7 @@ Thankyou for spotting this error.  A similar error was fixed in equation for $I_
 p. 6, ``each of length $L+K-1$'' might be replaced by ``each of length $M = L + K - 1$"
 \\
 \textbf{Response:}
-We have not done this.  The parameter $M$ is reserved for the length of the FFT used for the single Fourier transform method.  We feel it will lead to confusion if $M$ is also used for the length of the transforms required for the chirp-z transform.
+Respectfully, we have not done this.  The parameter $M$ is reserved for the length of the FFT used for the single Fourier transform method.  We feel it is confusing if $M$ is also used for the length of the transforms required by the chirp-z transform.
 
 
 \item\textbf{Comment:}
@@ -253,11 +267,11 @@ This error has be fixed.  The same error in the caption of Figure~\zref{plot:mul
 p. 8, it is not completely clear to identify the curves associated with $N = 30$ and $N = 1200$. Can the authors display 4 curves associated with $\mu= 1$, $\mu = 10$, $N = 30$ and $N = 1200$?
 \\
 \textbf{Response:}
-We have connected the data points for the $N=1200$ case by gray lines.  We believe this make the plot clear.  We are happy to make further adjustments to this plot should the reviewer require them. 
+We have connected the data points for the $N=1200$ case by gray lines.  We believe this makes the plot clear.  We are happy to make further adjustments to this plot should the reviewer require them. 
 
 \item\textbf{Comment:}
-Typos: p. 2, “anomolies" should be “anomalies", p. 7, “quanitised" should be
-“quantized".
+Typos: p. 2, ``anomolies'' should be ``anomalies'', p. 7, ``quanitised'' should be
+``quantized''.
 \\
 \textbf{Response:}
 Done.

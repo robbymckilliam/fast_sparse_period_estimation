@@ -2,10 +2,11 @@
 * Run benchmarks.
 */
 
-import pubsim.distributions.discrete.GeometricRandomVariable
-import pubsim.distributions.GaussianNoise
+import pubsim.distributions.discrete.Geometric
+import pubsim.distributions.Gaussian
 import pubsim.distributions.RealRandomVariable
-import snpe.SparseNoisyPeriodicSignal
+import snpe.generators.SparseNoisyPeriodicSignal
+import snpe.generators.DifferencesIID
 import snpe.PRIEstimator
 import snpe.YeSampling
 import snpe.PeriodogramEstimator
@@ -22,8 +23,8 @@ val f_min = 1.0/T_max //minimum frequency
 val f_max = 1.0/T_min //maximum frequency
 val theta_0 = 0.2 //true phase
 val p = 1.0/3.0 //parameter of geometric random variable for generating sparse noise
-def discretedist = new GeometricRandomVariable(p) //the discrete distribution for generating different sN - sN-1
-def noisedist = new GaussianNoise(0,0.01) //the noise distribution we use with variance v
+def discretedist = new Geometric(p) //the discrete distribution for generating different sN - sN-1
+def noisedist = new Gaussian(0,0.01) //the noise distribution we use with variance v
 
 //time used for benchmark warmup in nanoseconds.  Benchmark runtime is approximately twice this.
 val MIN_BENCH_DURATION : Long = 5000000000L; // (10 secs)  
@@ -33,12 +34,12 @@ val Ns = List(10,14,20,30,40,50,60,80,100,120,150,200,250,300,400,600,900,1200,1
 //val Ls = List(1000)
 //val Ns = (1 to 40).map(i => (5*scala.math.pow(1.1,i)).toInt).distinct //number of symbols
 
-//runbench(Ns, (N : Int) => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "Periodogram")
+runbench(Ns, (N : Int) => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "Periodogram")
 runbench(Ns, (N : Int) => new YeSampling(new NormalisedSamplingLLS(N,T_min,T_max),6.0), "LeastSquares")
 //runbench(Ns, (N : Int) => new YeSampling(new SLS2novlp(N,T_min,T_max)), "SLS2novlp")
-//runbench(Ns, (N : Int) => new YeSampling(new SLS2new(N,T_min,T_max)), "SLS2new")
-//for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramq" + q)
-//for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramChirpZ(N,T_min,T_max,q*f_max), "QuantisedPeriodogramChirpZq" + q)
+runbench(Ns, (N : Int) => new YeSampling(new SLS2new(N,T_min,T_max)), "SLS2new")
+for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramq" + q)
+for( q <- List(5.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramChirpZ(N,T_min,T_max,q*f_max), "QuantisedPeriodogramChirpZq" + q)
 
 //benchmarks for Barry's chirpz tests.
 //for( q <- List(4.0) ) runbench(Ns, (N : Int) => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramFFTq" + q)
@@ -52,23 +53,21 @@ def runbench(Ns: Seq[Int], estf : (Int) => PRIEstimator, name : String) {
   val runtimeslist = Ns.map{ N =>
     print(" N = " + N)
 			    
-    val gen = new SparseNoisyPeriodicSignal(N, T_0, theta_0, discretedist, noisedist)
+    val gen = new SparseNoisyPeriodicSignal(N,T_0,theta_0,new DifferencesIID(N,discretedist),noisedist)
     val est = estf(N)
 
     print(" ... Warming up ... ")
     var numiters = 0
     val warmupstarttime = System.nanoTime
     while(System.nanoTime - warmupstarttime < MIN_BENCH_DURATION){
-      gen.generateSparseSignal
-      est.estimate(gen.generateReceivedSignal)
+      est.estimate(gen.generate)
       numiters = numiters+1
     }
     
    print("Benchmarking ... ")
    val benchstarttime = System.nanoTime
    for( i <- 1 to numiters) {
-      gen.generateSparseSignal
-      est.estimate(gen.generateReceivedSignal)
+      est.estimate(gen.generate)
    }
    val tNano = (System.nanoTime - benchstarttime +(numiters)/2) / numiters //copied from Alan Eliasen java BigInteger benchmarks
    val tMilli = tNano/1000000.0 //time in milliseconds per iteration

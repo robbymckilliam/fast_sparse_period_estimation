@@ -280,7 +280,7 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
      \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
      \node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=30$};
      \node[rotate=17,font=\footnotesize] at (axis cs:7e-4,1.5e-12) {$N=1200$}; 
-   \end{axis} 
+   \end{axis}  
  \begin{axis}[name=plot2,at={(11,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom10}; 
       \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom10};
