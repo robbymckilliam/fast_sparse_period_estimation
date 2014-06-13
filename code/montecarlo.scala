@@ -1,12 +1,12 @@
 /**
  * Run simulations of various sparse noise period estimators.
  */
-import snpe.generators.DifferencesIID
 import pubsim.distributions.discrete.DiscreteRandomVariable
-import pubsim.distributions.discrete.GeometricRandomVariable
-import pubsim.distributions.GaussianNoise
+import pubsim.distributions.discrete.Geometric
+import pubsim.distributions.Gaussian
 import pubsim.distributions.RealRandomVariable
 import snpe.generators.SparseNoisyPeriodicSignal
+import snpe.generators.DifferencesIID
 import snpe.PRIEstimator
 import snpe.YeSampling
 import snpe.PeriodogramEstimator
@@ -14,8 +14,8 @@ import snpe.NormalisedSamplingLLS
 import snpe.QuantisedPeriodogramFFT
 import snpe.SLS2novlp
 import snpe.SLS2new
-import snpe.bounds.PeriodogramCLT
-import snpe.bounds.NormalisedLLSCLT
+import snpe.theory.PeriodogramCLT
+import snpe.theory.NormalisedLLSCLT
 
 val iters = 100
 val T_0 = scala.math.Pi/3 //true period
@@ -24,14 +24,14 @@ val T_max = 1.5 //maximum period
 val f_min = 1.0/T_max //minimum frequency
 val f_max = 1.0/T_min //maximum frequency
 val theta_0 = 0.2 //true phase
-def noisedist(v : Double) = new GaussianNoise(0,v) //the noise distribution we use with variance v
+def noisedist(v : Double) = new Gaussian(0,v) //the noise distribution we use with variance v
 
 val starttime = (new java.util.Date).getTime
 
 for( N <- List(30,1200) ) {  
   //for discrete distributions with mean 1 and 10
   for( m <- List( 1, 10 ) ) {
-    def discretedist() =  new GeometricRandomVariable.StartingAtZero(1.0/(m+1.0))
+    def discretedist() =  new Geometric.StartingAtZero(1.0/(m+1.0))
     def sparsenoisygenerator(v : Double) = new SparseNoisyPeriodicSignal(N,T_0,theta_0,new DifferencesIID(N,discretedist),noisedist(v))
     val varbs = -38.0 to -5.0 by 1.5 //variances we use in dB
     runsim(varbs, sparsenoisygenerator, () => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "PeriodogramN" + N + "geom" + m)
@@ -97,7 +97,7 @@ def runMonteCarlo(est : PRIEstimator, gen : SparseNoisyPeriodicSignal, iteration
 
 
 /** Compute CLT and write to file */
-def runCLT(N : Int, varbs : Seq[Double], discretedist : () => DiscreteRandomVariable, cltf : (Double, Double) => snpe.bounds.CLT, name : String) {
+def runCLT(N : Int, varbs : Seq[Double], discretedist : () => DiscreteRandomVariable, cltf : (Double, Double) => snpe.theory.CLT, name : String) {
 
   print("Computed " + name + " ")
   val eststarttime = (new java.util.Date).getTime

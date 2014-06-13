@@ -46,7 +46,7 @@
  
 \item\textbf{Comment:}
 This paper proposes a new fast method for estimating the period of sparse and noisy
-observations of a point process. The new idea is to used the periodogram of quantized
+observations of a point process. The new idea is to use the periodogram of quantized
 observations that can be computed faster than the standard periodogram by using
 a chirp z-transform or a fast Fourier transform. The reviewer is not convinced that
 there is enough material deserving publication in the IEEE signal processing letters.
@@ -54,12 +54,12 @@ Moreover, there are several important comments that should be addressed before a
 possible publication of this letter.
 \\
 \textbf{Response:}
-We agree with the reviewer that the results in this paper are simple.  We do not believe this to be a weakness. Despite being simple, the results are novel and useful.  The quantisated periodogram estimator described in this paper is as accurate as the most accurate estimators in the literature (the least squares and periodogram estimator),  but, for moderate and large data sets our estimator is substantially more computationally simple.  For these reasons, we firmly believe this will become the estimator of choice for periodic point processes.  It enables period estimation for extremely large data sets in reasonable time. This is not possible with previous estimators that require a number of operations growing quadratically with data size. We have provided all the simulation code as supplementary material.  This will enable simple implementation for future research.
+We agree with the reviewer that the results in this paper are simple.  We do not believe this to be a weakness. Despite being simple, the results are novel and useful.  The quantisated periodogram estimator described in this paper is as accurate as the most accurate estimators in the literature (the least squares and periodogram estimator).  At the same time our estimator is substantially faster to compute.  For these reasons, we firmly believe this will become the estimator of choice for periodic point processes.  For the first time, it enables highly accurate period estimation for extremely large data sets in reasonable time. This was not possible with previous estimators that require a number of operations growing quadratically with data size. %We have provided all the simulation code as supplementary material.  This will enable simple implementation for future research.
 
 \item\textbf{Comment:}
 The main reviewer concern is about the choice of the quantization parameter
-$q$ that should be explained more carefully. It is not suﬃcient to display two sets
-of curves obtained for two diﬀerent values of $q$ and to choose the best one without
+$q$ that should be explained more carefully. It is not sufficient to display two sets
+of curves obtained for two different values of $q$ and to choose the best one without
 explanations. For instance, it is not clear whether the value of $q$ chosen in this paper
 will be appropriate for other noise distributions or for other ways of generating the
 integers $s_n$. This point should be addressed carefully before a possible resubmission
@@ -68,82 +68,78 @@ of the paper. The other reviewer comments are summarized below.
 \textbf{Response:}
 We anticipate that developing a rigorous theoretical method for choosing $q$ will be extremely complicated.  The properties of many optimisation proceedures, such as the Newton-Raphson method, and Brent's method~\cite[Ch.~5]{Brent_opt_no_derivs_1973} are reasonably well understood for the purpose of maximising fixed known functions. However, very few theorectical statistical analyses for these proceedures exist when the functions to be maximised are themselves random variables, i.e., when noise is involved.  Add to this the existence of quantisation (itself typically very tricky to analyse) and it appears that a theorectical analysis of this estimator will be extremely difficult.
 
-These theoretical difficulties do not negate the immediate practical applicability of our estimator.  We believe it would be unwise to halt dissemination of these useful and practical results simply because a difficult theoretical problem has not yet been solved.  We agree with the reviewer that the simulations presented are limited. This is entirely due to the 4 page limit required IEEE Signal Processing Letters.  In the paper we use our simulations to motivate the choice $q = 5 f_{\text{max}}$ for the quantisation parameter.  It is natural to wonder whether this choice also works in other scenarios, for example (as the reviewer suggests), for different methods of generating the integers $s_1,\dots,s_N$.  We have conducted such simulations and found the choice $q=5 f_{\text{max}}$ appears to be a good choice in all of these settings.  Figures~\ref{plot:poisson} to~\ref{?} in this document display simulation results for the following methods of generating the integers $s_1,\dots,s_N$:
-
+These theoretical difficulties do not negate the immediate practical applicability of our estimator.  We believe it would be unwise to halt dissemination of these practical results simply because a difficult theoretical problem has not yet been solved.  We agree with the reviewer that the simulations presented are limited. This is entirely due to the 4 page limit required IEEE Signal Processing Letters.  In the paper we use our simulations to motivate the choice $q = 5 f_{\text{max}}$ for the quantisation parameter.  It is natural to question whether this choice also works in other scenarios, for example (as the reviewer suggests), for different noise distributions, and different methods of generating the integers $s_1,\dots,s_N$.  The results of such simulations are displayed in Figures~\ref{plot:poisson} and~\ref{plot:geomuniform} in this document. The simulations are setup as in the paper, but with the following modifications:
 
 \begin{enumerate}
-\item In Figure~\ref{plot:poisson} the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. 
-\item 
+\item In Figure~\ref{plot:poisson} the noise is Gaussian distributed, $N=200$, and the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. 
+\item In Figure~\ref{plot:geomuniform} the noise if uniformly distributed, $N=200$, and the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. 
 \end{enumerate}
 
+Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ is a good one. With this choice the accuracy of the quantised periodogram estimator is similar to the original periodgram estimator (computed without quantisation and FFT).  %That the choice $q=5 f_{\text{max}}$ works in a wide range of scenarios should not come as a  
 
-\begin{figure*}[t] 
+
+\begin{figure*}[tp] 
   \centering 
   \begin{tikzpicture} 
     \selectcolormodel{gray} 
     \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=7, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
-      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30poisson1}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30poisson1};
-            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5poisson1};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q5.0poisson1};
-      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN30poisson1};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN30poisson1}; 
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30poisson1};
-      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN30poisson1};
-%      \addplot[mark=none,dashed,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q2};
- %     \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200};
- %     \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200}; 
- %     \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/PeriodogramN200};
- %     \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q3};
- %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
-%      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200};
-      \addplot[color=gray,mark=none,color=black] table {code/data/PeriodogramCLTN500poisson1};
-      \addplot[color=gray,mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN500poisson1};
-       \addplot[color=gray,mark=o,mark options={color=black,solid,fill=black,scale=1}] table {code/data/PeriodogramN500poisson1};
-       \addplot[color=gray,mark=x,mark options={color=black,solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN500poisson1};
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN500poisson1};
-       \addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN500poisson1};
-       \addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN500q1.5poisson1};
-      %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN500q3};
-      \addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN500q5.0poisson1};
- %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
+      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200poisson1}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200poisson1};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5poisson1};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0poisson1};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN200poisson1};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200poisson1}; 
+ %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200poisson1};
+      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200poisson1};
      \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
-     \node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=30$};
-     \node[rotate=17,font=\footnotesize] at (axis cs:7e-4,1.5e-12) {$N=500$}; 
+     %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
    \end{axis} 
- \begin{axis}[name=plot2,at={(11,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
-      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30poisson10}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30poisson10};
-            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5poisson10};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q5.0poisson10};
-      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN30poisson10};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN30poisson10}; 
-  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30poisson10};
-       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN30poisson10};
-%      \addplot[mark=none,dashed,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q2};
- %     \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200};
- %     \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200}; 
- %     \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/PeriodogramN200};
- %     \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q3};
- %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
-%      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200}; 
-      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN500poisson10};
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN500poisson10};
-       \addplot[color=gray,mark=o,mark options={solid,color=black,fill=black,scale=1.1}] table {code/data/PeriodogramN500poisson10};
-       \addplot[color=gray,mark=x,mark options={solid,color=black,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN500poisson10};
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1100poisson10};
-       \addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN500poisson10};
-       \addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN500q1.5poisson10};
-      %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1100q3};
-      \addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN500q5.0poisson10};
- %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
-     %\legend{Periodogram theory, $q=\tfrac{3}{2}T_{\text{max}}$, $q=4T_{\text{max}}$, Periodogram, Least squares, SLS2-adj}
-     \node[rotate=16,font=\footnotesize] at (axis cs:6e-4,9e-10) {$N=30$};
-     \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=500$}; 
-   \end{axis}
+ \begin{axis}[name=plot2,at={(10.5,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200poisson10}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200poisson10};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5poisson10};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0poisson10};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN200poisson10};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN200poisson10}; 
+  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200poisson10};
+       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200poisson10};
+     %\node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=200$}; 
+   \end{axis} 
   \end{tikzpicture}  
-  \caption{Mean square period error versus noise variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. Data points for $N=500$ are connected by gray lines.}\label{plot:poisson}
+  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussain noise and $N=200$ observations.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.}\label{plot:poisson}
 \end{figure*} 
+
+
+\begin{figure*}[tp]  
+  \centering
+  \begin{tikzpicture}  
+    \selectcolormodel{gray} 
+    \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=7, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200uniformgeom1}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200uniformgeom1};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5uniformgeom1};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0uniformgeom1};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN200uniformgeom1};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200uniformgeom1}; 
+ %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200uniformgeom1};
+      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200uniformgeom1};
+     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
+   \end{axis}   \begin{axis}[name=plot2,at={(4.7,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200uniformgeom10}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200uniformgeom10};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5uniformgeom10};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0uniformgeom10};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN200uniformgeom10};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN200uniformgeom10}; 
+  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200uniformgeom10};
+       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200uniformgeom10};
+     %\node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=200$}; 
+   \end{axis} 
+  \end{tikzpicture}  
+  \caption{Mean square period error versus noise variance $\sigma^2$ with uniform noise and $N=200$ observations.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.  The least squares estimator is the most accurate in this simulation. The is predicted by the asymptotic theory~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.}\label{plot:geomuniform}
+\end{figure*} 
+
 
 \item\textbf{Comment:}
 p. 3, the authors mention “Sadler and Casey [24] \dots However, their estimator
@@ -151,18 +147,54 @@ requires far larger transforms and produces less accurate results than the estim
 described here (see Section VI)". Unfortunately, there is nothing in
 Section VI (which is the conclusion) supporting this claim. The authors should
 compare their results in term of accuracy and of computational complexity to
-the results of [24]. Including the Cramér-Rao bounds for the estimation of T0
+the results of [24]. Including the Cramer-Rao bounds for the estimation of T0
 (as in [24]) would also be appreciated.
 \\
 \textbf{Response:}
-Section VI in the paper~\cite{726812} entitled ``On periodic pulse interval analysis with outliers and missing observations'' is not the conclusion.  It is the section entitled ``Numerical Results''.  From Figure 1 to 4 in~\cite{726812} the periogram estimator implemented by Casey and Sadler is seen to be inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure.  We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} in the new manuscript as dicussed in our response to comment~\ref{com:rev1:nr} below.  Casey and Sadler arrive at the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
+Section VI in the paper~\cite{726812} entitled ``On periodic pulse interval analysis with outliers and missing observations'' is not the conclusion.  It is the section entitled ``Numerical Results''.  In Figures 1 to 4 in~\cite{726812} the periogram estimator implemented by Casey and Sadler is seen to be inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure.  We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} in the new manuscript as dicussed in our response to comment~\ref{com:rev1:nr} below.  Casey and Sadler arrive at the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
 
 ``Comparisons with the periodogram show the limitations of periodogram performance.''
 
-Our paper clearly shows that such limitation do not exist.  The periodgram estimator, computed by quanitisation and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  Our paper shows that (for moderately large $N$) this is the most computationally efficient proceedure currently available for this problem.  Simultaneously, it is as accurate at the most accuraate estimators available, namely the least squares estimator, and the periodgram estimator computed directly without FFT.
+Our paper clearly shows that such limitation do not exist.  The periodgram estimator, computed by quanitisation and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  For moderately large $N$ this is the most computationally efficient proceedure currently available for this problem.  Simultaneously, it is as accurate at the most accurate estimators available, namely the least squares estimator, and the periodgram estimator computed directly without FFT.
 
-In the simulations we regenerate the integers $s_1,\dots,s_N$ on each Monte-Carlo trial. To the authors knowledge, a Cramer-Rao bound is not known in this case. The \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also in \cite{726812,Clarkson2007}) supposes a single fixed realisation for $s_1,\dots,s_N$.  This bound is not valid for our simulations.  However, the curves derived from the asymptotic theory for the least squares and periodogram estimators~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est} are valid in this case.  The least squares estimator is the maximum likelihood estimator, and so, the dashed curve serves a similar type of purpose as the CRB often does in these types of simulations.  Namely, to indicate whether an estimator is performing similarly to what might be considered `optimal', i.e. close the what might theoretically be expected from the maximum likelihood estimator.
+In the simulations we regenerate the integers $s_1,\dots,s_N$ on each Monte-Carlo trial. To the authors knowledge, a Cramer-Rao bound is not known in this case.   The \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also in \cite{726812,Clarkson2007}) supposes a single fixed realisation for $s_1,\dots,s_N$.  This bound is therefore not valid for the simulations we present in Figure~\ref{plot:multipleN} in Section~\ref{sec:simulations} of the paper.  
 
+In Figure~\ref{plot:crb} in this document we perform a simulation with integers $s_1,\dots,s_N$. The integers are generated once such $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed.  This single fixed sequence is used for all of the $1000$ Monte-Carlo trials.  Observe that for small noise variance the \emph{clairvoyant} Cramer-Rao bound is similar to the asymptotic variance of the least square and periodogram estimator predicted in~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.  As the noise variance increases the \emph{clairvoyant} Cramer-Rao bound and the asymptotic variances diverge.  As expected, the behaviour of the estimators themselves follows the asymptotic theory, rather than the \emph{clairvoyant} Cramer-Rao bound.
+
+%We prefer to show to plot the MSE of the estimatorsThe least squares estimator is the maximum likelihood estimator, and so, the dashed curve serves a similar type of purpose as the CRB often does in these types of simulations.  Namely, to indicate whether an estimator is performing similarly to what might be considered `optimal', i.e. close the what might theoretically be expected from the maximum likelihood estimator.
+
+
+\begin{figure*}[tp]  
+  \centering
+  \begin{tikzpicture}  
+    \selectcolormodel{gray} 
+    \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=7, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200fixed1}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200fixed1};
+      \addplot[mark=none,color=black,dotted] table {code/data/CRBN200fixed1};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5fixed1};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0fixed1};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN200fixed1};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200fixed1}; 
+ %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200fixed1};
+      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200fixed1};
+     \legend{Periodogram theory, Least squares theory, CRB, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
+   \end{axis}   \begin{axis}[name=plot2,at={(4.7,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200fixed10}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200fixed10};
+      \addplot[mark=none,color=black,dotted] table {code/data/CRBN200fixed10};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5fixed10};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0fixed10};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN200fixed10};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN200fixed10}; 
+  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200fixed10};
+       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200fixed10};
+     %\node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=200$}; 
+   \end{axis} 
+  \end{tikzpicture}   
+  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussian noise and $N=200$ observations.  A singled fixed set of integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.  This single fixed sequence is used for all of the $1000$ Monte-Carlo trials.  In this case the  \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also in \cite{726812,Clarkson2007}) exists and is displayed by the dotted line.  In this simulation the \emph{clairvoyant} Cramer-Rao bound is equal to the variance of the maximum likelihood (i.e. least squares) estimator in the case that the integers $s_1,\dots,s_N$ are known.}\label{plot:crb}
+\end{figure*} 
 
 \item\textbf{Comment:}\label{com:rev1:nr}
 p. 7, the authors indicate that they have used the Newton-Raphson (NR)
