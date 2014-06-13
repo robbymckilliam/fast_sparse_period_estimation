@@ -32,7 +32,7 @@ val theta_0 = 0.2 //true phase
 val starttime = (new java.util.Date).getTime
 
 /////// Simulations with Poisson discrete random variables and Gaussian noise
-/*{
+{
  val N = 200
   //for discrete distributions with mean 1 and 10
   for( m <- List( 1, 10 ) ) {
@@ -52,10 +52,10 @@ val starttime = (new java.util.Date).getTime
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new PeriodogramCLT(noisedist(v/T_0/T_0), dm, T_0), "PeriodogramCLTN" + N + "poisson" + m)
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new NormalisedLLSCLT(noisedist(v/T_0/T_0), dm, T_0), "NormalisedLLSCLTN" + N + "poisson" + m)
   }
-}*/
+}
 
 /////// Simulations with Geometric discrete random variables and uniform noise
-/*{
+{
 val N = 200
   //for discrete distributions with mean 1 and 10
   for( m <- List( 1, 10 ) ) {
@@ -76,11 +76,11 @@ val N = 200
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new PeriodogramCLT(noisedist(v/T_0/T_0), dm, T_0), "PeriodogramCLTN" + N + "uniformgeom" + m)
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new NormalisedLLSCLT(noisedist(v/T_0/T_0), dm, T_0), "NormalisedLLSCLTN" + N + "uniformgeom" + m)
   }
-}*/
+}
 
 /////// Simulations with fixed Geometric discrete random variables and Gaussian noise
 {
-val N = 500
+  val N = 500
   //for discrete distributions with mean 1 and 10
   for( m <- List( 1, 10 ) ) {
     val discretedist = new Geometric.StartingAtZero(1.0/(m+1.0))
@@ -88,7 +88,7 @@ val N = 500
     def noisedist(v : Double) = new Gaussian(0,v) //the noise distribution we use with variance v
     def sparsenoisygenerator(v : Double) = new SparseNoisyPeriodicSignal(N,T_0,theta_0,fixedseq,noisedist(v))
     val twelthdB = scala.math.log10(1.0/12)*10
-    val varbs = -38.0 to -5.0 by 1.5 //variances we use in dB
+    val varbs = -34.0 to -5.0 by 1.5 //variances we use in dB
 
     runsim(varbs, sparsenoisygenerator, () => new YeSampling(new PeriodogramEstimator(N,T_min,T_max)), "PeriodogramN" + N + "fixed" + m)
     runsim(varbs, sparsenoisygenerator, () => new YeSampling(new NormalisedSamplingLLS(N,T_min,T_max),6.0), "NormalisedSamplingLLSN" + N + "fixed" + m)
@@ -97,7 +97,7 @@ val N = 500
     for( q <- List(1.5,5.0) ) runsim(varbs, sparsenoisygenerator, () => new QuantisedPeriodogramFFT(N,T_min,T_max,q*f_max), "QuantisedPeriodogramFFTN" + N + "q" + q + "fixed" + m)
 
     //now compute CLTs
-    val varbs = -38.0 to -5.0 by 0.2 //variances we use in dB
+    val vardbsfiner = -34.0 to -5.0 by 0.2 //variances we use in dB
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new PeriodogramCLT(noisedist(v/T_0/T_0), dm, T_0), "PeriodogramCLTN" + N + "fixed" + m)
     runCLT(N, vardbsfiner, () => discretedist, (v : Double, dm : Double) => new NormalisedLLSCLT(noisedist(v/T_0/T_0), dm, T_0), "NormalisedLLSCLTN" + N + "fixed" + m)
 
@@ -105,7 +105,7 @@ val N = 500
     val name = "CRBN" + N + "fixed" + m
     print("Computed " + name + " ")
     val eststarttime = (new java.util.Date).getTime
-    val vars = varbs.map(db => scala.math.pow(10.0, db/10.0)) //list of variances
+    val vars = vardbsfiner.map(db => scala.math.pow(10.0, db/10.0)) //list of variances
     //now write all the data to a file
     val file = new java.io.FileWriter("data/" + name) //list of files to write to
     vars.foreach{ v =>

@@ -91,7 +91,7 @@ Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ is a good one
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200poisson1}; 
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200poisson1};
       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200poisson1};
-     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     \legend{Periodogram theory, LS theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, LS, SLS2-new}
      %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
    \end{axis} 
  \begin{axis}[name=plot2,at={(10.5,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
@@ -123,7 +123,7 @@ Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ is a good one
        \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200uniformgeom1}; 
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200uniformgeom1};
       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200uniformgeom1};
-     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+     \legend{Periodogram theory, LS theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, LS, SLS2-new}
      %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
    \end{axis}   \begin{axis}[name=plot2,at={(4.7,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
 \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200uniformgeom10}; 
@@ -138,7 +138,7 @@ Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ is a good one
    \end{axis} 
   \end{tikzpicture}  
   \caption{Mean square period error versus noise variance $\sigma^2$ with uniform noise and $N=200$ observations.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.  The least squares estimator is the most accurate in this simulation. The is predicted by the asymptotic theory~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.}\label{plot:geomuniform}
-\end{figure*} 
+\end{figure*}
 
 
 \item\textbf{Comment:}
@@ -161,39 +161,44 @@ In the simulations we regenerate the integers $s_1,\dots,s_N$ on each Monte-Carl
 
 In Figure~\ref{plot:crb} in this document we perform a simulation with integers $s_1,\dots,s_N$. The integers are generated once such $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed.  This single fixed sequence is used for all of the $1000$ Monte-Carlo trials.  Observe that for small noise variance the \emph{clairvoyant} Cramer-Rao bound is similar to the asymptotic variance of the least square and periodogram estimator predicted in~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.  As the noise variance increases the \emph{clairvoyant} Cramer-Rao bound and the asymptotic variances diverge.  As expected, the behaviour of the estimators themselves follows the asymptotic theory, rather than the \emph{clairvoyant} Cramer-Rao bound.
 
+Observe that in the right hand plot the quantised periodogram estimator with coarse quantisation $q = 1.5 f_{\text{max}}$ actually perform well for sufficently small noise variance.  It appears that the fixed integers $s_1,\dots,s_N$ generated in this simulation favour the quantised periodogram estimator.  This is one motivation for performing our simulations with integer $s_1,\dots,s_N$ generated randomly for each Monte-Carlo trial, rather than choosing a single fixed set of integers $s_1,\dots,s_N$.  It avoid the scenario where a particular favourable (or unfavourable) set $s_1,\dots,s_N$ is chosen by chance.
+
+We have not implemented and do not present simulations results with any of the MEA estimators from the papers by Casey and Sadler~\cite{536682,726812}.  The MEA estimators were supersceeded by the Separable Line Search (SLS) estimators of Sidiropoulos, Swami and Sadler~\cite{Sidiropoulos2005} in 2005.  Comparison between the MEA estimator and the SLS are presented in~\cite{Sidiropoulos2005} where the superiority of the SLS estimators is shown.  An enhanced SLS estimator was developed in~\cite{Clarkson2007} and this is the estimator we show simulation results for in our paper and this document.  Even this enhanced SLS estimator performs poorly compared to the least squares and periodogram estimators.  The MEA estimators are no longer state-of-the-art for this problem.
+
+
 %We prefer to show to plot the MSE of the estimatorsThe least squares estimator is the maximum likelihood estimator, and so, the dashed curve serves a similar type of purpose as the CRB often does in these types of simulations.  Namely, to indicate whether an estimator is performing similarly to what might be considered `optimal', i.e. close the what might theoretically be expected from the maximum likelihood estimator.
 
 
 \begin{figure*}[tp]  
   \centering
   \begin{tikzpicture}  
-    \selectcolormodel{gray} 
-    \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=7, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
-\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200fixed1}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200fixed1};
-      \addplot[mark=none,color=black,dotted] table {code/data/CRBN200fixed1};
-            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5fixed1};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0fixed1};
-      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN200fixed1};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN200fixed1}; 
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200fixed1};
-      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200fixed1};
-     \legend{Periodogram theory, Least squares theory, CRB, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+    \selectcolormodel{gray}
+    \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=8, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN500fixed1}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN500fixed1};
+      \addplot[mark=none,color=black,dotted] table {code/data/CRBN500fixed1};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN500q1.5fixed1};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN500q5.0fixed1};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN500fixed1};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN500fixed1}; 
+ %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN500fixed1};
+      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN500fixed1};
+     \legend{Periodogram theory, LS theory, CRB, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, LS, SLS2-new}
      %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
-   \end{axis}   \begin{axis}[name=plot2,at={(4.7,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
-\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200fixed10}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200fixed10};
-      \addplot[mark=none,color=black,dotted] table {code/data/CRBN200fixed10};
-            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q1.5fixed10};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN200q5.0fixed10};
-      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN200fixed10};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN200fixed10}; 
-  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN200fixed10};
-       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN200fixed10};
+   \end{axis}   \begin{axis}[name=plot2,at={(9.5,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN500fixed10}; 
+      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN500fixed10};
+      \addplot[mark=none,color=black,dotted] table {code/data/CRBN500fixed10};
+            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN500q1.5fixed10};
+      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN500q5.0fixed10};
+      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1.1}] table {code/data/PeriodogramN500fixed10};
+       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {code/data/NormalisedSamplingLLSN500fixed10}; 
+  %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN500fixed10};
+       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN500fixed10};
      %\node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=200$}; 
    \end{axis} 
-  \end{tikzpicture}   
-  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussian noise and $N=200$ observations.  A singled fixed set of integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.  This single fixed sequence is used for all of the $1000$ Monte-Carlo trials.  In this case the  \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also in \cite{726812,Clarkson2007}) exists and is displayed by the dotted line.  In this simulation the \emph{clairvoyant} Cramer-Rao bound is equal to the variance of the maximum likelihood (i.e. least squares) estimator in the case that the integers $s_1,\dots,s_N$ are known.}\label{plot:crb}
+  \end{tikzpicture}
+  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussian noise and $N=500$ observations.  A singled fixed set of integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.  This single fixed sequence is used for all of the $500$ Monte-Carlo trials.  In this case the \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also in \cite{726812,Clarkson2007}) exists and is displayed by the dotted line.  In this simulation the \emph{clairvoyant} Cramer-Rao bound is equal to the variance of the maximum likelihood (i.e. least squares) estimator in the case that the integers $s_1,\dots,s_N$ are known.}\label{plot:crb}
 \end{figure*} 
 
 \item\textbf{Comment:}\label{com:rev1:nr}
