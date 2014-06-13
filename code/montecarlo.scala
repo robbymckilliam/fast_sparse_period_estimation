@@ -107,7 +107,7 @@ def runCLT(N : Int, varbs : Seq[Double], discretedist : () => DiscreteRandomVari
   //now write all the data to a file
   val file = new java.io.FileWriter("data/" + name) //list of files to write to
   vars.foreach{ v =>
-    val mse = cltf(v, discretedist().getMean).periodVar(N)
+    val mse = cltf(v, discretedist().mean).periodVar(N)
     file.write(v.toString.replace('E', 'e') + "\t" + mse.toString.replace('E', 'e')  + "\n")
   }
   file.close //close all the files we wrote to 
