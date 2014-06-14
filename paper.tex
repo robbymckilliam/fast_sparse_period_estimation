@@ -10,6 +10,7 @@
 \usetikzlibrary{calc}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.8}
+\usetikzlibrary{pgfplots.groupplots}
 
 %\usepackage{xr}
 %\externaldocument{paper2}
@@ -149,7 +150,7 @@ Q(x) = \round{qx}/q
 that rounds its argument to a nearest multiple of $1/q$.  Large $q$ corresponds with fine quantization and small $q$ corresponds with coarse quantization.  Compute quantized observations
 \[
 z_n = Q(y_n) =  \ell_n/q, \qquad n = 1,\dots,N
-\]
+\] 
 where $\ell_n = \round{qy_n} \in \ints$.  The periodogram of the quantized observations $z_1,\dots,z_N$ is
 \begin{align*}
 I_z(f) = \babs{ \sum_{n=1}^N e^{ -2\pi j f z_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\pi j f \ell_n/q} }^2.
@@ -251,38 +252,68 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
 \begin{figure*}[t] 
   \centering 
   \begin{tikzpicture} 
-    \selectcolormodel{gray} 
-    \begin{axis}[name=plot1,font=\footnotesize,xmode=log,ymax=4e-1,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.24)}},xlabel style={at={(0.5,0.07)}}, legend style={at={(1.1,1.02)}, anchor=south,legend columns=7, cells={anchor=west,/tikz/every even column/.append style={column sep=0.2cm}}}]
-      \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom1}; 
-      \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom1};
-            \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom1};
-      \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q5.0geom1};
-      \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN30geom1};
-       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN30geom1}; 
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30geom1};
-      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN30geom1};
-%      \addplot[mark=none,dashed,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q2};
- %     \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200};
- %     \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200}; 
- %     \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/PeriodogramN200};
- %     \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q3};
- %     \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
-%      \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200};
-      \addplot[color=gray,mark=none,color=black] table {code/data/PeriodogramCLTN1200geom1}; 
-      \addplot[color=gray,mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom1};
-       \addplot[color=gray,mark=o,mark options={color=black,solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom1};
-       \addplot[color=gray,mark=x,mark options={color=black,solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN1200geom1};
- %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1200geom1};
-       \addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN1200geom1};
-       \addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom1};
-      %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q3};
-      \addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom1};
- %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
-     \legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
-     \node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=30$};
-     \node[rotate=17,font=\footnotesize] at (axis cs:7e-4,1.5e-12) {$N=1200$}; 
-   \end{axis}  
- \begin{axis}[name=plot2,at={(11,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+    \selectcolormodel{gray}
+\begin{groupplot}[
+    group style={
+        group name=my plots,
+        group size=3 by 3,
+        ylabels at=edge left
+    },
+    legend style={
+      draw=none,
+      fill=none,
+      % legend pos=north west,
+      % cells={anchor=west},
+      % font=\footnotesize
+    },
+    footnotesize,
+    width=9cm,
+    height=11cm,
+    tickpos=left,
+    ytick align=outside,
+    xtick align=outside,
+    xmode=log,
+    ymode=log,
+    enlarge x limits=false 
+]
+
+\nextgroupplot[
+xlabel={$\sigma^2$},
+ylabel={MSE},
+]
+ 
+\addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom1}; 
+\addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom1};
+\addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom1};
+\addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN30q5.0geom1};
+\addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/PeriodogramN30geom1};
+\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN30geom1}; 
+% \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30geom1};
+\addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN30geom1};
+% \addplot[mark=none,dashed,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q2};
+% \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN200};
+% \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN200}; 
+% \addplot[mark=*,only marks,color=black,mark options={solid,fill=black,scale=0.5}] table {code/data/PeriodogramN200};
+% \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q3};
+% \addplot[mark=o,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN200q10};
+% \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/NormalisedSamplingLLSN200};
+\addplot[color=gray,mark=none,color=black] table {code/data/PeriodogramCLTN1200geom1}; 
+\addplot[color=gray,mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN1200geom1};
+\addplot[color=gray,mark=o,mark options={color=black,solid,fill=black,scale=1}] table {code/data/PeriodogramN1200geom1};
+\addplot[color=gray,mark=x,mark options={color=black,solid,fill=black,scale=1.2}] table {code/data/NormalisedSamplingLLSN1200geom1};
+% \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1200geom1};
+\addplot[color=gray,mark=square,mark options={solid,color=black,fill=black,scale=1}] table {code/data/SLS2newN1200geom1};
+\addplot[color=gray,mark=triangle,mark options={solid,color=black,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q1.5geom1};
+% \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1200q3};
+\addplot[color=gray,mark=*,mark options={solid,color=black,fill=black,scale=0.5}] table {code/data/QuantisedPeriodogramFFTN1200q5.0geom1};
+% \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
+\legend{Periodogram theory, Least squares theory, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, Least squares, SLS2-new}
+\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=30$};
+\node[rotate=17,font=\footnotesize] at (axis cs:7e-4,1.5e-12) {$N=1200$}; 
+
+\nextgroupplot[
+xlabel={$\sigma^2$}
+]
       \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN30geom10}; 
       \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN30geom10}; 
             \addplot[mark=triangle,only marks,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q1.5geom10};
@@ -311,7 +342,9 @@ Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reason
      %\legend{Periodogram theory, $q=\tfrac{3}{2}T_{\text{max}}$, $q=4T_{\text{max}}$, Periodogram, Least squares, SLS2-adj}
      \node[rotate=16,font=\footnotesize] at (axis cs:6e-4,9e-10) {$N=30$};
      \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=1200$}; 
-   \end{axis}
+
+\end{groupplot}
+
   \end{tikzpicture}  
   \caption{Mean square period error versus noise variance $\sigma^2$.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right. Data points for $N=1200$ are connected by gray lines.}\label{plot:multipleN}
 \end{figure*} 
