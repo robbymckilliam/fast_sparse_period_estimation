@@ -213,10 +213,10 @@ required to compute the estimator (including the NR procedure) or just to the
 initialization of the NR procedure?
 \\
 \textbf{Response:}
-We reponse to each of the questions of the reviewer in turn:
+We repond to each of the questions of the reviewer in turn:
 
 \begin{enumerate}
-\item \textbf{For instance, what is the exact NR scheme used in this paper (there are several options)?}  The Netwon-Raphson method used proceeds by the iteration
+\item \textbf{For instance, what is the exact NR scheme used in this paper (there are several options)?}  The Netwon-Raphson method that was used proceeds by the iteration
 \[
 x_{n+1} = x_n - \frac{f^\prime(x_{n})}{f^{\prime\prime}(x_n)}
 \]
@@ -224,11 +224,19 @@ to find a stationary point of the function $f$ where $f^\prime$ and $f^{\prime\p
 
 BLERG add some text to the paper.
 
-\item \text{How have the authors selected the total number of iterations?} In our implementation iterations are performed until the absolute difference between consequentive iterations is less than $10^{-7}$.
+\item \textbf{How have the authors selected the total number of iterations?} In our implementation iterations are performed until the absolute difference between consequentive iterations is less than $10^{-7}$.
 
 BLERG: Something like the following should be added:
 
 ``Brent's method is iterative.  During the method a number of evaluations of the periodogram $I_y$ are made.  The number of calls depends on the grid width $D$, but not on $N$.  Each call requires $O(N)$ operations, and so, the total number of operations required by Brent's method is $O(N)$. In practice we find that that computational cost of Brent's method is far smaller than the cost of either that FFT or chirp-z transform.''
+
+\item \textbf{Is the quantized periodogram
+just used to initialize a Newton-Raphson procedure? Do the MSEs displayed
+in Fig. 3 correspond to the estimator obtained after applying the NR algorithm?}
+
+\item \textbf{Also, do the results displayed in Fig. 2 correspond to the total time
+required to compute the estimator (including the NR procedure) or just to the
+initialization of the NR procedure?}
 
 \end{enumerate}
 
@@ -283,7 +291,7 @@ these references would allow to save some space, which could be used to better
 explain some points mentioned above.
 \\
 \textbf{Response:}
-IEEE Signal Processing Letters allows a 5th page that can contain only references.  Therefore, we cannot save space by removing references.   We have removed reference [29] from the original manuscript because the material in that paper is also covered in [27].  We feel that the all 37 references in the new version of the paper are highly relevant.  The paper would be weakened without them.
+IEEE Signal Processing Letters allows a 5th page that can contain only references.  Therefore, we cannot save space by removing references.   We have removed reference [29] from the original manuscript because the material in that paper is also covered in [27].  We have also removed references [33] and [34] from the original manuscript. We feel that the all 35 references in the new version of the paper are highly relevant. The paper would be weakened without them.
 
 \end{enumerate}
 
@@ -297,8 +305,27 @@ IEEE Signal Processing Letters allows a 5th page that can contain only reference
 \item\textbf{Comment:}
  The identifiability claim at the beginning of sec. II is not obvious and a reference is mandatory. Indeed, referring to eq. (2), let us assume that $s_n = 2 i_n$ where $i_n$ are all non-negative integer. In this case the point process is periodic with period $2 T_0$. This referee does not believe that maximizing the periodogram over $(f_{\text{min}},f_{\text{max}})$ will identify the true frequency (or period). LS methods might have the capabilities to identify the period, but, in any case the claim of idenitifiability needs to be further supported.
 \\
-\textbf{Response:}
+\textbf{Response:} The same identifiability requirements are commonly imposed in the literature, see for example, Sidiropoulos~\cite[eq. (2)]{Sidiropoulos2005}.  Suppose that $T_{\text{max}} \geq 2T_{\text{min}}$ and that the true period $T_0$ happened to be contained in the nonempty interval $(2T_{\text{min}}, T_0)$.  Put $T^\prime = T_0/2 \in (T_{\text{min}}, T_{\text{max}})$ and observe that
+\[
+y_n = T_0 s_n + \theta_0 + w_n = 2 T^\prime s_n + \theta_0 + w_n = T^\prime r_n + \theta_0 + w_n 
+\]
+where $r_n = 2 s_n \in \ints$.  Since the integers are not known both $T_0$ and $T^\prime$ would describe the observations equally well.  This problem is averted only if we suppose that $T_0 \in (T_{\text{min}}, T_{\text{max}})$ and that  $T_{\text{max}} < 2T_{\text{min}}$.
 
+%Perhaps it is possible to increase the range of identifiability if further assumptions are made regarding the integers $s_1,\dots,s_N$.  We don't consider such propsitions in this paper.
+
+% To see this another way, define least squares objective function $LS : \reals \times \reals \times \ints^N \mapsto \reals$ as
+% \[
+% LS(T, \theta, z_1,\dots,z_N) = \sum_{n=1}^N (y_n - T z_n - \theta)^2.
+% \]
+% In the case that the noise variables $w_1,\dots,w_n$ are i.i.d. and normally distributed the minimiser of this objective function with respect to $T$ is the maximum likelihood estimator.  That is,
+% \[
+% \hat{T} = \arg\min_{T \in (T_{\text{min}}, T_{\text{max}})} \min_{\theta \in \reals} \min_{z_1,\dots,z_N \in \ints} LS(T, \theta, z_1,\dots,z_N)
+% \]
+% is the maximum likelihood period estimator.
+
+We have included reference~\cite{Sidiropoulos2005} and simplified the text at the start of Section~\zref{sec:peri-estim} to read:
+
+``To ensure identifiability it is necessary to assume, as in~\cite{Sidiropoulos2005}, that $T_0$ lies in some interval $(T_{\text{min}}, T_{\text{max}})$ where $T_{\text{max}} < 2T_{\text{min}}$.''
 
 \item\textbf{Comment:}
 Is the equality in the second (un-numbered) equation of page 2 correct?
@@ -317,7 +344,7 @@ I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\
 Newton-Rapson iteration to further improve the frequency estimation is advocated in Sec. II. Can a reference supporting this statement be added?
 \\
 \textbf{Response:}
-BLERG
+Please see our response to comment~\ref{com:rev1:nr} of reviewer 1.
 
 \item\textbf{Comment:}
 Referring to Fig. 3, in case $N=30$, the novel method incurs in a significant loss of performance with respect to classical LS and periodogram for low-signal-to-noise ratios. In this scenario (low $N$ and low signal-to-noise-ration) relevant for real applications?
