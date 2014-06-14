@@ -154,17 +154,18 @@ where $\ell_n = \round{qy_n} \in \ints$.  The periodogram of the quantized obser
 \begin{align*}
 I_z(f) = \babs{ \sum_{n=1}^N e^{ -2\pi j f z_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\pi j f \ell_n/q} }^2.
 \end{align*}
-Let $\widetilde{f}^\prime$ be the maximiser of $I_z$ over the grid $G$, that is,
-\[
-\widetilde{f}^\prime = \arg\max_{f \in G} I_z(f).
-\]
-If the quantization parameter $q$ is sufficiently large we expect that $I_z$ is close to $I_y$ and so $\widetilde{f}^\prime$ will be close to $\widetilde{f}$.  Thus, if $q$ is sufficiently large and the distance $D$ is sufficiently small we expect $\widetilde{f}^\prime$ to be a good approximation to $\hat{f}$.  An iterative procedure %or Brent's method~\cite{Brent_opt_no_derivs_1973} 
-can then be used to compute $\hat{f}$ starting from $\widetilde{f}^\prime$.  
 Observe that $I_z$ is periodic with period $q$.  This indicates that quantization should be fine enough that 
 \begin{equation}\label{eq:boundaliasingP}
 q > f_{\text{max}} - f_{\text{min}}.
 \end{equation}
 Otherwise there would exist frequencies in the interval $(f_{\text{min}}, f_{\text{max}})$ that are aliases with respect to $I_z$.  %That is, there would exists two frequences $f_1,f_2 \in (f_{\text{min}}, f_{\text{max}})$ such that $f_1 = f_2 + 1/P$ and $I_z(f_1) = I_z(f_2)$.
+
+Let $\widetilde{f}^\prime$ be the maximiser of $I_z$ over the grid $G$, that is,
+\[
+\widetilde{f}^\prime = \arg\max_{f \in G} I_z(f).
+\]
+If the quantization parameter $q$ is sufficiently large we expect that $I_z$ is close to $I_y$ and so $\widetilde{f}^\prime$ will be close to $\widetilde{f}$.  Thus, if $q$ is sufficiently large and the distance $D$ is sufficiently small we expect $\widetilde{f}^\prime$ to be a good approximation to $\hat{f}$.  An iterative procedure %or Brent's method~\cite{Brent_opt_no_derivs_1973} 
+can then be used to compute $\hat{f}$ by maximising $I_y$ starting from $\widetilde{f}^\prime$.  
 
 \newcommand{\ellmin}{\ell_{\text{min}}}
 \newcommand{\ellmax}{\ell_{\text{max}}}
