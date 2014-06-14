@@ -85,7 +85,7 @@ where $w_1,\dots,w_N$ represent noise and $s_1,\dots,s_N$ are unknown integers r
 \end{figure}
 }
 
-The problem of estimating $T_0$ is called the \emph{sparse, noisy period estimation problem}~\cite{Clarkson2007,McKilliam2007}.  Solutions have applications to synchronisation for telecommunications devices~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}, estimation of the pulse repetition interval in electronic support~\cite{EltonGray_puilse_train_rader_1994,Gray_more_pri_1994,Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}, and beat and tempo estimation in music~\cite{dixon_beat_extraction_2001}.  The problem is closely related to spike interval estimation in neurology~\cite{Arnett_neuro_pri_1976,Brillinger_spike_trains_1988,Rossoni200630} and a similar model has been proposed for the detection of anomalies, such as denial-of-service attacks, in internet traffic~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.  The problem is also connected with classical problems in number theory such as Diophantine approximation, lattice reduction, and the study of prime numbers~\cite{Cassels_geom_numbers_1997,490557,Clarkson_thesis,Lenstra1982,Wubben_2011,536682,726812,CaseySadler_primes_2013}.
+The problem of estimating $T_0$ is called the \emph{sparse, noisy period estimation problem}~\cite{Clarkson2007,McKilliam2007}.  Solutions have applications to synchronisation for telecommunications devices~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}, estimation of the pulse repetition interval in electronic support~\cite{EltonGray_puilse_train_rader_1994,Gray_more_pri_1994,Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}, and beat and tempo estimation in music~\cite{dixon_beat_extraction_2001}.  The problem is related to spike interval estimation in neurology~\cite{Arnett_neuro_pri_1976,Brillinger_spike_trains_1988,Rossoni200630} and a similar model has been proposed for the detection of anomalies, such as denial-of-service attacks, in internet traffic~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.  The problem is also connected with classical problems in number theory such as Diophantine approximation, lattice reduction, and the study of prime numbers~\cite{Cassels_geom_numbers_1997,490557,Clarkson_thesis,Lenstra1982,Wubben_2011,536682,726812,CaseySadler_primes_2013}.
  
 Least squares estimation of period has been studied in~\cite{Clarkson2007,McKilliam2007,Quinn_sparse_noisy_SSP_2012}.  The least squares estimator can be closely approximated using $O(N^2)$ operations using special purpose algorithms~\cite{McKilliam2009CoxeterLattices,McKilliam2008}.  The least squares estimator is also the maximum likelihood estimator in the case that the noise variables $w_1,\dots,w_N$ are independent and identically normally distributed.  An alternative estimator, called the~\emph{periodogram estimator}, was studied by Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} and involves the maximisation of Bartlett's periodogram for point processes~\cite{Bartlest_periodgram_point_process_1963}.  The statistical properties of the periodogram estimator were recently studied by Quinn~et.~al.~\cite{Quinn20013asilomar_period_est} who show the estimator to be strongly consistent and asymptotically normal under mild conditions on the noise $w_1,\dots,w_N$ and integers $s_1,\dots,s_N$.  The fastest existing algorithms can closely approximate the periodogram estimator in $O(N^2)$ operations.  We describe the periodogram estimator in Section~\ref{sec:peri-estim}.
 
@@ -94,14 +94,12 @@ In Section~\ref{sec:quant-peri} we show that, by quantizing the observations $y_
 \section{The periodogram estimator}\label{sec:peri-estim}
 
 %Before describing the periodogram estimator we state some required assumptions.  
-Observe that
-\[
-y_n = T_0 s_n + \theta_0 + w_n = \frac{T_0}{2} r_n + \theta_0 + w_n
-\]
-where $r_n = 2s_n \in \ints$.  Thus, to ensure identifiability, it is necessary to assume that $T_0$ lies in some interval $(T_{\text{min}}, T_{\text{max}})$ where $T_{\text{max}} < 2T_{\text{min}}$.%  We also assume that $y_1,\dots,y_N$ are in ascending order.  The periodogram estimator is unchanged by a permutation observations, and so, this assumption can be made without loss of generality because it amounts only to sorting the observations if required.
-
-%BLERG. $T_{\text{min}}, T_{\text{max}}$ identifiability and $y_1,\dots,y_N$ in accending order.
-
+%Observe that
+%\[
+%y_n = T_0 s_n + \theta_0 + w_n = \frac{T_0}{2} r_n + \theta_0 + w_n
+%\]
+%where $r_n = 2s_n \in \ints$.  
+To ensure identifiability it is necessary to assume, as in~\cite{Sidiropoulos2005}, that $T_0$ lies in some interval $(T_{\text{min}}, T_{\text{max}})$ where $T_{\text{max}} < 2T_{\text{min}}$.%  We also assume that $y_1,\dots,y_N$ are in ascending order.  The periodogram estimator is unchanged by a permutation observations, and so, this assumption can be made without loss of generality because it amounts only to sorting the observations if required.
 Fogel and Gavish~\cite{Fogel1988,Fogel1989_bit_synch_zero_crossings} proposed the estimator $\hat{T} = 1/\hat{f}$ where $\hat{f}$ is the maximiser of the~\emph{periodogram}
 \[
 I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\pi j f y_n} }^2 
@@ -110,7 +108,8 @@ over the interval $(f_{\text{min}}, f_{\text{max}}) = (1/T_{\text{max}}, 1/T_{\t
 \[
 \hat{f} = \arg\max_{f \in (f_{\text{min}}, f_{\text{max}})} I_y(f).
 \] 
-This is called the \emph{periodogram estimator}.  This definition of the periodogram differs from the common definition in the spectral and frequency estimation literature~\cite{Hannan_time_series_1967,Quinn2001}.  The statistical properties of the periodogram estimator were examined in~\cite{Quinn20013asilomar_period_est}.
+This is called the \emph{periodogram estimator}.  %This definition of the periodogram differs from the common definition in the spectral and frequency estimation literature~\cite{Hannan_time_series_1967,Quinn2001}.  
+The statistical properties of the periodogram estimator were examined in~\cite{Quinn20013asilomar_period_est}.
 
 The periodogram $I_y$ is not convex and has many local maxima.  In order to compute $\hat{f}$ it is usual to first compute $I_y$ on a grid of frequencies
 \[
@@ -135,14 +134,15 @@ In~\cite{McKilliam2007} it was observed that $D$ must shrink as $N$ increases in
 \begin{equation}\label{eq:gridwidthrecommended}
 D = \frac{1}{2(\ymax - \ymin)}
 \end{equation}
-where $\ymax$ and $\ymin$ are the largest and smallest values from $y_1,\dots,y_N$.  This choice is supported by the simulations in~\cite{Haohuan2013435,6492742} and also those in Section~\ref{sec:simulations}.  With this choice $D = O(N^{-1})$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  The asymptotic standard deviation of $\hat{f}$ is of order $O(N^{-3/2})$ as shown in~\cite{Quinn20013asilomar_period_est} and this initially suggests that $D = O(N^{-1})$ is too large.  However, the choice~\eqref{eq:gridwidthrecommended} does appear effective in practice.  A statistically rigorous justification for this choice of $D$ is beyond the scope of the present paper, but could potentially be developed using the techniques in~\cite{Quinn2008maximizing_the_periodogram}.
+where $\ymax$ and $\ymin$ are the largest and smallest values from $y_1,\dots,y_N$.  This choice is supported by the simulations in~\cite{Haohuan2013435,6492742} and also those in Section~\ref{sec:simulations}.  With this choice $D = O(N^{-1})$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  The asymptotic standard deviation of $\hat{f}$ is of order $O(N^{-3/2})$ as shown in~\cite{Quinn20013asilomar_period_est} and this initially suggests that $D = O(N^{-1})$ is too large.  However, the choice~\eqref{eq:gridwidthrecommended} does appear effective in practice.  A statistically rigorous justification for this choice of $D$ is beyond the scope of the present paper, but could potentially be developed using techniques like those in~\cite{Quinn2008maximizing_the_periodogram}.
 
 With this choice for $D$ the number of elements in the grid grows linearly with $N$, that is, $K = O(N)$.  Computing $I_y(f)$ for each $f$ requires $O(N)$ operations and so computing $I_y(f)$ for all $f \in G$ requires $O(N^2)$ operations.  It follows that computation of $\widetilde{f}$ requires $O(N^2)$ operations and that the periodogram estimator $\hat{T} = 1/\hat{f}$ requires at least $O(N^2)$ operations to compute by this method.  %The choice for $D$ from~\eqref{eq:gridwidthrecommended} might not guarantee that application of a numerical optimisation proceedure, starting from $\widetilde{f}$, will result in $\hat{f}$.  For this reason, this approach can only be considered approximate.  However, the simulations presented in~\cite{Haohuan2013435,6492742} and those in Section~\ref{sec:simulations} suggest that~\eqref{eq:gridwidthrecommended} the approximation is very accurate.  
 In the next section we describe a modification of the periodogram estimator.  The modification is such that the fast Fourier transform or the chirp z-transform~\cite{Rabiner1969} can be used to compute an approximation $\widetilde{f}^\prime$ to $\hat{f}$ with only $O(N\log N)$ operations.
 
 \section{Quantization and the periodogram}\label{sec:quant-peri} 
 
-Denote by $\round{x}$ the nearest integer to $x$.  The direction of rounding for half integers is not important.  Half integers are rounded up in our implementation.  Let $q$ be a real number and define the quantization function
+Denote by $\round{x} = \sfloor{x + \tfrac{1}{2}}$ the nearest integer to $x$.  %The direction of rounding for half integers is not important.  Half integers are rounded up in our implementation.  
+Let $q$ be a positive real number and define the quantization function
 \[
 Q(x) = \round{qx}/q
 \]
