@@ -218,7 +218,7 @@ and so, the required values  $V_0,\dots,V_{K-1}$ are the first $K$ Fourier coeff
 
 \section{Computational complexity}\label{sec:comp-compl}
 
-The previous section shows how $\widetilde{f}^\prime$ can be computed using either the chirp z-transform or a fast Fourier transform of length $M$.  We now describe recommended values for the parameters $q, M$, and $D$.  The simulations presented in Section~\ref{sec:simulations} suggest that an effective value for the quantization parameter is $q = 5 f_{\text{max}}$.  If the chirp z-transform is used then $D$ is chosen according to~\eqref{eq:gridwidthrecommended}.  The chirp z-transform requires computation of three fast Fourier transforms, each of length $L + K - 1$, where 
+The previous section shows how the approximate maximiser $\widetilde{f}^\prime$ can be computed using either the chirp z-transform or a fast Fourier transform of length $M$.  We now describe recommended values for the parameters $q, M$, and $D$.  The simulations presented in Section~\ref{sec:simulations} suggest that an effective value for the quantization parameter is $q = 5 f_{\text{max}}$.  If the chirp z-transform is used then $D$ is chosen according to~\eqref{eq:gridwidthrecommended}.  The chirp z-transform requires computation of three fast Fourier transforms, each of length $L + K - 1$, where 
 \[
 L = \ellmax - \ellmin + 1 = \round{q\ymax} - \round{q\ymin} + 1.
 \]
@@ -229,13 +229,13 @@ D = \frac{q}{M} = \frac{q}{2(\round{q\ymax} - \round{q\ymax} + 1)} \approx  \fra
 is approximately equal to~\eqref{eq:gridwidthrecommended}.  
 
 Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  %The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  
-Thus, both chirp-z and fast Fourier transform methods require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, it is apparent that the length of the transforms, and hence the complexity, increases as the quantization becomes finer, i.e., as $q$ increases.  This presents a trade off between computational complexity and quantization accuracy.  This trade off is investigated in Section~\ref{sec:simulations}.
+Thus, both chirp-z and fast Fourier transform methods require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, the length of the transforms, and hence the complexity, increases as the quantization becomes finer, i.e., as $q$ increases.  This presents a trade off between computational complexity and quantization accuracy.  This trade off is investigated in Section~\ref{sec:simulations}.
 
 Given the approximate maximiser $\widetilde{f}^\prime$ we apply the Newton-Raphson method to find a nearby stationary point of the periodogram $I_y$.  This proceeds by the iteration
 \[
 f_{n+1} = f_{n} - \frac{I_y^\prime(f_n)}{I_y^{\prime\prime}(f_n)}, \qquad f_{1} = \widetilde{f}^\prime
 \]
-where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure is dominated by the cost of the chirp-z or fast Fourier transforms. 
+where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure negligible when compared to the cost of the chirp-z or fast Fourier transforms. 
 
 
 

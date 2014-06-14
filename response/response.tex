@@ -212,7 +212,7 @@ In the new version of the paper the following paragraph has been included in Sec
 \[
 f_{n+1} = f_{n} - \frac{I_y^\prime(f_n)}{I_y^{\prime\prime}(f_n)}, \qquad f_{1} = \widetilde{f}^\prime
 \]
-where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure is dominated by the cost of the chirp-z or fast Fourier transforms.''
+where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure negligible when compared to the cost of the chirp-z or fast Fourier transforms.''
 
 % The Netwon-Raphson method that was used proceeds by the iteration
 % \[
