@@ -54,7 +54,7 @@ Moreover, there are several important comments that should be addressed before a
 possible publication of this letter.
 \\
 \textbf{Response:}
-We agree with the reviewer that the results in this paper are simple.  We do not believe this to be a weakness. Whilst being simple, the results are also novel and useful.  The quantisated periodogram estimator described in this paper is as accurate as the most accurate estimators in the literature (the least squares and periodogram estimators).  At the same time our estimator is substantially faster to compute.  For these reasons, we firmly believe this will become the estimator of choice for periodic point processes.  It enables highly accurate period estimation for extremely large data sets in reasonable time. This was not possible with previous estimators that require a number of operations growing quadratically with data size. %We have provided all the simulation code as supplementary material.  This will enable simple implementation for future research.
+We agree with the reviewer that the results in this paper are simple.  We do not believe this to be a weakness. Whilst being simple, the results are also novel and useful.  The quantized periodogram estimator described in this paper is as accurate as the most accurate estimators in the literature (the least squares and periodogram estimators).  At the same time our estimator is substantially faster to compute.  For these reasons, we firmly believe this will become the estimator of choice for periodic point processes.  It enables highly accurate period estimation for extremely large data sets in reasonable time. This was not possible with previous estimators that require a number of operations growing quadratically with data size. %We have provided all the simulation code as supplementary material.  This will enable simple implementation for future research.
 
 \item\textbf{Comment:}
 The main reviewer concern is about the choice of the quantization parameter
@@ -66,16 +66,16 @@ integers $s_n$. This point should be addressed carefully before a possible resub
 of the paper. The other reviewer comments are summarized below.
 \\
 \textbf{Response:}
-We anticipate that developing a rigorous theoretical method for choosing $q$ will be extremely complicated.  The properties of many optimisation proceedures, such as the Newton-Raphson method, are reasonably well understood for the purpose of maximising fixed known functions. However, very few theorectical statistical analyses for these proceedures exist when the functions to be maximised are themselves random variables, i.e., when noise is involved.  Add to this the existence of quantisation (itself typically very tricky to analyse) and it appears that a theorectical analysis of this estimator will be extremely difficult.
+We anticipate that developing a rigorous theoretical method for choosing $q$ will be extremely complicated.  The properties of many optimisation procedures, such as the Newton-Raphson method, are reasonably well understood for the purpose of maximising fixed known functions. However, very few theoretical statistical analyses for these procedures exist when the functions to be maximised are themselves random variables, i.e., when noise is involved.  Add to this the existence of quantization (itself typically very tricky to analyse) and it appears that a theoretical analysis of this estimator will be extremely difficult.
 
-These theoretical difficulties do not negate the immediate practical applicability of our estimator.  We believe it would be unwise to halt dissemination of these practical results simply because a difficult theoretical problem has not yet been solved.  We agree with the reviewer that the simulations presented are limited. This is due to the 4 page limit required IEEE Signal Processing Letters (a 5th page containing only references is also allowed).  In the paper we use our simulations to motivate the choice $q = 5 f_{\text{max}}$ for the quantisation parameter.  We have found this choice works well under an array of different noise distributions and methods for generating the intergers $s_1,\dots,s_N$  For example, Figures~\ref{plot:poisson} and~\ref{plot:geomuniform} in this document show simulations similar to those in the paper, but with the following modifications:
+These theoretical difficulties do not negate the immediate practical applicability of our estimator.  We believe it would be unwise to halt dissemination of these practical results simply because a difficult theoretical problem has not yet been solved.  We agree with the reviewer that the simulations presented are limited. This is due to the 4 page limit required IEEE Signal Processing Letters (a 5th page containing only references is also allowed).  In the paper we use our simulations to motivate the choice $q = 5 f_{\text{max}}$ for the quantization parameter.  We have found this choice works well under an array of different noise distributions and methods for generating the integers $s_1,\dots,s_N$.  For example, Figures~\ref{plot:poisson} and~\ref{plot:geomuniform} in this document show simulations similar to those in the paper, but with the following modifications:
 
 \begin{enumerate}
 \item In Figure~\ref{plot:poisson} the noise is Gaussian distributed, $N=200$, and the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically \emph{Poisson distributed} with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right.  Five hundred Monte-Carlo trials are used for each value of $\sigma^2$.
-\item In Figure~\ref{plot:geomuniform} the noise if \emph{uniformly distributed}, $N=200$, and the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right.  Five hundred Monte-Carlo trials are used for each value of $\sigma^2$.   The least squares estimator is the most accurate in this simulation. This is predicted by the asymptotic theory~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.
+\item In Figure~\ref{plot:geomuniform} the noise if \emph{uniformly distributed}, $N=200$, and the integers are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$ in the plot on the right.  Five hundred Monte-Carlo trials are used for each value of $\sigma^2$.   The least squares estimator is the most accurate in this simulation. This is predicted by the asymptotic theory~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.
 \end{enumerate}
 
-Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ provide good accuracy. With this choice, the accuracy of the quantised periodogram estimator is similar to the original periodgram estimator computed without quantisation and FFT.  %That the choice $q=5 f_{\text{max}}$ works in a wide range of scenarios should not come as a  
+Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ provides good accuracy. With this choice, the accuracy of the quantized periodogram estimator is similar to the original periodogram estimator computed without quantization and FFT.  %That the choice $q=5 f_{\text{max}}$ works in a wide range of scenarios should not come as a  
 
 
 \begin{figure}[p] 
@@ -106,7 +106,7 @@ Observe that, in both simulations, the choice $q=5 f_{\text{max}}$ provide good 
      %\node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=200$}; 
    \end{axis} 
   \end{tikzpicture}  
-  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussain noise and $N=200$ observations.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.}\label{plot:poisson}
+  \caption{Mean square period error versus noise variance $\sigma^2$ with Gaussian noise and $N=200$ observations.  The integers $s_1,\dots,s_N$ are generated so that $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically Poisson distributed with mean $\mu = 1$ in the plot on the left and mean $\mu=10$.}\label{plot:poisson}
 \end{figure} 
 
 
@@ -152,25 +152,24 @@ the results of [24]. Including the Cramer-Rao bounds for the estimation of $T_0$
 \\
 \textbf{Response:}
 
-We response to each of the reviewers comments in turn.
+We respond to each of the reviewers comments in turn.
 
 \begin{enumerate}
 
 \item \textbf{Unfortunately, there is nothing in
 Section VI (which is the conclusion) supporting this claim.}
 
-Section VI in the paper~\cite{726812} entitled ``On periodic pulse interval analysis with outliers and missing observations'' is not the conclusion.  It is the section entitled ``Numerical Results''.  In Figures 1 to 4 in~\cite{726812} the periogram estimator implemented by Casey and Sadler is seen to be inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodgram, but fail to implement an optimisation proceedure. % We used the Newton-Raphson proceedure in the old manuscript, but have used Brent's method~\cite{Brent_opt_no_derivs_1973} in the new manuscript as dicussed in our response to comment~\ref{com:rev1:nr} below.  
-Casey and Sadler arrive at the conclusion that very large FFTs are required and that the periodgram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
+Section VI in the paper~\cite{726812} entitled ``On periodic pulse interval analysis with outliers and missing observations'' is not the conclusion.  It is the section entitled ``Numerical Results''.  In Figures 1 to 4 in~\cite{726812} the periodogram estimator implemented by Casey and Sadler is seen to be inferior to their MEA estimator.  Casey and Sadler do use an FFT to compute the periodogram, but fail to implement an optimisation procedure. We used the Newton-Raphson proceedure (see our response to comment~\ref{com:rev1:nr} below).  Casey and Sadler arrive at the conclusion that very large FFTs are required and that the periodogram estimator is not particularly accurate.  In the conclusion of~\cite{726812} it is stated that:
 
 ``Comparisons with the periodogram show the limitations of periodogram performance.''
 
-Our paper clearly shows that such limitation do not exist.  The periodgram estimator, computed by quantization and FFT and combined with an appropriate optimisation proceedure, is both compuationally efficient and highly accurate.  For moderately large $N$ this is the most computationally efficient proceedure currently available for this problem.  Simultaneously, it is as accurate at the most accurate estimators available, namely the least squares estimator, and the periodgram estimator computed directly without FFT.
+Our paper clearly shows that such limitation do not exist.  The periodogram estimator, computed by quantization and FFT and combined with an appropriate optimisation procedure, is both computationally efficient and highly accurate.  This is the most computationally efficient procedure currently available for this problem.  Simultaneously, it is as accurate at the most accurate estimators available, namely the least squares estimator, and the periodogram estimator computed directly without FFT.
 
 \item \textbf{ The authors should
 compare their results in term of accuracy and of computational complexity to
 the results of [24].}
 
-We have not implemented and do not present simulations results with any of the MEA estimators from the papers by Casey and Sadler~\cite{536682,726812}.  The MEA estimators were supersceeded by the Separable Line Search (SLS) estimators of Sidiropoulos, Swami and Sadler~\cite{Sidiropoulos2005} in 2005.  Comparison between the MEA estimators and the SLS estimators are presented in~\cite{Sidiropoulos2005} where the superiority of the SLS estimators is shown.  An enhanced SLS estimator (SLS2-new) was developed in~\cite{Clarkson2007} and this is the estimator we show simulations results for\footnote{One of the SLS estimators (SLS2-all) has excellent statistical accuracy.  It is almost as accurate as the least squares and periodogram estimators as can be see in the simulations in~\cite{Clarkson2007} and~\cite{McKilliam2007}.  However, it is extremely computationally complex, requiring atleast $O(N^3)$ operations to compute.  We cannot present simulation results for this estimator when $N=1200$ for example.  This estimator is discussed and compared in~\cite{Sidiropoulos2005} and also~\cite{Clarkson2007,McKilliam2007}.}.  Even this enhanced SLS estimator performs poorly when compared to the least squares and periodogram estimators.  The MEA estimators are no longer state-of-the-art for this problem.
+We have presented simulation results with the MEA estimators of Casey and Sadler~\cite{536682,726812}.  The MEA estimators were superseded by the Separable Line Search (SLS) estimators of Sidiropoulos, Swami and Sadler~\cite{Sidiropoulos2005} in 2005.  Comparison between the MEA estimators and the SLS estimators are presented in~\cite{Sidiropoulos2005} where the superiority of the SLS estimators is shown.  An enhanced SLS estimator (SLS-new) was developed in~\cite{Clarkson2007} and this is the estimator we show simulations results for\footnote{One of the SLS estimators (SLS2-all) has excellent statistical accuracy~\cite{Sidiropoulos2005}.  It is almost as accurate as the least squares and periodogram estimators as can be see in the simulations in~\cite{Clarkson2007} and~\cite{McKilliam2007}.  However, it is extremely computationally complex, requiring at least $O(N^3)$ operations.  We cannot present simulation results for this estimator when $N=1200$ for example.  The SLS2-all estimator is discussed and compared in~\cite{Sidiropoulos2005} and also~\cite{Clarkson2007,McKilliam2007}.}.  Even this enhanced SLS estimator performs poorly when compared to the least squares and periodogram estimators.  The MEA estimators are no longer state-of-the-art for this problem.
 
 \item \textbf{Including the Cramer-Rao bounds for the estimation of $T_0$
 (as in [24]) would also be appreciated.}
@@ -181,9 +180,9 @@ In the simulations we regenerate the integers $s_1,\dots,s_N$ on each Monte-Carl
  
 To the authors knowledge, a Cramer-Rao bound is not known in this case.   The \emph{clairvoyant} Cramer-Rao bound from~\cite{Sidiropoulos2005} (also \cite{726812,Clarkson2007}) supposes a single fixed realisation for $s_1,\dots,s_N$.  This bound is therefore not valid for the simulations we present in Figure~\zref{plot:multipleN} in Section~\zref{sec:simulations} of the paper.  
 
-In Figure~\ref{plot:crb} in this document we perform a simulation with fixed integers $s_1,\dots,s_N$. The integers are generated once such $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed.  This single fixed sequence is used for all 500 Monte-Carlo trials.  Observe that for small noise variance the \emph{clairvoyant} Cramer-Rao bound is similar to the asymptotic variance of the least squares and periodogram estimators predicted in~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.  As the noise variance increases the \emph{clairvoyant} Cramer-Rao bound and the predicted asymptotic variances diverge.  As expected, the behaviour of the estimators themselves follows the asymptotic theory, rather than the \emph{clairvoyant} Cramer-Rao bound.
+In Figure~\ref{plot:crb} in this document we perform a simulation with fixed integers $s_1,\dots,s_N$. The integers are generated once such $s_1$ and $s_{n+1} - s_n$ for $n=1,\dots,N-1$ are independent and identically geometrically distributed.  This single fixed sequence is used for all 500 Monte-Carlo trials.  Observe that for small noise variance the \emph{clairvoyant} Cramer-Rao bound is similar to the asymptotic variance of the least squares and periodogram estimators predicted in~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}.  As the noise variance increases the \emph{clairvoyant} Cramer-Rao bound and the predicted asymptotic variances diverge.  As expected, the behaviour of the estimators measured by simulation follows the asymptotic theory, rather than the \emph{clairvoyant} Cramer-Rao bound.
 
-Observe that in the left hand plot of Figure~\ref{plot:crb} the quantised periodogram estimator with coarse quantisation $q = 1.5 f_{\text{max}}$ (triangles) actually performs well for sufficently small noise variance.  It appears that the fixed integers $s_1,\dots,s_N$ generated in this simulation favour the quantised periodogram estimator.  This is one motivation for performing simulations with integers $s_1,\dots,s_N$ generated randomly for each Monte-Carlo trial, rather than choosing a single fixed set of integers.  It avoids the scenario where a particular favourable set $s_1,\dots,s_N$ is chosen by chance.
+Observe that in the left hand plot of Figure~\ref{plot:crb} the quantized periodogram estimator with coarse quantization $q = 1.5 f_{\text{max}}$ (triangles) actually performs well for sufficiently small noise variance.  It appears that the fixed integers $s_1,\dots,s_N$ generated in this simulation favour the quantized periodogram estimator.  This is one motivation for performing simulations with integers $s_1,\dots,s_N$ generated randomly for each Monte-Carlo trial.  It avoids the scenario where a particular favourable set $s_1,\dots,s_N$ is chosen by chance.
 
 
 %We prefer to show to plot the MSE of the estimatorsThe least squares estimator is the maximum likelihood estimator, and so, the dashed curve serves a similar type of purpose as the CRB often does in these types of simulations.  Namely, to indicate whether an estimator is performing similarly to what might be considered `optimal', i.e. close the what might theoretically be expected from the maximum likelihood estimator.
@@ -202,17 +201,17 @@ required to compute the estimator (including the NR procedure) or just to the
 initialization of the NR procedure?
 \\
 \textbf{Response:}
-We repond to each of the questions of the reviewer in turn:
+We respond to each of the questions of the reviewer in turn.
 
 \begin{enumerate}
 \item \textbf{For instance, what is the exact NR scheme used in this paper (there are several options)?}  
 In the new version of the paper the following paragraph has been included in Section~\zref{sec:comp-compl}:
 
-``Given the approximate maximiser $\widetilde{f}^\prime$ we apply the Newton-Raphson method to find a nearby stationary point of the periodogram $I_y$.  This proceeds by the iteration
+``Given the approximate maximiser $\widetilde{f}^\prime$ we apply the Newton-Raphson method~\cite{Ypma_historical_newton_raphson_1995} to find a nearby stationary point of the periodogram $I_y$.  This proceeds by the iteration
 \[
 f_{n+1} = f_{n} - \frac{I_y^\prime(f_n)}{I_y^{\prime\prime}(f_n)}, \qquad f_{1} = \widetilde{f}^\prime
 \]
-where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure negligible when compared to the cost of the chirp-z or fast Fourier transforms.''
+where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure is negligible when compared to the cost of the chirp-z or fast Fourier transforms.''
 
 % The Netwon-Raphson method that was used proceeds by the iteration
 % \[
@@ -232,7 +231,14 @@ As described in the above paragraph ``iterations are performed until $\sabs{f_{n
 % ``Brent's method is iterative.  During the method a number of evaluations of the periodogram $I_y$ are made.  The number of calls depends on the grid width $D$, but not on $N$.  Each call requires $O(N)$ operations, and so, the total number of operations required by Brent's method is $O(N)$. In practice we find that that computational cost of Brent's method is far smaller than the cost of either that FFT or chirp-z transform.''
 
 \item \textbf{Is the quantized periodogram just used to initialize a Newton-Raphson procedure?}
-Yes.  As described in the paper BLERG
+Yes.  In the paper the following text is included in Section~\zref{sec:quant-peri}:
+
+``Let $\widetilde{f}^\prime$ be the maximiser of $I_z$ over the grid $G$, that is,
+\[
+\widetilde{f}^\prime = \arg\max_{f \in G} I_z(f).
+\]
+If the quantization parameter $q$ is sufficiently large we expect that $I_z$ is close to $I_y$ and so $\widetilde{f}^\prime$ will be close to $\widetilde{f}$.  Thus, if $q$ is sufficiently large and the distance $D$ is sufficiently small we expect $\widetilde{f}^\prime$ to be a good approximation to $\hat{f}$.  An iterative procedure %or Brent's method~\cite{Brent_opt_no_derivs_1973} 
+can then be used to compute $\hat{f}$ by maximising $I_y$ starting from $\widetilde{f}^\prime$.  Section~\zref{sec:comp-compl} describes an implementation of the Newton-Raphson optimisation procedure for this purpose.''
 
 \item \textbf{Do the MSEs displayed in Fig. 3 correspond to the estimator obtained after applying the NR algorithm?}
 Yes.
@@ -240,7 +246,7 @@ Yes.
 \item \textbf{Also, do the results displayed in Fig. 2 correspond to the total time
 required to compute the estimator (including the NR procedure) or just to the
 initialization of the NR procedure?}
-Yes. The estimators run in the benchmarks in Figure~\zref{plot:benchmark} are exactly the same as those in the simulations in Figure~\zref{plot:multipleN}.  For the periodogram and quantised peridogram estimators this includes the Newton-Raphson proceedure.
+The estimators run in the benchmarks in Figure~\zref{plot:benchmark} are exactly the same as those in the simulations in Figure~\zref{plot:multipleN}.  For the periodogram and quantized periodogram estimators this includes the Newton-Raphson procedure.
 
 \end{enumerate}
 
@@ -250,7 +256,7 @@ Yes. The estimators run in the benchmarks in Figure~\zref{plot:benchmark} are ex
 p. 5, in the definition of $v_m$, $b_{m+\ell_1}$ should be replaced by $b_{m+\ell_{\text{min}}}$.
 \\
 \textbf{Response:}
-Thankyou for spotting this error.  A similar error was fixed in equation for $I_z$ directly above this. 
+Thank you for spotting this error.  A similar error was fixed in equation for $I_z$ directly above this. 
 
 
 \item\textbf{Comment:}
@@ -287,7 +293,7 @@ these references would allow to save some space, which could be used to better
 explain some points mentioned above.
 \\
 \textbf{Response:}
-IEEE Signal Processing Letters allows a 5th page that can contain only references.  Therefore, we cannot save space by removing references.   We have removed reference [29] from the original manuscript because the material in that paper is also covered in [27].  We have also removed references [33] and [34] from the original manuscript. We feel that the all 35 references in the new version of the paper are highly relevant. The paper would be weakened without them.
+IEEE Signal Processing Letters allows a 5th page that can contain only references.  Therefore, we cannot save space by removing references.   We have removed reference [29] from the original manuscript because the material in that paper is also covered in [27].  We have also removed references [33] and [34] from the original manuscript. We feel that all 35 references in the new version of the paper are highly relevant. The paper would be weakened without them.
 
 \end{enumerate}
 
@@ -309,7 +315,7 @@ IEEE Signal Processing Letters allows a 5th page that can contain only reference
       \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/SLS2newN500fixed1};
      \legend{Periodogram theory, LS theory, CRB, $q=\tfrac{3}{2}f_{\text{max}}$, $q=5 f_{\text{max}}$, Periodogram, LS, SLS2-new}
      %\node[rotate=17,font=\footnotesize] at (axis cs:6e-4,1e-7) {$N=200$};
-   \end{axis}   \begin{axis}[name=plot2,at={(9.5,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
+   \end{axis}    \begin{axis}[name=plot2,at={(9.5,0)},ymax=4e-1,font=\footnotesize,xmode=log,ymode=log,height=10cm,width=9cm,xlabel={$\sigma^2$},ylabel={MSE},ylabel style={at={(0.06,0.23)}},xlabel style={at={(0.5,0.07)}}]
 \addplot[mark=none,color=black] table {code/data/PeriodogramCLTN500fixed10}; 
       \addplot[mark=none,color=black,dashed] table {code/data/NormalisedLLSCLTN500fixed10};
       \addplot[mark=none,color=black,dotted] table {code/data/CRBN500fixed10};
@@ -334,11 +340,11 @@ IEEE Signal Processing Letters allows a 5th page that can contain only reference
 \item\textbf{Comment:}
  The identifiability claim at the beginning of sec. II is not obvious and a reference is mandatory. Indeed, referring to eq. (2), let us assume that $s_n = 2 i_n$ where $i_n$ are all non-negative integer. In this case the point process is periodic with period $2 T_0$. This referee does not believe that maximizing the periodogram over $(f_{\text{min}},f_{\text{max}})$ will identify the true frequency (or period). LS methods might have the capabilities to identify the period, but, in any case the claim of idenitifiability needs to be further supported.
 \\
-\textbf{Response:} The same identifiability requirements are commonly imposed in the literature, see for example, Sidiropoulos~\cite[eq. (2)]{Sidiropoulos2005}.  Suppose that $T_{\text{max}} \geq 2T_{\text{min}}$ and that the true period $T_0$ happened to be contained in the nonempty interval $(2T_{\text{min}}, T_0)$.  Put $T^\prime = T_0/2 \in (T_{\text{min}}, T_{\text{max}})$ and observe that
+\textbf{Response:} The same identifiability requirements are commonly imposed in the literature, see for example, Sidiropoulos~\cite[eq. (2)]{Sidiropoulos2005}.  To  see why this is necessary, suppose that $T_{\text{max}} \geq 2T_{\text{min}}$ and that the true period $T_0$ happened to be contained in the nonempty interval $(2T_{\text{min}}, T_{\text{max}})$.  Put $T^\prime = T_0/2 \in (T_{\text{min}}, T_{\text{max}})$ and observe that
 \[
 y_n = T_0 s_n + \theta_0 + w_n = 2 T^\prime s_n + \theta_0 + w_n = T^\prime r_n + \theta_0 + w_n 
 \]
-where $r_n = 2 s_n \in \ints$.  Since the integers are not known both $T_0$ and $T^\prime$ would describe the observations equally well.  This problem is averted only if we suppose that $T_0 \in (T_{\text{min}}, T_{\text{max}})$ and that  $T_{\text{max}} < 2T_{\text{min}}$.
+where $r_n = 2 s_n \in \ints$.  Because the integers $s_1,\dots,s_N$ (respectively $r_1,\dots,r_N$) are not known both $T_0$ and $T^\prime$ would describe the observations equally well.  This problem is averted only if we suppose that $T_0 \in (T_{\text{min}}, T_{\text{max}})$ and that  $T_{\text{max}} < 2T_{\text{min}}$.
 
 %Perhaps it is possible to increase the range of identifiability if further assumptions are made regarding the integers $s_1,\dots,s_N$.  We don't consider such propsitions in this paper.
 
@@ -360,7 +366,7 @@ We have included reference~\cite{Sidiropoulos2005} and simplified the text at th
 Is the equality in the second (un-numbered) equation of page 2 correct?
 \\
 \textbf{Response:}
-Yes.  The terms inside the sum on the left and right are conjugates of one another.  That is,
+Yes.  The terms inside the sum on the left and right are conjugates.  That is,
 \[
 \sum_{n=1}^N e^{ 2\pi j f y_n} = \sum_{n=1}^N (e^{-2\pi j f y_n})^* = \left( \sum_{n=1}^N e^{ -2\pi j f y_n} \right)^*
 \]
@@ -370,16 +376,18 @@ I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2 = \babs{ \sum_{n=1}^N e^{ -2\
 \]
 
 \item\textbf{Comment:}
-Newton-Rapson iteration to further improve the frequency estimation is advocated in Sec. II. Can a reference supporting this statement be added?
+Newton-Raphson iteration to further improve the frequency estimation is advocated in Sec. II. Can a reference supporting this statement be added?
 \\
-\textbf{Response:}
-Please see our response to comment~\ref{com:rev1:nr} of reviewer 1.
+\textbf{Response:} 
+Please see our response to comment~\ref{com:rev1:nr} of reviewer 1.  The reference~\cite{Ypma_historical_newton_raphson_1995} that gives an overview of the Newton-Raphson method has also been included.
 
 \item\textbf{Comment:}
 Referring to Fig. 3, in case $N=30$, the novel method incurs in a significant loss of performance with respect to classical LS and periodogram for low-signal-to-noise ratios. In this scenario (low $N$ and low signal-to-noise-ration) relevant for real applications?
 \\
 \textbf{Response:}
-The quantised periodgram estimator does not suffer a significant performance loss with respect to the classical LS and periodogram estimators in any scenario we have found.  Observe in Figure 3 that the solid dots ($q=5 f_{\text{max}}$) the crosses (LS), the circles (periodogram) are all close for $N=30,1200$ and $\mu=1,10$.  Be aware that the solid lines indicates the asymptotic theory ($N\to\infty$)~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est} for the periodogram and LS estimators and not the measured accuracy for finite $N$.  As $N\to\infty$, the MSE of the periogram and LS estimators will converge to the solid and dashed curves.
+The quantized periodogram estimator does not suffer a significant performance loss with respect to the classical LS and periodogram estimators in any scenario we have found.  Observe in Figure 3 that the dots ($q=5 f_{\text{max}}$), the crosses (LS), and the circles (periodogram) are all close for $N=30,1200$ and $\mu=1,10$.  The solid and dashed lines indicate the asymptotic theory ($N\to\infty$)~\cite{Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est} for the periodogram and LS estimators and not the measured MSE for finite $N$.  As $N\to\infty$, the MSE of the periodogram and LS estimators will converge to the solid and dashed curves.
+
+In general we don't expect there to exist an estimator accurate for small $N$ and large noise variance.
 
 \end{enumerate}
 

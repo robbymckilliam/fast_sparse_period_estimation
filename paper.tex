@@ -1,5 +1,5 @@
 %\documentclass[a4paper,10pt]{article}
-%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+%\documentclass[draftcls, onecolumn, 10pt]{IEEEtran}
 \documentclass[10pt,twocolumn,twoside]{IEEEtran}
 %\documentclass[journal]{IEEEtran}
  
@@ -125,7 +125,7 @@ Let $\widetilde{f}$ be the maximiser of $I_y$ over $G$, that is, let
 \[
 \widetilde{f} = \arg\max_{f \in G} I_y(f).
 \]
-If the distance $D$ is sufficiently small, then $\widetilde{f}$ is a good approximation to the maximiser $\hat{f}$.  An iterative procedure, such as the Newton-Raphson method, %or Brent's method~\cite[Ch.~5]{Brent_opt_no_derivs_1973} 
+If the distance $D$ is sufficiently small, then $\widetilde{f}$ is a good approximation to the maximiser $\hat{f}$.  An iterative procedure, such as the Newton-Raphson method~\cite{Ypma_historical_newton_raphson_1995}, %or Brent's method~\cite[Ch.~5]{Brent_opt_no_derivs_1973} 
 can then be used to compute $\hat{f}$ starting from $\widetilde{f}$.
 
 \newcommand{\ymax}{y_{\text{max}}}
@@ -231,12 +231,11 @@ is approximately equal to~\eqref{eq:gridwidthrecommended}.
 Observe that $L$ grows proportionally with $q$ and that $L = O(qN)$ under reasonable assumptions about the integers $s_1,\dots,s_N$ and the noise $w_1,\dots,w_N$.  %The most computationally expensive part of the chirp z-transform is the computation of three fast Fourier transforms of length $L+K-1$.  Alternatively, a single fast Fourier transform of length $M = 2L$ can be used.  
 Thus, both chirp-z and fast Fourier transform methods require $O(qN\log(qN)) = O(N\log N)$ operations because $q$ does not depend on $N$.  However, the length of the transforms, and hence the complexity, increases as the quantization becomes finer, i.e., as $q$ increases.  This presents a trade off between computational complexity and quantization accuracy.  This trade off is investigated in Section~\ref{sec:simulations}.
 
-Given the approximate maximiser $\widetilde{f}^\prime$ we apply the Newton-Raphson method to find a nearby stationary point of the periodogram $I_y$.  This proceeds by the iteration
+Given the approximate maximiser $\widetilde{f}^\prime$ we apply the Newton-Raphson method~\cite{Ypma_historical_newton_raphson_1995} to find a nearby stationary point of the periodogram $I_y$.  This proceeds by the iteration
 \[
 f_{n+1} = f_{n} - \frac{I_y^\prime(f_n)}{I_y^{\prime\prime}(f_n)}, \qquad f_{1} = \widetilde{f}^\prime
 \]
-where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure negligible when compared to the cost of the chirp-z or fast Fourier transforms. 
-
+where $I_y^\prime$ and $I_y^{\prime\prime}$ are the first and second derivative of $I_y$. This procedure converges to the maximiser $\hat{f}$ of $I_y$ provided that $\widetilde{f}^\prime$ is sufficiently close to $\hat{f}$.  In our implementation iterations are performed until $\sabs{f_{n+1}-f_n} < 10^{-10}$.  The number of iterations depends upon the distance $D$, but not on $N$.  Each iteration requires $O(N)$ operations and so the total number of operations required by the Newton-Raphson procedure has order $O(N)$.  In practice we find that the computational cost of the Newton-Raphson procedure is negligible when compared to the cost of the chirp-z or fast Fourier transforms.
 
 
 \begin{figure}[t]
@@ -291,7 +290,7 @@ legend style={
   %legend pos=north west,
   at={(0.75,1)},
   cells={anchor=west},
-  font=\footnotesize,
+  font=\footnotesize
 },
 ymin=2e-8
 ]
