@@ -17,4 +17,4 @@ and the benchmarks are run with
 
 bash runbenchmark.sh
 
-You need a working java virtual machine and Scala 2.10.x installed to run the simulations. Source code and tests are contained in the code/java/ directory. The code makes use of the pubsim library available at https://github.com/robbymckilliam/pubsim
+You need a working java virtual machine and Scala 2.10.x installed to run the simulations.
