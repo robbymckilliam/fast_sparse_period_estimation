@@ -1,0 +1,96 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+%\documentclass[journal]{IEEEtran}
+ 
+\usepackage{../mathbf-abbrevs}
+\input{../defs.tex}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage{amsmath,amsfonts,amssymb, amsthm, bm}
+
+%\usepackage[square,comma,numbers,sort&compress]{natbib}
+
+\usepackage{color}
+\newcommand{\comment}[1]{\textcolor{red}{#1}}
+
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\rect}[1]{\operatorname{rect}\left(#1\right)}
+
+%opening
+\title{Fast sparse period estimation: Reviewer responses}
+\author{R.~G.~McKilliam, I.~V.~L.~Clarkson and B.~G.~Quinn 
+%\thanks{}
+}
+
+\renewcommand{\theenumii}{(\alph{enumii})}
+\renewcommand{\labelenumii}{\theenumii}
+
+\begin{document}
+
+%\maketitle
+
+\begin{enumerate}
+
+\item Page 1, column 2, \emph{periodogramestimator} appears to be written as all one word.  \\ It should be \emph{periodogram~estimator}.
+
+\item Page 2, column 1, again \emph{periodogramestimator} appears to be written as all one word.  \\ It should be \emph{periodogram~estimator}.
+
+\item Page 2, column 1.  The equation
+\[
+G = \{ f_{\text{min}} + Dk \mid k = 0, \dots K-1 \}
+\]
+In the proof version there no space between $Dk$ and the vertical bar $\vert$ and $k$.  It should have some space as above.
+
+\item Page 2, bottom of column 2.  The equation
+\[
+b_i = \#\{ n \mid \ell_n = i, n = 1,\dots, N\}
+\]
+In the proof version there no space between $n$ and the vertical bar $\vert$ and $\ell_n$.  It should have some space as above.
+
+\newcommand{\ellmin}{\ell_{\text{min}}}
+\newcommand{\ellmax}{\ell_{\text{max}}}
+
+
+\item Page 3, top of column 1.  The equation
+\[
+I_z(f) = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{ -2\pi j f i/q} b_i }^2 = \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j f m/q} b_{m+\ellmin} }^2.
+\]
+does not quite fit on one line in your format.  I don't personally mind this, but if it is preferable you can split this equation over two lines, such as,
+\begin{align*}
+I_z(f) &= \babs{ \sum_{i = \ellmin}^{\ellmax} e^{ -2\pi j f i/q} b_i }^2 \\
+&= \babs{ \sum_{m = 0}^{\ellmax-\ellmin} e^{ -2\pi j f m/q} b_{m+\ellmin} }^2.
+\end{align*}
+
+
+\end{enumerate}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
