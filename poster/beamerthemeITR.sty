@@ -1,0 +1,200 @@
+% This style was created by André Pollok and is based on beamerthemeDreuw.sty by Philippe Dreuw and Thomas Deselaers
+\ProvidesPackage{beamerthemeITR} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\selectcolormodel{cmyk}
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% UniSA recommended colours (see www.unisa.edu.au/styleguide/colour)
+\definecolor{UniSAblue}{cmyk/HTML}{1,0.8,0,0/000099}
+\definecolor{UniSAoffwhite}{cmyk/HTML}{0,0.02,0.06,0.07/f2eee7}
+\definecolor{UniSAorange}{cmyk/HTML}{0,0.59,1,0.05/e67d00}
+\definecolor{UniSAblack7}{cmyk/HTML}{0,0,0.15,0.82/53534d}
+\definecolor{UniSAmetallic}{cmyk/HTML}{0,0,0,0.5/999999}
+
+% colour definitions from beamerthemeI6dv.sty
+\definecolor{i6colorscheme3}{HTML}{C3DFFF}
+
+\setbeamercolor{headline}{fg=white,bg=UniSAblue}
+\setbeamercolor{footline}{fg=white, bg=UniSAblue}
+\setbeamerfont{footline}{size=\normalsize}%,series=\tt}
+\setbeamercolor{separation line}{bg=UniSAorange}
+\setbeamercolor{title in headline}{fg=white}
+\setbeamercolor{author in headline}{fg=UniSAorange}
+\setbeamercolor{institute in headline}{fg=white}
+
+\setbeamercolor{framesubtitle}{fg=UniSAorange, bg=UniSAblack7}
+\setbeamercolor{author in head/foot}{fg=white, bg=UniSAblue}
+\setbeamercolor{title in head/foot}{fg=white, bg=UniSAblue}
+
+\setbeamercolor*{normal text}{fg=black, bg=i6colorscheme3}
+
+\setbeamercolor*{block body}{bg=white,fg=black}
+\setbeamercolor*{block title}{fg=UniSAorange,bg=UniSAblue}
+\setbeamerfont{block title}{size=\large,series=\bf}
+\setbeamercolor*{block body alerted}{fg=black,bg=white}
+\setbeamercolor*{block title alerted}{fg=black,bg=UniSAorange}
+\setbeamerfont{block title alerted}{size=\large,series=\bf}
+\setbeamercolor*{block body example}{fg=black,bg=white}
+\setbeamercolor*{block title example}{fg=white,bg=UniSAblack7}
+\setbeamerfont{block title example}{size=\large,series=\bf}
+
+\setbeamercolor{upper separation line head}{fg=UniSAorange}
+
+\setbeamercolor*{example body}{fg=white,bg=black}
+\setbeamercolor*{example text}{fg=white,bg=black}
+\setbeamercolor*{example title}{bg=UniSAorange,fg=UniSAblack7}
+
+\setbeamercolor{alerted text}{fg=UniSAorange}
+
+\setbeamercolor{structure}{fg=UniSAorange}
+
+\setbeamertemplate{itemize items}[ball]
+\setbeamertemplate{enumerate items}[ball]
+
+% increase item indentation for enumerate environment (due to large balls)
+\let\enumerateorig=\enumerate
+\let\endenumerateorig=\endenumerate
+\renewenvironment{enumerate}{
+	\addtolength{\leftmargini}{1ex}%
+	\enumerateorig%
+}{
+	\endenumerateorig
+}
+
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title}%
+    \usebeamerfont*{block title}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+    	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
+    	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
+	\setbeamercolor{block body alerted}{bg=i6colorscheme3!20!white}
+    \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth (otherwise \items occur too far left...)
+  }
+  \setbeamertemplate{block end}{
+  \end{minipage}
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{block alerted begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title alerted}%
+    \usebeamerfont*{block title alerted}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body alerted}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body alerted}%
+    \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+    	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
+    	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
+	\setbeamercolor{block body alerted}{bg=i6colorscheme3!20!white}
+    \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth (otherwise \items occur too far left...)
+  }
+  \setbeamertemplate{block alerted end}{
+  \end{minipage}
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{block example begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title example}%
+    \usebeamerfont*{block title example}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+    	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
+    	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
+	\setbeamercolor{block body alerted}{bg=i6colorscheme3!20!white}
+    \begin{minipage}[T]{.95\textwidth} % tweaks the width, makes a new \textwidth (otherwise \items occur too far left...)
+  }
+  \setbeamertemplate{block example end}{
+  \end{minipage}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{  
+  \leavevmode
+
+  \begin{beamercolorbox}[wd=\paperwidth,sep=0.25cm]{headline}
+    \begin{columns}[T]
+      \begin{column}{.04\paperwidth}
+      \end{column}
+      \begin{column}{.22\paperwidth}
+          \parbox[t]{\columnwidth}{
+			\centering
+			\vskip2em
+			\includegraphics[height=5cm]{Logos/InstTelecomRsch_full_reverse.pdf}
+			\vskip2em
+		}
+                %  \parbox[t]{\columnwidth}{
+		%  	\centering
+		%  	\vskip2em
+		%  	\includegraphics[height=3cm]{Logos/UQlogoC_cmyk_mac.pdf}
+                %          \includegraphics[height=3cm]{Logos/mqlogoc.eps}
+		%  	\vskip2em
+		% }
+      \end{column}
+      \hfill
+      \begin{column}{.7\paperwidth}
+        \vskip4ex
+        \raggedleft
+        \usebeamercolor{title in headline}{\color{fg}\textbf{\huge{\inserttitle}}\\[1ex]}
+        \usebeamercolor{author in headline}{\color{fg}\textbf{\Large{\insertauthor}}\LARGE\\[1ex]}
+        \usebeamercolor{institute in headline}{\color{fg}\textbf{\texttt{\large{\email}}}\\[1ex]}     
+      \end{column}
+      \begin{column}{.04\paperwidth}
+      \end{column}
+    \end{columns}
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+  
+  \leavevmode%
+  \begin{beamercolorbox}[ht=4ex,leftskip=1cm,rightskip=1cm]{author in head/foot}%
+  \url{www.itr.unisa.edu.au}
+    \hfill
+    \worksupportedby
+    \vskip1ex
+  \end{beamercolorbox}
+  \vskip0pt%
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display a grid to help align images ... and it looks nice with some colour schemes
+%\beamertemplategridbackground[1cm]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% TeX-master: "poster"
+%%% End: 

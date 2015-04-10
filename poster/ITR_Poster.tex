@@ -1,0 +1,142 @@
+\documentclass[final,hyperref={pdfpagelabels=false}]{beamer}
+
+\usepackage[orientation=portrait,size=a1,scale=1.1]{beamerposter}
+
+\mode<presentation>{
+    \usetheme{ITR}    
+}
+
+%%% fonts & encoding %%%
+\usepackage{newcent}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[english]{babel}
+%\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+
+\input{presdefs}
+
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\newcommand{\term}[1]{{\color{darkgreen}\textbf{#1}}}
+
+%%% title, author & contact %%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Noncoherent least squares estimators \\ of carrier phase and amplitude}
+\author{Robby McKilliam, Andr\'{e} Pollok, Bill Cowley, \\ I. Vaughan L. Clarkson and Barry G. Quinn}
+\newcommand{\email}{robby.mckilliam@unisa.edu.au}
+\newcommand{\worksupportedby}{Supported under the Australian Government's Australian Space Research Program}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%\frame{
+
+%\vspace{-1.4cm}
+
+\begin{columns}[t] % <-- columns with top alignment
+\begin{column}{.49\textwidth} % <-- start the first column
+
+\newcommand{\calC}{{\mathcal C}}
+\begin{block}{Received signal model}
+Receive $L$ noisy $M$-ary phase-shifted-keyed ($M$-PSK) symbols of the form
+\[
+y_i = a_0 s_i + w_i, \qquad i = 1, \dots, L.
+\]
+\begin{itemize}
+\item $a_0 = \rho_0 e^{j\theta_0}$ is the unknown carrier phase $\theta_0$ and amplitude $\rho_0$,
+\item $s_1,\dots,s_L$ are transmitted $M$-PSK symbols,
+\item $w_1,\dots,w_L \in \complex$ are i.i.d. circularly symmetric complex random variables representing noise.
+\end{itemize}
+
+Interested in estimating $\rho_0$ and $\theta_0$.
+\end{block}  
+
+\begin{block}{Least squares estimator}
+If all symbols $s_1,\dots,s_L$ are known
+\[
+\hat{a}_{\text{uc}} = \arg \min_{a \in \complex} \sum_{i = 1}^L \abs{ y_i - a s_i }^2  = \frac{1}{L} \sum_{i = 1}^L y_i s_i^*.
+\]
+More interested in the practical situation where symbols are not known,
+\[
+\hat{a} = \arg\min_{a \in \complex} \min_{s_1, \dots, s_L} \sum_{i = 1}^L \abs{ y_i - a s_i }^2.
+\]
+This estimator can be computed in $O(L\log L)$ operations.
+\end{block}  
+
+
+\begin{block}{Theorem (Almost sure convergence)}
+
+Let $R_i \geq 0$ and $\Phi_i \in [-\pi,\pi)$ be real random variables satisfying
+%\begin{equation}\label{eq:RiandPhii}
+\vspace{-0.15cm}
+\[
+R_ie^{j\Phi_i} = 1 + \frac{w_i}{a_0 s_i},
+\]
+%\end{equation}
+and define the continuous function
+\[
+G(x) = \expect R_1 \cos\sfracpart{ x + \Phi_1}.
+\] 
+If $G(x)$ is uniquely maximised at $x = 0$ over the interval $[-\tfrac{\pi}{M},\tfrac{\pi}{M})$, then:
+\begin{enumerate}
+\item \vspace{-0.15cm} $\sfracpart{\hat{\theta} - \theta_0} \rightarrow 0$ almost surely as $L \rightarrow \infty$,
+\item \vspace{-0.2cm} $\hat{\rho} \rightarrow \rho_0 G(0)$ almost surely as $L \rightarrow \infty$,
+\end{enumerate}
+where $\sfracpart{\cdot}$ takes its argument `modulo $\tfrac{2\pi}{M}$' into $[-\tfrac{\pi}{M},\tfrac{\pi}{M})$.
+%\[
+%\fracpart{x} = x - \tfrac{2\pi}{M}\operatorname{round}\left(\tfrac{M}{2\pi}x\right).
+%\]  
+\end{block}
+
+\begin{block}{Theorem (Asymptotic normality)}
+Let $f(r,\phi)$ be the joint pdf of $R_1$ and $\Phi_1$, and let
+\[
+g(\phi) = \int_{0}^{\infty} r f(r,\phi) dr.
+\]
+Put $\hat{\lambda}_L = \sfracpart{\hat{\theta} - \theta_0}$ and $\hat{m}_L = \hat{\rho} - \rho_0 G(0)$. %If $g(\phi)$ is continuous at $\phi = \tfrac{2\pi}{M}k+\tfrac{\pi}{M}$ for each $k = 0, 1, \dots M-1$, then 
+The distribution of $(\sqrt{L}\hat{\lambda}_L, \sqrt{L}\hat{m}_L)$ converges to the bivariate normal with zero mean and covariance matrix
+\[
+\left( \begin{array}{cc} 
+H^{-2} A & 0 \\
+0 & \rho_0^2 B
+\end{array} \right)
+\]
+as $L \rightarrow \infty$, where
+\vspace{-0.15cm}
+\[
+H = G(0) -  2 \sin\big(\tfrac{\pi}{M}\big) \sum_{k = 0}^{M-1} g\big(\tfrac{2\pi}{M}k + \tfrac{\pi}{M}\big),
+\]
+\vspace{-0.15cm}
+\[
+A = \expect R_1^2\sin^2\fracpart{\Phi_1}, \;\;\; B = \expect R_1^2 \cos^2\fracpart{\Phi_1} - G^2(0). 
+\]
+
+\end{block}
+
+\end{column}
+\begin{column}{.49\textwidth} % <-- start the second column
+
+\begin{block}{Simulations}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=\linewidth]{../code/data/posterplot-2.mps}
+		\caption{Phase mean square error for $4$-PSK (QPSK)}
+		\label{fig:plotphaseM4}
+\end{figure}
+
+\vspace{0.79cm}
+\begin{figure}
+	\centering
+		\includegraphics[width=\linewidth]{../code/data/posterplot-1.mps}
+		\caption{Amplitude mean square error for $4$-PSK (QPSK)}
+		\label{fig:plotampM4}
+\end{figure}
+
+\end{block}
+
+
+\end{column}
+\end{columns}
+
+ %}
+
+\end{document}
