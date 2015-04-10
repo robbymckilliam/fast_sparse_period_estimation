@@ -14,14 +14,20 @@
 %\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
 
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{pgfplots.groupplots}
+
 \input{presdefs}
 
 \definecolor{darkgreen}{rgb}{0,0.3,0}
 \newcommand{\term}[1]{{\color{darkgreen}\textbf{#1}}}
 
 %%% title, author & contact %%%%%%%%%%%%%%%%%%%%%%%%%
-\title[]{Noncoherent least squares estimators \\ of carrier phase and amplitude}
-\author{Robby McKilliam, Andr\'{e} Pollok, Bill Cowley, \\ I. Vaughan L. Clarkson and Barry G. Quinn}
+\title[]{Fast sparse period estimation}
+\author{Robby.~G.~McKilliam, I.~Vaughan.~L.~Clarkson and Barry.~G.~Quinn}
 \newcommand{\email}{robby.mckilliam@unisa.edu.au}
 \newcommand{\worksupportedby}{Supported under the Australian Government's Australian Space Research Program}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,19 +123,39 @@ A = \expect R_1^2\sin^2\fracpart{\Phi_1}, \;\;\; B = \expect R_1^2 \cos^2\fracpa
 \begin{block}{Simulations}
 
 \begin{figure}
-	\centering
-		\includegraphics[width=\linewidth]{../code/data/posterplot-2.mps}
-		\caption{Phase mean square error for $4$-PSK (QPSK)}
-		\label{fig:plotphaseM4}
-\end{figure}
+  \centering 
+  \begin{tikzpicture}
+    \selectcolormodel{gray} 
+    \begin{axis}[font=\footnotesize,xmode=log,ymode=log,height=15cm,width=25cm,xlabel={$N$},ylabel={time (ms)},ylabel style={at={(0.055,0.42)}},xlabel style={at={(0.5,0.1)}}, legend style={draw=none,fill=none,legend pos=north west,cells={anchor=west},font=\footnotesize}]
+      \addplot[mark=o,mark options={scale=3}] table {../code/data/PeriodogramBenchmark};
+      \addplot[mark=x,mark options={solid,fill=black,scale=3.6}] table {../code/data/LeastSquaresBenchmark};
+      \addplot[mark=*,mark options={solid,fill=black,scale=1.5}] table {../code/data/QuantisedPeriodogramq4.0Benchmark};
+      \addplot[mark=triangle,mark options={solid,fill=black,scale=2.7}] table {../code/data/QuantisedPeriodogramChirpZq4.0Benchmark};
+      %\addplot[mark=square,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpBenchmark};
+      \addplot[mark=square,color=black,mark options={solid,fill=black,scale=2.4}] table {../code/data/SLS2newBenchmark};
+      \legend{Periodogram, Least squares, Fast Fourier transform, Chirp z-transform, SLS-new}
+   \end{axis}
+  \end{tikzpicture}  
+  \caption{Computation time in milliseconds versus $N$ for the periodogram, least squares, and quantized periodogram estimators computed using the chirp z-transform and a single fast Fourier transform.}\label{plot:benchmark}
+\end{figure} 
 
-\vspace{0.79cm}
-\begin{figure}
-	\centering
-		\includegraphics[width=\linewidth]{../code/data/posterplot-1.mps}
-		\caption{Amplitude mean square error for $4$-PSK (QPSK)}
-		\label{fig:plotampM4}
-\end{figure}
+
+
+% \begin{figure}
+% 	\centering
+% 		\includegraphics[width=\linewidth]{../code/data/posterplot-2.mps}
+% 		\caption{Phase mean square error for $4$-PSK (QPSK)}
+% 		\label{fig:plotphaseM4}
+% \end{figure}
+
+% \vspace{0.79cm}
+% \begin{figure}
+% 	\centering
+% 		\includegraphics[width=\linewidth]{../code/data/posterplot-1.mps}
+% 		\caption{Amplitude mean square error for $4$-PSK (QPSK)}
+% 		\label{fig:plotampM4}
+% \end{figure}
+
 
 \end{block}
 
