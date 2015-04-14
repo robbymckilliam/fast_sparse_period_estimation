@@ -28,7 +28,7 @@
 
 %%% title, author & contact %%%%%%%%%%%%%%%%%%%%%%%%%
 \title[]{Fast sparse period estimation}
-\author{Robby.~G.~McKilliam, I.~Vaughan.~L.~Clarkson \\ and Barry.~G.~Quinn}
+\author{Robby~G.~McKilliam, I.~Vaughan~L.~Clarkson \\ and Barry~G.~Quinn}
 \newcommand{\email}{robby.mckilliam@unisa.edu.au}
 \newcommand{\worksupportedby}{Supported by Australian Research Council Discovery Project DP130102228}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,10 +96,10 @@ Aim to estimate $T_0$.
 
 \begin{block}{Applications}
 \begin{itemize}
-\item Pulse interval estimation in electronic support%~\cite{Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}.
-\item Synchronisation for telecommunications%~\cite{Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}.
-\item Spike interval estimation in neurology%~\cite{Brillinger_spike_trains_1988}.
-\item Detection of anomalies in internet traffic%~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.
+\item Pulse interval estimation in electronic support.%~\cite{Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}.
+\item Synchronisation for telecommunications.%~\cite{Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}.
+\item Spike interval estimation in neurology.%~\cite{Brillinger_spike_trains_1988}.
+\item Detection of anomalies in internet traffic.%~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.
 \end{itemize}
 Connected with Diophantine approximation, lattice reduction, and the study of prime numbers.%~\cite{Clarkson_thesis,CaseySadler_primes_2013}.
 \end{block}
@@ -110,7 +110,7 @@ Connected with Diophantine approximation, lattice reduction, and the study of pr
 
 
 \begin{block}{The periodogram estimator}
-An accurate estimator is $\hat{T} = 1/\hat{f}$ where $\hat{f}$ maximises the \emph{periodogram}
+An accurate estimator is $\widehat{T} = 1/\widehat{f}$ where $\widehat{f}$ maximises the \emph{periodogram}
 \[
 I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2.
 \]
@@ -126,7 +126,7 @@ over the interval $(1/\Tmax, 1/\Tmin)$.
 
 \begin{block}{A fast approximation}
 
-Compute quantized observations
+Compute quantised observations
 \[
 z_n =  \ell_n/q, \qquad n = 1,\dots,N
 \] 
@@ -134,7 +134,7 @@ where $\ell_n = \round{qy_n} \in \ints$ and maximise
 \[
 I_z(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f z_n} }^2 = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{2\pi j f i/q} b_i }^2
 \]
-where $\ellmin$ and $\ellmax$ are the minimum and maximum value of $\ell_n$ and
+where $\ellmin$ and $\ellmax$ are the minimum and maximum of $\ell_1,\dots,\ell_n$ and
 \[
 b_i= \#\{ n \mid \ell_n = i, n = 1,\dots, N\}
 \]
@@ -166,7 +166,7 @@ where $\#$ indicates the number of elements in a set.
     ylabel style={at={(0.085,0.4)}},
     footnotesize,
     width=25cm,
-    height=15.83cm,
+    height=16cm,
     tickpos=left,
     %ytick align=outside,
     %xtick align=outside,
@@ -182,12 +182,12 @@ ylabel={MSE},
 ymin=2e-10
 ]
 
-      \addplot[mark=none,color=black,dashed] table {../code/data/NormalisedLLSCLTN30geom10}; 
+      \addplot[mark=none,color=black,dashed,thick] table {../code/data/NormalisedLLSCLTN30geom10}; 
 
             \addplot[mark=*,mark options={scale=1.5},color=cyan] table {../code/data/QuantisedPeriodogramFFTN30q1.5geom10};
       \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramFFTN30q5.0geom10};
 \addplot[mark=triangle*,mark options={scale=3},color=blue] table {../code/data/SLS2newN30geom10};
-\addplot[mark=none,color=black] table {../code/data/PeriodogramCLTN30geom10}; 
+\addplot[mark=none,color=black,thick] table {../code/data/PeriodogramCLTN30geom10}; 
  \addplot[mark=o,mark options={scale=2.5},color=black, thick] table {../code/data/NormalisedSamplingLLSN30geom10}; 
       \addplot[mark=*,mark options={scale=1.75},color=red] table {../code/data/PeriodogramN30geom10};
 %      
@@ -234,7 +234,7 @@ legend style={
      \node[font=\footnotesize] at (axis cs:0.32,2e-15) [anchor=south east] {$N=1200$};
    %  \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=1200$}; 
 
-\legend{Quantised periodogram $q=1.5$, Quantised periodogram $q=5$,Seperable line search,Least squares Theory,Periodogram Theory, Least squares,Periodogram}
+\legend{Quantised periodogram $q=1.5$, Quantised periodogram $q=5$,Separable line search,Least squares Theory,Periodogram Theory, Least squares,Periodogram}
 
 \end{groupplot}
 
@@ -247,7 +247,7 @@ legend style={
   \centering 
   \begin{tikzpicture}
 %    \selectcolormodel{gray} 
-    \begin{axis}[font=\footnotesize,xmode=log,ymode=log,height=15cm,width=25cm,xlabel={$N$},ylabel={time (ms)},ylabel style={at={(0.085,0.42)}},xlabel style={at={(0.5,0.13)}}, legend style={draw=none,fill=none,legend pos=north west,cells={anchor=west},font=\footnotesize},xmin=7,xmax=36000]
+    \begin{axis}[font=\footnotesize,xmode=log,ymode=log,height=15.25cm,width=25cm,xlabel={$N$},ylabel={time (ms)},ylabel style={at={(0.085,0.42)}},xlabel style={at={(0.5,0.13)}}, legend style={draw=none,fill=none,legend pos=north west,cells={anchor=west},font=\footnotesize},xmin=7,xmax=36000]
       \addplot[mark=*,mark options={scale=1.75},color=red] table {../code/data/PeriodogramBenchmark};
       \addplot[mark=o,mark options={scale=2.5},color=black, thick] table {../code/data/LeastSquaresBenchmark};
       %\addplot[mark=triangle*,mark options={scale=3},color=cyan] table {../code/data/QuantisedPeriodogramChirpZq4.0Benchmark};
@@ -255,7 +255,7 @@ legend style={
       \addplot[mark=triangle*,mark options={scale=3},color=blue] table {../code/data/SLS2newBenchmark};
       \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramq4.0Benchmark};
       %\legend{Periodogram, Least squares, Fast Fourier transform, Chirp z-transform, SLS-new}
-      \legend{Periodogram, Least squares, Seperable line search, Quantised periodogram $q=5$}
+      \legend{Periodogram, Least squares, Separable line search, Quantised periodogram $q=5$}
    \end{axis}
   \end{tikzpicture}  
   \caption{Computation time in milliseconds versus data length $N$.}\label{plot:benchmark}
@@ -283,7 +283,7 @@ legend style={
 
 \begin{block}{References}
 
-\nocite{clarkson_estimate_period_pulse_train_1996,Sidiropoulos2005,5585849,Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}
+\nocite{Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,Clarkson2007,Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}
 
 \bibliographystyle{../IEEEbib}
 \footnotesize
