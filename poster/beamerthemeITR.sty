@@ -69,12 +69,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
   \vskip.75ex
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.5em,colsep*=.75ex]{block title}%
     \usebeamerfont*{block title}\insertblocktitle
   \end{beamercolorbox}%
   {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body}%
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body}%
     \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
     	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
     	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
@@ -88,12 +88,12 @@
 
 \setbeamertemplate{block alerted begin}{
   \vskip.75ex
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title alerted}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.5em,colsep*=.75ex]{block title alerted}%
     \usebeamerfont*{block title alerted}\insertblocktitle
   \end{beamercolorbox}%
   {\ifbeamercolorempty[bg]{block body alerted}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body alerted}%
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body alerted}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body alerted}%
     \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
     	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
     	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
@@ -107,12 +107,12 @@
 
 \setbeamertemplate{block example begin}{
   \vskip.75ex
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.5em,colsep*=.75ex]{block title example}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.5em,colsep*=.75ex]{block title example}%
     \usebeamerfont*{block title example}\insertblocktitle
   \end{beamercolorbox}%
   {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body example}%
-  \begin{beamercolorbox}[rounded=true,shadow=true,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body example}%
+  \begin{beamercolorbox}[rounded=true,shadow=false,leftskip=0.18em,colsep*=.75ex,sep=.75ex,vmode]{block body example}%
     \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
     	% locally change the background colour of the (alert)block environment. Otherwise the body of the (alert)block wouldn't have any contrast to the white background of the outer block.
     	\setbeamercolor{block body}{bg=i6colorscheme3!20!white}
@@ -130,15 +130,15 @@
 
   \begin{beamercolorbox}[wd=\paperwidth,sep=0.25cm]{headline}
     \begin{columns}[T]
-      \begin{column}{.04\paperwidth}
+      \begin{column}{.02\paperwidth}
       \end{column}
-      \begin{column}{.22\paperwidth}
+      \begin{column}{.48\paperwidth}
           \parbox[t]{\columnwidth}{
 			\centering
 			\vskip2em
                         %\includegraphics[height=5cm]{Logos/InstTelecomRsch_full_reverse.pdf}
-			\includegraphics[height=6cm]{Logos/unisa.png} %\hspace{0.1cm}
-                        \includegraphics[height=6cm]{Logos/UQ-Logo-PNG-format_blue.png}
+			\includegraphics[height=6cm]{Logos/unisa.png} \qquad\qquad
+                        \includegraphics[height=6cm]{Logos/UQ-Logo-PNG-format_blue.png} \qquad\qquad
                         \includegraphics[height=6cm]{Logos/MQ_MAS_VER_CMYK_POS-crop.pdf}
 			\vskip2em
 		}
@@ -151,7 +151,7 @@
 		% }
       \end{column}
       \hfill
-      \begin{column}{.7\paperwidth}
+      \begin{column}{.5\paperwidth}
         \vskip4ex
         \raggedleft
         \usebeamercolor{title in headline}{\color{fg}\textbf{\huge{\inserttitle}}\\[1ex]}

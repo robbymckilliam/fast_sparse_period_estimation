@@ -17,8 +17,9 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.8}
+%\pgfplotsset{compat=1.8}
 \usetikzlibrary{pgfplots.groupplots}
+\usetikzlibrary{arrows,arrows.new}
 
 \input{presdefs}
 
@@ -27,9 +28,9 @@
 
 %%% title, author & contact %%%%%%%%%%%%%%%%%%%%%%%%%
 \title[]{Fast sparse period estimation}
-\author{Robby.~G.~McKilliam, I.~Vaughan.~L.~Clarkson \\ and Barry.~G.~Quinn}
+\author{Robby~G.~McKilliam, I.~Vaughan~L.~Clarkson \\ and Barry~G.~Quinn}
 \newcommand{\email}{robby.mckilliam@unisa.edu.au}
-\newcommand{\worksupportedby}{Supported under the Australian Government's Australian Space Research Program}
+\newcommand{\worksupportedby}{Supported by Australian Research Council Discovery Project DP130102228}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -40,16 +41,32 @@
 \begin{columns}[t] % <-- columns with top alignment
 \begin{column}{.49\textwidth} % <-- start the first column
 
-\newcommand{\calC}{{\mathcal C}}
-\begin{block}{Received signal model}
+\newcommand{\Tmin}{T_{\text{min}}}
+\newcommand{\Tmax}{2T_{\text{min}}}
+
+\begin{block}{Sparse noisy period estimation}
+
+Observations of the form
+\[
+y_n = T_0 s_n + \theta_0 + w_n, \qquad n = 1,\dots,N
+\]
+where
+\begin{itemize}
+\item $T_0 \in (\Tmin, \Tmax) \subset \reals$ is the unknown period,
+\item $\theta_0 \in \reals$ is an unknown phase,
+\item $w_1,\dots,w_N \in \reals$ represent noise,
+\item $s_1,\dots,s_N \in \ints$ represent the subset of periods observed.
+\end{itemize}
+Aim to estimate $T_0$.
 
 {
 \def\vertgap{2}
 \def\ph{0.4}
 \def\T{1.1}
-\newcommand{\raxis}{\draw[->] (-0.25,0) -- (8,0) node[above] {$\reals$}; \draw (0,-0.06)-- node[below] {$0$} (0,0.06) }
-\newcommand{\pulse}[1]{ \draw[->,>=latex] (#1,0) -- (#1,1) }
-\newcommand{\pulsewithnode}[2]{ \draw[->,>=latex] (#1,0) -- node[right] {#2} (#1,1) }
+
+\newcommand{\raxis}{\draw[-> new,arrow head=2mm] (-0.25,0) -- (8,0) node[above] {$\reals$}; \draw (0,-0.06)-- node[below] {$0$} (0,0.06) }
+\newcommand{\pulse}[1]{ \draw[-latex new,arrow head=4mm] (#1,0) -- (#1,1) }
+\newcommand{\pulsewithnode}[2]{ \draw[-latex new,arrow head=4mm] (#1,0) -- node[right] {#2} (#1,1) }
 \begin{figure}[t]
 	\centering
 \begin{tikzpicture}[font=\small,scale=3]
@@ -57,25 +74,77 @@
 \begin{scope}
     \raxis;
     \foreach \k in {0,1,...,6} { \k, \pulse{\T*\k+\ph}; }
-    \draw[<->] (\T*2+\ph,1.2) -- node[above] {$T_0$} (\T*3+\ph,1.2) ;
-    \draw[<->] (0.0,1.2) -- node[above] {$\theta_0$} (\ph,1.2) ; 
+    \draw[< new-> new, arrow head=2mm] (\T*2+\ph,1.2) -- node[above] {$T_0$} (\T*3+\ph,1.2);
+    \draw[< new-> new, arrow head=2mm] (0.0,1.2) -- node[above] {$\theta_0$} (\ph,1.2); 
 %    \draw[->] (-0.25,-2*\vertgap) -- (8,-2*\vertgap) node[above] {$\reals$};
 \end{scope}
 \begin{scope}[yshift=-\vertgap cm]
   \raxis;
-  \node[below] at (\T*1+\ph-0.3,0) {$y_1$}; \pulsewithnode{\T*1+\ph-0.3}{$s_1=1$}; \draw[->] (\T*1+\ph,1.2) -- node[above] {$w_1$} (\T*1+\ph-0.3,1.2) ; 
-  \node[below] at (\T*3+\ph+0.5,0) {$y_2$}; \pulsewithnode{\T*3+\ph+0.5}{$s_2=3$}; \draw[->] (\T*3+\ph,1.2) -- node[above] {$w_2$} (\T*3+\ph+0.5,1.2) ;
-  \node[below] at (\T*6+\ph-0.4,0) {$y_3$}; \pulsewithnode{\T*6+\ph-0.4}{$s_3=6$};\draw[->] (\T*6+\ph,1.2) -- node[above] {$w_3$} (\T*6+\ph-0.4,1.2) ;
+  \node[below] at (\T*1+\ph-0.3,0) {$y_1$}; \pulsewithnode{\T*1+\ph-0.3}{$s_1=1$}; \draw[-> new arrow head=2mm] (\T*1+\ph,1.2) -- node[above] {$w_1$} (\T*1+\ph-0.3,1.2); 
+  \node[below] at (\T*3+\ph+0.5,0) {$y_2$}; \pulsewithnode{\T*3+\ph+0.5}{$s_2=3$}; \draw[-> new,arrow head=2mm] (\T*3+\ph,1.2) -- node[above] {$w_2$} (\T*3+\ph+0.5,1.2);
+  \node[below] at (\T*6+\ph-0.4,0) {$y_3$}; \pulsewithnode{\T*6+\ph-0.4}{$s_3=6$};\draw[-> new,arrow head=2mm] (\T*6+\ph,1.2) -- node[above] {$w_3$} (\T*6+\ph-0.4,1.2);
 \end{scope}
 \end{tikzpicture} 
 %		\includegraphics{figs/figures-1.mps}
-		\caption{Sparse noisy observations of a periodic sequence.  The original sequence~\eqref{eq:periodicprocess} is shown on the top and sparse noisy observations according to~\eqref{eq:sigmodel} are shown on the bottom.  In this example the observed subset is represented by integers $s_1=1$, $s_2=3$ and $s_3=6$.}
+	%	\caption{Sparse noisy observations of a periodic sequence.}
 		\label{fig_stat_model}
 \end{figure}
 }
 
 
 \end{block}  
+
+\begin{block}{Applications}
+\begin{itemize}
+\item Pulse interval estimation in electronic support.%~\cite{Clarkson_thesis,clarkson_estimate_period_pulse_train_1996,Hauochan_pri_2012}.
+\item Synchronisation for telecommunications.%~\cite{Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,5621928}.
+\item Spike interval estimation in neurology.%~\cite{Brillinger_spike_trains_1988}.
+\item Detection of anomalies in internet traffic.%~\cite{He_detecting_periodic_patterns_in_internet_2006,5585849,5947313}.
+\end{itemize}
+Connected with Diophantine approximation, lattice reduction, and the study of prime numbers.%~\cite{Clarkson_thesis,CaseySadler_primes_2013}.
+\end{block}
+
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\sabs}[1]{\vert #1 \vert}
+\newcommand{\babs}[1]{\big\vert #1 \big\vert}
+
+
+\begin{block}{The periodogram estimator}
+An accurate estimator is $\widehat{T} = 1/\widehat{f}$ where $\widehat{f}$ maximises the \emph{periodogram}
+\[
+I_y(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f y_n} }^2.
+\]
+over the interval $(1/\Tmax, 1/\Tmin)$.  
+\begin{itemize}
+\item Requires $O(N^2)$ operations to compute. 
+\item Observations $y_1,\dots,y_N$ occur in the exponent preventing use of fast transforms.
+\end{itemize}
+\end{block}
+
+\newcommand{\ellmin}{\ell_{\text{min}}}
+\newcommand{\ellmax}{\ell_{\text{max}}}
+
+\begin{block}{A fast approximation}
+
+Compute quantised observations
+\[
+z_n =  \ell_n/q, \qquad n = 1,\dots,N
+\] 
+where $\ell_n = \round{qy_n} \in \ints$ and maximise
+\[
+I_z(f) = \babs{ \sum_{n=1}^N e^{ 2\pi j f z_n} }^2 = \babs{ \sum_{i = \ellmin}^{\ellmax} e^{2\pi j f i/q} b_i }^2
+\]
+where $\ellmin$ and $\ellmax$ are the minimum and maximum of $\ell_1,\dots,\ell_n$ and
+\[
+b_i= \#\{ n \mid \ell_n = i, n = 1,\dots, N\}
+\]
+where $\#$ indicates the number of elements in a set.
+
+\begin{itemize}
+\item Can be computed using $O(N\log N)$ operations by fast Fourier transform or chirp-z transform.
+\end{itemize}
+
+\end{block}
 
 \end{column}
 \begin{column}{.49\textwidth} % <-- start the second column
@@ -94,10 +163,10 @@
         xticklabels at=edge bottom,
         vertical sep=0pt
     },
-    ylabel style={at={(0.06,0.5)}},
+    ylabel style={at={(0.085,0.4)}},
     footnotesize,
     width=25cm,
-    height=15cm,
+    height=16cm,
     tickpos=left,
     %ytick align=outside,
     %xtick align=outside,
@@ -113,14 +182,15 @@ ylabel={MSE},
 ymin=2e-10
 ]
 
-      %\addplot[mark=none,color=black,dashed] table {../code/data/NormalisedLLSCLTN30geom10}; 
+      \addplot[mark=none,color=black,dashed,thick] table {../code/data/NormalisedLLSCLTN30geom10}; 
 
             \addplot[mark=*,mark options={scale=1.5},color=cyan] table {../code/data/QuantisedPeriodogramFFTN30q1.5geom10};
       \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramFFTN30q5.0geom10};
 \addplot[mark=triangle*,mark options={scale=3},color=blue] table {../code/data/SLS2newN30geom10};
-\addplot[mark=none,color=black] table {../code/data/PeriodogramCLTN30geom10}; 
+\addplot[mark=none,color=black,thick] table {../code/data/PeriodogramCLTN30geom10}; 
+ \addplot[mark=o,mark options={scale=2.5},color=black, thick] table {../code/data/NormalisedSamplingLLSN30geom10}; 
       \addplot[mark=*,mark options={scale=1.75},color=red] table {../code/data/PeriodogramN30geom10};
-%       \addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1.3}] table {../code/data/NormalisedSamplingLLSN30geom10}; 
+%      
   %     \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN30geom10};
        
 %      \addplot[mark=none,dashed,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN30q2};
@@ -134,7 +204,7 @@ ymin=2e-10
 
 \nextgroupplot[
 xlabel={$\sigma^2$},
-xlabel style={at={(0.5,0.1)}},
+xlabel style={at={(0.5,0.13)}},
 ylabel={MSE},
 ymin=2e-15,
 ymax=8e-1,
@@ -153,10 +223,10 @@ legend style={
 \addplot[mark=*,mark options={scale=1.5},color=cyan] table {../code/data/QuantisedPeriodogramFFTN1200q1.5geom10};
  \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramFFTN1200q5.0geom10};
        \addplot[mark=triangle*,mark options={scale=3},color=blue] table {../code/data/SLS2newN1200geom10};
+\addplot[mark=none,color=black,dashed] table {../code/data/NormalisedLLSCLTN1200geom10};
 \addplot[mark=none,color=black] table {../code/data/PeriodogramCLTN1200geom10};
-      %\addplot[mark=none,color=black,dashed] table {../code/data/NormalisedLLSCLTN1200geom10};
+       \addplot[mark=o,mark options={scale=2.5},color=black, thick] table {../code/data/NormalisedSamplingLLSN1200geom10};
        \addplot[mark=*,mark options={scale=1.75},color=red] table {../code/data/PeriodogramN1200geom10};
-%       \addplot[color=gray,mark=x,only marks,mark options={solid,color=black,fill=black,scale=1.3}] table {../code/data/NormalisedSamplingLLSN1200geom10};
  %      \addplot[mark=square,only marks,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpN1100geom10};
       %\addplot[mark=x,only marks,color=black,mark options={solid,fill=black,scale=1}] table {code/data/QuantisedPeriodogramFFTN1100q3};
  %     \legend{Periodogram Theory, Least squares theory, Quantised periodogram, Periodogram, Least squares}
@@ -164,7 +234,7 @@ legend style={
      \node[font=\footnotesize] at (axis cs:0.32,2e-15) [anchor=south east] {$N=1200$};
    %  \node[rotate=16,font=\footnotesize] at (axis cs:7e-4,1.5e-14) {$N=1200$}; 
 
-\legend{Quantised periodogram $q=1.5$, Quantised periodogram $q=5$,Seperable line search,Periodogram Theory,Periodogram}
+\legend{Quantised periodogram $q=1.5$, Quantised periodogram $q=5$,Separable line search,Least squares Theory,Periodogram Theory, Least squares,Periodogram}
 
 \end{groupplot}
 
@@ -177,15 +247,15 @@ legend style={
   \centering 
   \begin{tikzpicture}
 %    \selectcolormodel{gray} 
-    \begin{axis}[font=\footnotesize,xmode=log,ymode=log,height=15cm,width=25cm,xlabel={$N$},ylabel={time (ms)},ylabel style={at={(0.055,0.42)}},xlabel style={at={(0.5,0.1)}}, legend style={draw=none,fill=none,legend pos=north west,cells={anchor=west},font=\footnotesize},xmin=7,xmax=36000]
+    \begin{axis}[font=\footnotesize,xmode=log,ymode=log,height=15.25cm,width=25cm,xlabel={$N$},ylabel={time (ms)},ylabel style={at={(0.085,0.42)}},xlabel style={at={(0.5,0.13)}}, legend style={draw=none,fill=none,legend pos=north west,cells={anchor=west},font=\footnotesize},xmin=7,xmax=36000]
       \addplot[mark=*,mark options={scale=1.75},color=red] table {../code/data/PeriodogramBenchmark};
-      %\addplot[mark=triangle*,mark options={scale=3},color=cyan] table {../code/data/LeastSquaresBenchmark};
-      \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramq4.0Benchmark};
+      \addplot[mark=o,mark options={scale=2.5},color=black, thick] table {../code/data/LeastSquaresBenchmark};
       %\addplot[mark=triangle*,mark options={scale=3},color=cyan] table {../code/data/QuantisedPeriodogramChirpZq4.0Benchmark};
       %\addplot[mark=square,color=black,mark options={solid,fill=black,scale=0.8}] table {code/data/SLS2novlpBenchmark};
       \addplot[mark=triangle*,mark options={scale=3},color=blue] table {../code/data/SLS2newBenchmark};
+      \addplot[mark=square*,mark options={scale=2.5},color=green] table {../code/data/QuantisedPeriodogramq4.0Benchmark};
       %\legend{Periodogram, Least squares, Fast Fourier transform, Chirp z-transform, SLS-new}
-      \legend{Periodogram, Quantised periodogram $q=5$, Seperable line search}
+      \legend{Periodogram, Least squares, Separable line search, Quantised periodogram $q=5$}
    \end{axis}
   \end{tikzpicture}  
   \caption{Computation time in milliseconds versus data length $N$.}\label{plot:benchmark}
@@ -208,6 +278,16 @@ legend style={
 % 		\label{fig:plotampM4}
 % \end{figure}
 
+
+\end{block}
+
+\begin{block}{References}
+
+\nocite{Fogel1989_bit_synch_zero_crossings,Sidiropoulos2005,Clarkson2007,Quinn_sparse_noisy_SSP_2012,Quinn20013asilomar_period_est}
+
+\bibliographystyle{../IEEEbib}
+\footnotesize
+\bibliography{../bib}
 
 \end{block}
 
