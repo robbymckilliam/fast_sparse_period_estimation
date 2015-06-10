@@ -26,7 +26,8 @@ val p = 1.0/3.0 //parameter of geometric random variable for generating sparse n
 def discretedist = new Geometric(p) //the discrete distribution for generating different sN - sN-1
 def noisedist = new Gaussian(0,0.01) //the noise distribution we use with variance v
 
-
+-//time used for benchmark warmup in nanoseconds.  Benchmark runtime is approximately twice this.
+-val MIN_BENCH_DURATION : Long = 5000000000L; // (10 secs)  
 
 val Ns = List(10,14,20,30,40,50,60,80,100,120,150,200,250,300,400,600,900,1200,1500,2000,2600,3500,4700,6000,7800,10000,13000,18000,25000)
 //val Ns = List(10,14,20,30,40,50,60,80,100,120,150,200,250,300,400,600,900,1200,1500,2000,2600,3500,4700,6000,7800,10000,13000,18000,25000,35000,50000,70000)
